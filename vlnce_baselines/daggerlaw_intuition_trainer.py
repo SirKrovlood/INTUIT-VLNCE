@@ -31,6 +31,10 @@ from vlnce_baselines.common.utils import transform_obs
 from vlnce_baselines.models.cma_policy import CMAPolicy
 from vlnce_baselines.models.seq2seq_policy import Seq2SeqPolicy
 
+from habitat_extensions.habitat_simulator_dual import HabitatSimDual
+from vlnce_baselines.models.intuition_policy import CMAIntuitionPolicy
+
+
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=FutureWarning)
     import tensorflow as tf
@@ -189,7 +193,7 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
 
         for k, v in obs.items():
             obs[k] = torch.from_numpy(np.copy(v))
-
+        print("prev_actions", prev_actions, "oracle_actions", oracle_actions)
         prev_actions = torch.from_numpy(np.copy(prev_actions))
         oracle_actions = torch.from_numpy(np.copy(oracle_actions))
 
@@ -199,7 +203,7 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
                 (oracle_actions[1:] != oracle_actions[:-1]).long(),
             ]
         )
-
+        print("inflections", inflections)
         return (obs, prev_actions, oracle_actions, self.inflec_weights[inflections])
 
     def __iter__(self):
@@ -221,8 +225,8 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
         return self
 
 
-@baseline_registry.register_trainer(name="daggerlaw")
-class DaggerLawTrainer(BaseRLTrainer):
+@baseline_registry.register_trainer(name="daggerlawintuition")
+class DaggerLawIntuitionTrainer(BaseRLTrainer):
     def __init__(self, config=None):
         super().__init__(config)
         self.actor_critic = None
@@ -251,10 +255,11 @@ class DaggerLawTrainer(BaseRLTrainer):
         config.freeze()
 
         if config.CMA.use:
-            self.actor_critic = CMAPolicy(
+            self.actor_critic = CMAIntuitionPolicy(
                 observation_space=self.envs.observation_spaces[0],
                 action_space=self.envs.action_spaces[0],
                 model_config=config,
+                intuition_steps=config.INTUITION_STEPS
             )
         else:
             self.actor_critic = Seq2SeqPolicy(
@@ -331,6 +336,7 @@ class DaggerLawTrainer(BaseRLTrainer):
         # Populate dones with False initially
         dones = [False for _ in range(self.envs.num_envs)]
 
+        #print("self.envs.num_envs", self.envs.num_envs)
         info_episodes = []
         if len(self.config.VIDEO_OPTION) > 0:
             rgb_frames = [[] for _ in range(self.config.NUM_PROCESSES)]
@@ -383,6 +389,7 @@ class DaggerLawTrainer(BaseRLTrainer):
             txn = lmdb_env.begin(write=True)
 
             while collected_eps < self.config.DAGGER.UPDATE_SIZE:
+                print("collected_eps", collected_eps)
                 current_episodes = None
                 envs_to_pause = None
                 if ensure_unique_episodes:
@@ -399,7 +406,7 @@ class DaggerLawTrainer(BaseRLTrainer):
                         del traj_obs["vln_law_action_sensor"]
                         for k, v in traj_obs.items():
                             traj_obs[k] = v.numpy()
-
+                        #print("ep[0]", ep[0])
                         transposed_ep = [
                             traj_obs,
                             np.array([step[1] for step in ep], dtype=np.int64),
@@ -445,14 +452,17 @@ class DaggerLawTrainer(BaseRLTrainer):
                     )
                     if self.envs.num_envs == 0:
                         break
+                #print("batch", batch)
 
-                (_, actions, _, recurrent_hidden_states) = self.actor_critic.act(
+                (_, actions, _, recurrent_hidden_states, _) = self.actor_critic.act(
                     batch,
                     recurrent_hidden_states,
                     prev_actions,
                     not_done_masks,
                     deterministic=False,
                 )
+                actions = actions[:, 0]
+
                 actions = torch.where(
                     torch.rand_like(actions, dtype=torch.float) < beta,
                     batch["vln_law_action_sensor"].long(),
@@ -481,7 +491,6 @@ class DaggerLawTrainer(BaseRLTrainer):
                 skips = skips.squeeze(-1).to(device="cpu", non_blocking=True)
 
                 prev_actions.copy_(actions)
-
                 print("actions", actions)
                 outputs = self.envs.step([a[0].item() for a in actions])
                 observations, rewards, dones, infos = [list(x) for x in zip(*outputs)]
@@ -534,6 +543,10 @@ class DaggerLawTrainer(BaseRLTrainer):
     def _update_agent(
         self, observations, prev_actions, not_done_masks, corrected_actions, weights
     ):
+        print("weights")
+        #print(weights)
+        print(weights.size())
+        print("end weights")
         T, N = corrected_actions.size()
         self.optimizer.zero_grad()
 
@@ -545,23 +558,39 @@ class DaggerLawTrainer(BaseRLTrainer):
         )
 
         AuxLosses.clear()
-
+        print("observations.keys()", observations.keys())
+        print("observations['rgb_features']", observations['rgb_features'].size() )
+        #print("recurrent_hidden_states.size()", recurrent_hidden_states.size())
         distribution = self.actor_critic.build_distribution(
             observations, recurrent_hidden_states, prev_actions, not_done_masks
         )
 
         logits = distribution.logits
+        print("logits")
+        print(logits)
         logits = logits.view(T, N, -1)
+
+        print("logits.view(T, N, -1)")
+        print(logits)
+        print("logits.permute(0, 2, 1)")
+        print(logits.permute(0, 2, 1).size())
+        print("corrected_actions")
+        print(corrected_actions.size())
 
         action_loss = F.cross_entropy(
             logits.permute(0, 2, 1), corrected_actions, reduction="none"
         )
+        print("action_loss", action_loss)
+        print("weights * action_loss", weights * action_loss)
+        print("(weights * action_loss).sum(0", (weights * action_loss).sum(0))
+        print("weights.sum(0)", weights.sum(0))
         action_loss = ((weights * action_loss).sum(0) / weights.sum(0)).mean()
-
+        print("action_loss 2 mean()", action_loss)
         aux_mask = (weights > 0).view(-1)
         aux_loss = AuxLosses.reduce(aux_mask)
 
         loss = action_loss + aux_loss
+        print("loss", loss)
         loss.backward()
 
         self.optimizer.step()

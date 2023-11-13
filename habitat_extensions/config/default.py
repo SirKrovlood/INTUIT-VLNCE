@@ -23,7 +23,7 @@ _C.TASK.VLN_ORACLE_ACTION_SENSOR.GOAL_RADIUS = 0.5
 _C.TASK.VLN_ORACLE_ACTION_SENSOR.USE_ORIGINAL_FOLLOWER = True
 _C.TASK.VLN_ORACLE_ACTION_SENSOR.SPLIT = "train"
 _C.TASK.VLN_ORACLE_ACTION_SENSOR.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz"
 )
 _C.TASK.VLN_ORACLE_ACTION_SENSOR.IS_SPARSE = True
 _C.TASK.VLN_ORACLE_ACTION_SENSOR.NUM_WAYPOINTS = 0
@@ -35,7 +35,7 @@ _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.TYPE = "VLNOracleActionGeodesicSensor"
 _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.GOAL_RADIUS = 0.5
 _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.SPLIT = "train"
 _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz"
 )
 _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.IS_SPARSE = True
 _C.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.NUM_WAYPOINTS = 0
@@ -47,7 +47,7 @@ _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.TYPE = "VLNOracleActionSplineSensor"
 _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.GOAL_RADIUS = 0.5
 _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.SPLIT = "train"
 _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz"
 )
 _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.IS_SPARSE = True
 _C.TASK.VLN_ORACLE_SPLINE_ACTION_SENSOR.NUM_WAYPOINTS = 1
@@ -64,7 +64,7 @@ _C.TASK.NDTW.TYPE = "NDTW"
 _C.TASK.NDTW.SPLIT = "val_seen"
 _C.TASK.NDTW.FDTW = True  # False: DTW
 _C.TASK.NDTW.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json"
 )
 _C.TASK.NDTW.SUCCESS_DISTANCE = 0.2
 # -----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ _C.TASK.SDTW.TYPE = "SDTW"
 _C.TASK.SDTW.SPLIT = "val_seen"
 _C.TASK.SDTW.FDTW = True  # False: DTW
 _C.TASK.SDTW.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json"
 )
 _C.TASK.SDTW.SUCCESS_DISTANCE = 0.2
 # -----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ _C.TASK.WAYPOINT_ACCURACY = Config()
 _C.TASK.WAYPOINT_ACCURACY.TYPE = "WaypointAccuracy"
 _C.TASK.WAYPOINT_ACCURACY.SPLIT = "val_seen"
 _C.TASK.WAYPOINT_ACCURACY.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json"
 )
 _C.TASK.WAYPOINT_ACCURACY.SUCCESS_DISTANCE = 0.5
 # -----------------------------------------------------------------------------
@@ -138,7 +138,7 @@ _C.TASK.TOP_DOWN_MAP.DRAW_SOURCE_AND_TARGET = True
 # Axes aligned bounding boxes
 _C.TASK.TOP_DOWN_MAP.DRAW_GOAL_AABBS = True
 _C.TASK.TOP_DOWN_MAP.GT_PATH = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz"
 )
 _C.TASK.TOP_DOWN_MAP.SUCCESS_DISTANCE = 1.5
 _C.TASK.TOP_DOWN_MAP.SPLIT = "val_seen"

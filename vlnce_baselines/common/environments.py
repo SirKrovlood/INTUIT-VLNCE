@@ -64,3 +64,54 @@ class VLNCEInferenceEnv(habitat.RLEnv):
             "heading": heading,
             "stop": self._env.task.is_stop_called,
         }
+
+@baseline_registry.register_env(name="VLNCEDaggerIntuitionEnv")
+class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
+    def __init__(self, config: Config, dataset: Optional[Dataset] = None):
+        self._success_distance = config.TASK_CONFIG.TASK.SUCCESS_DISTANCE
+        self.intuition_steps = config.MODEL.INTUITION_STEPS
+
+        super().__init__(config.TASK_CONFIG, dataset)
+        print("DONE INITIN ENV")
+
+    def get_reward_range(self):
+        # We don't use a reward for DAgger, but the baseline_registry requires
+        # we inherit from habitat.RLEnv.
+        return (0.0, 0.0)
+
+    def get_reward(self, observations):
+        return 0.0
+
+    def _distance_target(self):
+        current_position = self._env.sim.get_agent_state().position.tolist()
+        target_position = self._env.current_episode.goals[0].position
+        distance = self._env.sim.geodesic_distance(current_position, target_position)
+        return distance
+
+    def get_done(self, observations):
+        episode_success = (
+            self._env.task.is_stop_called
+            and self._distance_target() < self._success_distance
+        )
+        return self._env.episode_over or episode_success
+
+    def get_info(self, observations):
+        return self.habitat_env.get_metrics()
+
+    def step(self, *args, **kwargs):
+
+        print("eps", self._env.current_episode.goals[0].position)
+        print(*args)
+        print(**kwargs)
+        print("LOOOOL")
+        print("*args, **kwargs", *args, **kwargs)
+        observations = self._env.step(*args, **kwargs)
+
+
+        print(self.current_episode.reference_path)
+
+        reward = self.get_reward(observations)
+        done = self.get_done(observations)
+        info = self.get_info(observations)
+
+        return observations, reward, done, info

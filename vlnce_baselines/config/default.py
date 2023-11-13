@@ -93,10 +93,10 @@ _C.MODEL.INSTRUCTION_ENCODER.vocab_size = 2504
 _C.MODEL.INSTRUCTION_ENCODER.max_length = 200
 _C.MODEL.INSTRUCTION_ENCODER.use_pretrained_embeddings = True
 _C.MODEL.INSTRUCTION_ENCODER.embedding_file = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/embeddings.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/embeddings.json.gz"
 )
 _C.MODEL.INSTRUCTION_ENCODER.dataset_vocab = (
-    "data/datasets/R2R_VLNCE_v1-2_preprocessed/train/train.json.gz"
+    "data/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz"
 )
 _C.MODEL.INSTRUCTION_ENCODER.fine_tune_embeddings = False
 _C.MODEL.INSTRUCTION_ENCODER.embedding_size = 50
@@ -135,6 +135,8 @@ _C.MODEL.CMA.rcm_state_encoder = False
 _C.MODEL.PROGRESS_MONITOR = CN()
 _C.MODEL.PROGRESS_MONITOR.use = False
 _C.MODEL.PROGRESS_MONITOR.alpha = 1.0  # loss multiplier
+
+_C.MODEL.INTUITION_STEPS = 15
 
 def get_config(
     config_paths: Optional[Union[List[str], str]] = None, opts: Optional[list] = None
