@@ -1,6 +1,6 @@
 BASE_TASK_CONFIG_PATH: habitat_extensions/config/vlnce_task_aug_law_pano.yaml
-TRAINER_NAME: daggerlaw
-ENV_NAME: "VLNCEDaggerEnv"
+TRAINER_NAME: daggerlawintuition
+ENV_NAME: "VLNCEDaggerIntuitionEnv"
 SIMULATOR_GPU_ID: 0
 TORCH_GPU_ID: 0
 NUM_PROCESSES: 1

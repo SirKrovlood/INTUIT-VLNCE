@@ -39,17 +39,25 @@ class NavigationTask(NavigationTask):
         else:
             observations = self._sim.step(action)
 
-        #print("observations", observations)
+        #print("task step observations", observations)
         if observations is None:
             observations = {}
+
+        agent_id = 0
+        contestant = list(action.keys())[0]
+        if isinstance(contestant, int):
+            agent_id = list(action.keys())[0]
+
         observations.update(
             self.sensor_suite.get_observations(
                 observations=observations,
                 episode=episode,
                 action=action,
                 task=self,
+                agent_id=agent_id,
             )
         )
+        #print("task + sensor_suite observations", observations)
 
         self._is_episode_active = self._check_episode_is_active(
             observations=observations, action=action, episode=episode

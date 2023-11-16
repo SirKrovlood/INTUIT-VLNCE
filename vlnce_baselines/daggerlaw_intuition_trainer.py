@@ -193,7 +193,7 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
 
         for k, v in obs.items():
             obs[k] = torch.from_numpy(np.copy(v))
-        print("prev_actions", prev_actions, "oracle_actions", oracle_actions)
+        #print("prev_actions", prev_actions, "oracle_actions", oracle_actions)
         prev_actions = torch.from_numpy(np.copy(prev_actions))
         oracle_actions = torch.from_numpy(np.copy(oracle_actions))
 
@@ -203,7 +203,7 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
                 (oracle_actions[1:] != oracle_actions[:-1]).long(),
             ]
         )
-        print("inflections", inflections)
+        #print("inflections", inflections)
         return (obs, prev_actions, oracle_actions, self.inflec_weights[inflections])
 
     def __iter__(self):
@@ -389,7 +389,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
             txn = lmdb_env.begin(write=True)
 
             while collected_eps < self.config.DAGGER.UPDATE_SIZE:
-                print("collected_eps", collected_eps)
+                #print("collected_eps", collected_eps)
                 current_episodes = None
                 envs_to_pause = None
                 if ensure_unique_episodes:
@@ -558,8 +558,8 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
         )
 
         AuxLosses.clear()
-        print("observations.keys()", observations.keys())
-        print("observations['rgb_features']", observations['rgb_features'].size() )
+        #print("observations.keys()", observations.keys())
+        #print("observations['rgb_features']", observations['rgb_features'].size() )
         #print("recurrent_hidden_states.size()", recurrent_hidden_states.size())
         distribution = self.actor_critic.build_distribution(
             observations, recurrent_hidden_states, prev_actions, not_done_masks

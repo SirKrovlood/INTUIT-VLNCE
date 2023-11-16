@@ -32,7 +32,7 @@ class BaseIntuitionPolicy(Policy):
     def build_distribution(
         self, observations, rnn_hidden_states, prev_actions, masks
     ) -> CustomFixedCategorical:
-        print("observations", observations)
+        #print("observations", observations)
         features, rnn_hidden_states = self.net(
             observations, rnn_hidden_states, prev_actions, masks
         )
