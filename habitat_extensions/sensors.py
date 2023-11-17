@@ -246,7 +246,6 @@ class VLNOracleActionGeodesicSensor(Sensor):
                     nearest_dist = distance_to_way
                     nearest_way = way
                     nearest_way_count = ind
-
         best_action = self.follower.get_next_action(nearest_way, agent_id)
 
         if best_action is None:

@@ -468,13 +468,11 @@ class DaggerLawTrainer(BaseRLTrainer):
                         observations[i]["depth_features"] = depth_features[i]
                         del observations[i]["depth"]
 
-                    corrected_actions = observations[i]["corrected_actions"]
-                    del observations[i]["corrected_actions"]
                     episodes[i].append(
                         (
                             observations[i],
                             prev_actions[i].item(),
-                            corrected_actions,
+                            batch["vln_law_action_sensor"][i].item(),
                         )
                     )
 
@@ -484,7 +482,6 @@ class DaggerLawTrainer(BaseRLTrainer):
 
                 prev_actions.copy_(actions)
 
-                #print("actions", actions)
                 outputs = self.envs.step([a[0].item() for a in actions])
                 observations, rewards, dones, infos = [list(x) for x in zip(*outputs)]
 

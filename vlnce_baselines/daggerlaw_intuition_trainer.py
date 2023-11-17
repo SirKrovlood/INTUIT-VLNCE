@@ -200,7 +200,7 @@ class IWTrajectoryDataset(torch.utils.data.IterableDataset):
         inflections = torch.cat(
             [
                 torch.tensor([1], dtype=torch.long),
-                (oracle_actions[1:] != oracle_actions[:-1]).long(),
+                (oracle_actions[1:, 0] != oracle_actions[:-1, 0]).long(),
             ]
         )
         #print("inflections", inflections)
@@ -324,7 +324,6 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
             self.config.NUM_PROCESSES, 1, device=self.device, dtype=torch.long
         )
         not_done_masks = torch.zeros(self.config.NUM_PROCESSES, 1, device=self.device)
-
         observations = self.envs.reset()
         observations = transform_obs(
             observations, self.config.TASK_CONFIG.TASK.INSTRUCTION_SENSOR_UUID
@@ -469,6 +468,16 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                     actions,
                 )
 
+                skips = batch["vln_law_action_sensor"].long() == -1
+                actions = torch.where(skips, torch.zeros_like(actions), actions)
+                skips = skips.squeeze(-1).to(device="cpu", non_blocking=True)
+
+                #print("actions", actions)
+                outputs = self.envs.step([a[0].item() for a in actions])
+
+                observations_next, rewards, dones, infos = [list(x) for x in
+                                                            zip(*outputs)]
+
                 for i in range(self.envs.num_envs):
                     if rgb_features is not None:
                         observations[i]["rgb_features"] = rgb_features[i]
@@ -478,22 +487,24 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                         observations[i]["depth_features"] = depth_features[i]
                         del observations[i]["depth"]
 
+                    #print("observations_next[i].keys()", observations_next[i].keys())
+                    #for some reason on 0 action a zeors np array is lost from an observation
+                    if actions[i][0].item() != 0:
+                        corrected_actions = observations_next[i]["corrected_actions"]
+                        del observations_next[i]["corrected_actions"]
+                    else:
+                        corrected_actions = np.zeros(self.config.MODEL.INTUITION_STEPS, dtype=np.float16)
+                    #print("i", i, "corrected_actions", corrected_actions, "prev_actions[i].item()", prev_actions[i].item())
                     episodes[i].append(
                         (
                             observations[i],
                             prev_actions[i].item(),
-                            batch["vln_law_action_sensor"][i].item(),
+                            corrected_actions,#batch["vln_law_action_sensor"][i].item(),
                         )
                     )
 
-                skips = batch["vln_law_action_sensor"].long() == -1
-                actions = torch.where(skips, torch.zeros_like(actions), actions)
-                skips = skips.squeeze(-1).to(device="cpu", non_blocking=True)
-
                 prev_actions.copy_(actions)
-                print("actions", actions)
-                outputs = self.envs.step([a[0].item() for a in actions])
-                observations, rewards, dones, infos = [list(x) for x in zip(*outputs)]
+                observations = observations_next
 
                 if len(self.config.VIDEO_OPTION) > 0:
                     for i in range(self.envs.num_envs):
@@ -547,7 +558,10 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
         #print(weights)
         print(weights.size())
         print("end weights")
-        T, N = corrected_actions.size()
+        print("corrected_actions.size()")
+        print(corrected_actions.size())
+        print("end corrected_actions.size()")
+        T, N, I = corrected_actions.size()
         self.optimizer.zero_grad()
 
         recurrent_hidden_states = torch.zeros(
@@ -722,7 +736,6 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                             k: v.to(device=self.device, non_blocking=True)
                             for k, v in observations_batch.items()
                         }
-
                         try:
                             loss, action_loss, aux_loss = self._update_agent(
                                 observations_batch,

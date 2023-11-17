@@ -20,8 +20,8 @@ EVAL:
 DAGGER:
   ITERATIONS: 1
   EPOCHS: 4
-  UPDATE_SIZE: 4
-  BATCH_SIZE: 5
+  UPDATE_SIZE: 8
+  BATCH_SIZE: 2
   P: 1.0
   PRELOAD_LMDB_FEATURES: False
   LMDB_FEATURES_DIR: experiments/trajectories_dirs/law_pano/phase1/cma_pm_aug/trajectories.lmdb

@@ -145,7 +145,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
                                                          episode=self._env.current_episode,
                                                          agent_id=1))[0]
 
-        print("sensed geist_ac", geist_ac)
+        #print("sensed geist_ac", geist_ac)
         for i in range(self.intuition_steps):
             if geist_ac == 0:
                 #done = self.get_done()
@@ -169,7 +169,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
             #print("sensed geist_ac", geist_ac)
             #print("-------")
 
-        print(corrected_actions)
+        #print(corrected_actions)
         if incoming_ac == 0:
             observations = self._env.step({"action": 0})
         else:
@@ -182,7 +182,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
 
         #print("done", done)
         #print("step observations", observations)
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-        observations["corrected_actions"] = corrected_actions
+        #print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+        observations.update({"corrected_actions": corrected_actions})
 
         return observations, reward, done, info
