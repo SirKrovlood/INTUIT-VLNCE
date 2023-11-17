@@ -64,7 +64,7 @@ class ShortestPathFollower:
             return action_to_one_hot(action)
         else:
             return action
-    
+
     def get_next_action_for_waypoint(
         self, goal_pos: np.array, agent_pos: np.array, agent_rotation
     ) -> Optional[Union[int, np.array]]:
@@ -106,19 +106,19 @@ class ShortestPathFollower:
         return max_grad_dir
 
     def _step_along_grad_waypoint(
-        self, grad_dir: np.quaternion, agent_rotation
+        self, grad_dir: np.quaternion, agent_rotation, agent_id=0
     ) -> Union[int, np.array]:
         alpha = angle_between_quaternions(grad_dir, agent_rotation)
         if alpha <= np.deg2rad(self._sim.config.TURN_ANGLE) + EPSILON:
             return self._get_return_value(HabitatSimActions.MOVE_FORWARD)
         else:
-            sim_action = HabitatSimActions.TURN_LEFT
+            sim_action = {agent_id: HabitatSimActions.TURN_LEFT}
             self._sim.step(sim_action)
             best_turn = (
                 HabitatSimActions.TURN_LEFT
                 if (
                     angle_between_quaternions(
-                        grad_dir, self._sim.get_agent_state().rotation
+                        grad_dir, self._sim.get_agent_state(agent_id).rotation
                     )
                     < alpha
                 )
@@ -126,72 +126,72 @@ class ShortestPathFollower:
             )
             return self._get_return_value(best_turn)
 
-    def _get_agent_position(self) -> np.array:
-        return self._sim.get_agent_state().position
+    def _get_agent_position(self, agent_id=0) -> np.array:
+        return self._sim.get_agent_state(agent_id).position
 
     def get_next_action(
-        self, goal_pos: np.array
+        self, goal_pos: np.array, agent_id=0
     ) -> Optional[Union[int, np.array]]:
         """Returns the next action along the shortest path.
         """
-        #print('---in get_next_action:', self._sim.get_agent_state().position,' ;;goal_pos=', goal_pos)
+        #print('---in get_next_action:', self._sim.get_agent_state(agent_id).position,' ;;goal_pos=', goal_pos)
         if (
             self._sim.geodesic_distance(
-                self._sim.get_agent_state().position, goal_pos
+                self._sim.get_agent_state(agent_id).position, goal_pos
             )
             <= self._goal_radius
         ):
             return None
 
-        max_grad_dir = self._est_max_grad_dir(goal_pos)
+        max_grad_dir = self._est_max_grad_dir(goal_pos, agent_id)
         if max_grad_dir is None:
             return self._get_return_value(HabitatSimActions.MOVE_FORWARD)
-        return self._step_along_grad(max_grad_dir)
+        return self._step_along_grad(max_grad_dir, agent_id)
 
     def _step_along_grad(
-        self, grad_dir: np.quaternion
+        self, grad_dir: np.quaternion, agent_id=0
     ) -> Union[int, np.array]:
-        current_state = self._sim.get_agent_state()
+        current_state = self._sim.get_agent_state(agent_id)
         alpha = angle_between_quaternions(grad_dir, current_state.rotation)
         if alpha <= np.deg2rad(self._sim.habitat_config.TURN_ANGLE) + EPSILON:
             return self._get_return_value(HabitatSimActions.MOVE_FORWARD)
         else:
-            sim_action = HabitatSimActions.TURN_LEFT
+            sim_action = {agent_id: HabitatSimActions.TURN_LEFT}
             self._sim.step(sim_action)
             best_turn = (
                 HabitatSimActions.TURN_LEFT
                 if (
                     angle_between_quaternions(
-                        grad_dir, self._sim.get_agent_state().rotation
+                        grad_dir, self._sim.get_agent_state(agent_id).rotation
                     )
                     < alpha
                 )
                 else HabitatSimActions.TURN_RIGHT
             )
-            self._reset_agent_state(current_state)
+            self._reset_agent_state(current_state, agent_id)
             return self._get_return_value(best_turn)
 
-    def _reset_agent_state(self, state: habitat_sim.AgentState) -> None:
+    def _reset_agent_state(self, state: habitat_sim.AgentState, agent_id=0) -> None:
         self._sim.set_agent_state(
-            state.position, state.rotation, reset_sensors=False
+            state.position, state.rotation, agent_id, reset_sensors=False
         )
 
-    def _geo_dist(self, goal_pos: np.array) -> float:
+    def _geo_dist(self, goal_pos: np.array, agent_id) -> float:
         return self._sim.geodesic_distance(
-            self._sim.get_agent_state().position, goal_pos
+            self._sim.get_agent_state(agent_id).position, goal_pos
         )
 
     def _geo_dist_between_points(self, point1, point2) -> float:
         return self._sim.geodesic_distance(point1, point2)
 
-    def _est_max_grad_dir(self, goal_pos: np.array) -> np.array:
+    def _est_max_grad_dir(self, goal_pos: np.array, agent_id) -> np.array:
 
-        current_state = self._sim.get_agent_state()
+        current_state = self._sim.get_agent_state(agent_id)
         current_pos = current_state.position
 
         if self.mode == "geodesic_path":
             points = self._sim.get_straight_shortest_path_points(
-                self._sim.get_agent_state().position, goal_pos
+                self._sim.get_agent_state(agent_id).position, goal_pos
             )
             # Add a little offset as things get weird if
             # points[1] - points[0] is anti-parallel with forward
@@ -207,18 +207,18 @@ class ShortestPathFollower:
             max_grad_dir.x = 0
             max_grad_dir = np.normalized(max_grad_dir)
         else:
-            current_rotation = self._sim.get_agent_state().rotation
-            current_dist = self._geo_dist(goal_pos)
+            current_rotation = self._sim.get_agent_state(agent_id).rotation
+            current_dist = self._geo_dist(goal_pos, agent_id)
 
             best_geodesic_delta = -2 * self._max_delta
             best_rotation = current_rotation
             for _ in range(0, 360, self._sim.config.TURN_ANGLE):
-                sim_action = HabitatSimActions.MOVE_FORWARD
+                sim_action = {agent_id: HabitatSimActions.MOVE_FORWARD}
                 self._sim.step(sim_action)
-                new_delta = current_dist - self._geo_dist(goal_pos)
+                new_delta = current_dist - self._geo_dist(goal_pos, agent_id)
 
                 if new_delta > best_geodesic_delta:
-                    best_rotation = self._sim.get_agent_state().rotation
+                    best_rotation = self._sim.get_agent_state(agent_id).rotation
                     best_geodesic_delta = new_delta
 
                 # If the best delta is within (1 - cos(TURN_ANGLE))% of the
@@ -233,14 +233,15 @@ class ShortestPathFollower:
 
                 self._sim.set_agent_state(
                     current_pos,
-                    self._sim.get_agent_state().rotation,
+                    self._sim.get_agent_state(agent_id).rotation,
+                    agent_id,
                     reset_sensors=False,
                 )
 
-                sim_action = HabitatSimActions.TURN_LEFT
+                sim_action = {agent_id: HabitatSimActions.TURN_LEFT}
                 self._sim.step(sim_action)
 
-            self._reset_agent_state(current_state)
+            self._reset_agent_state(current_state, agent_id)
 
             max_grad_dir = best_rotation
 

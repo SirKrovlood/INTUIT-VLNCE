@@ -145,3 +145,5 @@ videos
 
 # evaluation results
 stats_*.json
+
+data/scene_datasets

@@ -8,8 +8,7 @@ from habitat.utils.geometry_utils import quaternion_rotate_vector
 from habitat_baselines.common.baseline_registry import baseline_registry
 
 from habitat.utils import profiling_wrapper
-import pickle
-
+from copy import deepcopy
 @baseline_registry.register_env(name="VLNCEDaggerEnv")
 class VLNCEDaggerEnv(habitat.RLEnv):
     def __init__(self, config: Config, dataset: Optional[Dataset] = None):
@@ -74,9 +73,6 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
         self._success_distance = config.TASK_CONFIG.TASK.SUCCESS_DISTANCE
         self.intuition_steps = config.MODEL.INTUITION_STEPS
 
-        self.goal_radius = config.TASK_CONFIG.TASK.VLN_ORACLE_GEODESIC_ACTION_SENSOR.GOAL_RADIUS
-        self.main_agent_target = 0
-
         super().__init__(config.TASK_CONFIG, dataset)
 
 
@@ -94,7 +90,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
         distance = self._env.sim.geodesic_distance(current_position, target_position)
         return distance
 
-    def get_done(self, observations):
+    def get_done(self):
         episode_success = (
             self._env.task.is_stop_called
             and self._distance_target() < self._success_distance
@@ -103,11 +99,6 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
 
     def get_info(self, observations):
         return self.habitat_env.get_metrics()
-
-    @profiling_wrapper.RangeContext("VLNCEDaggerIntuitionEnv.reset")
-    def reset(self):
-        self.main_agent_target = 0
-        return self._env.reset()
 
     '''
     episoder attributes
@@ -138,33 +129,60 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
         #print("kwargs", kwargs["action"])
         incoming_ac = kwargs["action"]["action"]
         #print("incoming_ac", incoming_ac)
-        self._env.sim.get_agent(1).state = self._env.sim.get_agent(
-            0).state
+        self._env.sim.set_agent_state(self._env.sim.get_agent(
+            0).state.position,  self._env.sim.get_agent(
+            0).state.rotation, 1)
 
         corrected_actions = np.zeros(self.intuition_steps, dtype=np.float16)
+        #print("eq p", np.array_equal(self._env.sim.get_agent(
+        #    0).state.position, self._env.sim.get_agent(1).state.position))
+        #print("eq r", np.array_equal(self._env.sim.get_agent(
+        #    0).state.rotation, self._env.sim.get_agent(1).state.rotation))
+
         geist_ac = (
             self._env.task.sensor_suite.sensors[
                 "vln_law_action_sensor"].get_observation(None,
                                                          episode=self._env.current_episode,
                                                          agent_id=1))[0]
 
-        #print("geist_ac", geist_ac)
+        print("sensed geist_ac", geist_ac)
         for i in range(self.intuition_steps):
-            observations = self._env.step({1: geist_ac})
-            geist_ac = observations["vln_law_action_sensor"][0]
             if geist_ac == 0:
+                #done = self.get_done()
+                #print("breaking Done", done)
                 break
             corrected_actions[i] = geist_ac
+            #print("executed geist_ac", geist_ac)
+
+            #print("main agent pos and rot", self._env.sim.get_agent(0).state.position,
+            #      self._env.sim.get_agent(0).state.rotation)
+            #print("geist pos and rot", self._env.sim.get_agent(1).state.position,
+            #      self._env.sim.get_agent(1).state.rotation)
+            observations = self._env.step({1: geist_ac})
+            geist_ac = observations["vln_law_action_sensor"][0]
+
+            #print("eq p", np.array_equal(self._env.sim.get_agent(
+            #    0).state.position, self._env.sim.get_agent(1).state.position))
+            #print("eq r", np.array_equal(self._env.sim.get_agent(
+            #    0).state.rotation, self._env.sim.get_agent(1).state.rotation))
+
+            #print("sensed geist_ac", geist_ac)
+            #print("-------")
 
         print(corrected_actions)
-        observations = self._env.step({0: incoming_ac})
+        if incoming_ac == 0:
+            observations = self._env.step({"action": 0})
+        else:
+            observations = self._env.step({0: incoming_ac})
         #print(self.current_episode.reference_path, flush=True)
 
         reward = self.get_reward(observations)
-        done = self.get_done(observations)
+        done = self.get_done()
         info = self.get_info(observations)
 
+        #print("done", done)
         #print("step observations", observations)
         print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+        observations["corrected_actions"] = corrected_actions
 
         return observations, reward, done, info

@@ -2,7 +2,7 @@
 # contains both the training and EnvDrop episodes.
 
 ENVIRONMENT:
-  MAX_EPISODE_STEPS: 500
+  MAX_EPISODE_STEPS: 7500
 SIMULATOR:
   TYPE: "Sim-dual"
   AGENTS: [ "AGENT_0", "AGENT_1" ]

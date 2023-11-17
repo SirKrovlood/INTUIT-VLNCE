@@ -14,4 +14,8 @@ with VLNCEDaggerIntuitionEnv(config=config) as env:
     print("Environment creation successful")
     env.reset()
     action = {"action": 1}
-    env.step(action=action)
+    done = False
+    while not done:
+        observations, _, done, _ = env.step(action=action)
+        print(observations["vln_law_action_sensor"][0])
+        action = {"action": observations["vln_law_action_sensor"][0]}

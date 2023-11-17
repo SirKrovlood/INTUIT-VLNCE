@@ -225,7 +225,7 @@ class VLNOracleActionGeodesicSensor(Sensor):
                 agent_id = kwargs["agent_id"]
 
         current_position = self._sim.get_agent_state(agent_id).position.tolist()
-
+        #print("law sensor id and pos ", agent_id, current_position)
         #current_position = self._sim.get_agent_state().position.tolist()
 
         nearest_dist = float("inf")
@@ -247,7 +247,7 @@ class VLNOracleActionGeodesicSensor(Sensor):
                     nearest_way = way
                     nearest_way_count = ind
 
-        best_action = self.follower.get_next_action(nearest_way)
+        best_action = self.follower.get_next_action(nearest_way, agent_id)
 
         if best_action is None:
             while best_action is None:
@@ -257,7 +257,7 @@ class VLNOracleActionGeodesicSensor(Sensor):
 
                 nearest_way_count = nearest_way_count + 1
                 nearest_way = way_locations[nearest_way_count]
-                best_action = self.follower.get_next_action(nearest_way)
+                best_action = self.follower.get_next_action(nearest_way, agent_id)
 
             return np.array([best_action])
 
