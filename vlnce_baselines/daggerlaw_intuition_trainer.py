@@ -102,7 +102,7 @@ def collate_fn(batch):
     prev_actions_batch = torch.stack(prev_actions_batch, dim=1)
     corrected_actions_batch = torch.stack(corrected_actions_batch, dim=1)
     weights_batch = torch.stack(weights_batch, dim=1)
-    not_done_masks = torch.ones_like(corrected_actions_batch, dtype=torch.float)
+    not_done_masks = torch.ones(corrected_actions_batch.size()[:2], dtype=torch.float)
     not_done_masks[0] = 0
 
     observations_batch = ObservationsDict(observations_batch)
@@ -453,7 +453,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                         break
                 #print("batch", batch)
 
-                (_, actions, _, recurrent_hidden_states, _) = self.actor_critic.act(
+                (_, actions, _, recurrent_hidden_states) = self.actor_critic.act(
                     batch,
                     recurrent_hidden_states,
                     prev_actions,
@@ -461,6 +461,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                     deterministic=False,
                 )
                 actions = actions[:, 0]
+                actions = actions.view(self.config.NUM_PROCESSES, -1)
 
                 actions = torch.where(
                     torch.rand_like(actions, dtype=torch.float) < beta,
@@ -502,7 +503,8 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                             corrected_actions,#batch["vln_law_action_sensor"][i].item(),
                         )
                     )
-
+                #print("actions", actions)
+                #print("prev_actions", prev_actions)
                 prev_actions.copy_(actions)
                 observations = observations_next
 
@@ -554,14 +556,28 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
     def _update_agent(
         self, observations, prev_actions, not_done_masks, corrected_actions, weights
     ):
-        print("weights")
-        #print(weights)
-        print(weights.size())
-        print("end weights")
-        print("corrected_actions.size()")
-        print(corrected_actions.size())
-        print("end corrected_actions.size()")
-        T, N, I = corrected_actions.size()
+        #print("weights")
+        #print(weights.size())
+        #print("end weights")
+        #print("corrected_actions.size()")
+        #print(corrected_actions.size())
+        #print("end corrected_actions.size()")
+        #print("corrected_actions")
+        #print(corrected_actions)
+        #print("end corrected_actions")
+        if len(corrected_actions.size()) == 2:
+            T, N = corrected_actions.size()
+        else:
+            T, N, I = corrected_actions.size()
+
+        #print("corrected actions are unpacked")
+
+        #print("not_done_masks.size()")
+        #rint(not_done_masks.size())
+        #print("end not_done_masks.size()")
+        #print("not_done_masks")
+        #print(not_done_masks)
+        #print("end not_done_masks")
         self.optimizer.zero_grad()
 
         recurrent_hidden_states = torch.zeros(
@@ -570,6 +586,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
             self.config.MODEL.STATE_ENCODER.hidden_size,
             device=self.device,
         )
+        #print("Empty recurrent hidden ready")
 
         AuxLosses.clear()
         #print("observations.keys()", observations.keys())
@@ -578,33 +595,42 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
         distribution = self.actor_critic.build_distribution(
             observations, recurrent_hidden_states, prev_actions, not_done_masks
         )
+        #print("Distribution  ready")
 
         logits = distribution.logits
-        print("logits")
-        print(logits)
-        logits = logits.view(T, N, -1)
+        #print("logits.size()")
+        #print(logits.size())
+        #print("end logits.size()")
+        #print("logits")
+        #print(logits)
+        #print("end logits")
+        logits = logits.view(T, N, I, -1)
 
-        print("logits.view(T, N, -1)")
-        print(logits)
-        print("logits.permute(0, 2, 1)")
-        print(logits.permute(0, 2, 1).size())
-        print("corrected_actions")
-        print(corrected_actions.size())
+        #print("logits.view(T, N, -1)")
+        #print(logits.size())
+        #print("logits.permute(0, 2, 1)")
+        #print(logits.permute(0, 3, 1, 2).size())
+        #print("corrected_actions")
+        #print(corrected_actions.size())
 
         action_loss = F.cross_entropy(
-            logits.permute(0, 2, 1), corrected_actions, reduction="none"
+            logits.permute(0, 3, 1, 2), corrected_actions, reduction="none"
         )
-        print("action_loss", action_loss)
-        print("weights * action_loss", weights * action_loss)
-        print("(weights * action_loss).sum(0", (weights * action_loss).sum(0))
-        print("weights.sum(0)", weights.sum(0))
-        action_loss = ((weights * action_loss).sum(0) / weights.sum(0)).mean()
-        print("action_loss 2 mean()", action_loss)
+        #print("=======================")
+        #print("action_loss", action_loss.size())
+        exp_weights = weights.unsqueeze(2)
+        exp_weights = exp_weights.expand(-1, -1, I)
+        #print("exp_weights", exp_weights.size())
+        #print("exp_weights * action_loss", exp_weights * action_loss)
+        #print("(exp_weights * action_loss).sum(0", (exp_weights * action_loss).sum(0))
+        #print("exp_weights.sum(0)", exp_weights.sum(0))
+        action_loss = ((exp_weights * action_loss).sum(0) / exp_weights.sum(0)).mean()
+        #print("action_loss 2 mean()", action_loss)
         aux_mask = (weights > 0).view(-1)
         aux_loss = AuxLosses.reduce(aux_mask)
 
         loss = action_loss + aux_loss
-        print("loss", loss)
+        #print("loss", loss)
         loss.backward()
 
         self.optimizer.step()
@@ -736,6 +762,22 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                             k: v.to(device=self.device, non_blocking=True)
                             for k, v in observations_batch.items()
                         }
+                        loss, action_loss, aux_loss = self._update_agent(
+                            observations_batch,
+                            prev_actions_batch.to(
+                                device=self.device, non_blocking=True
+                            ),
+                            not_done_masks.to(
+                                device=self.device, non_blocking=True
+                            ),
+                            corrected_actions_batch.to(
+                                device=self.device, non_blocking=True
+                            ),
+                            weights_batch.to(device=self.device, non_blocking=True),
+                        )
+                        '''
+                        Single batch processing seemed to be bugged sicne the previous
+                        forks, don't see the neccessity fixing it
                         try:
                             loss, action_loss, aux_loss = self._update_agent(
                                 observations_batch,
@@ -758,6 +800,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                             prev_actions_batch = prev_actions_batch.cpu()
                             not_done_masks = not_done_masks.cpu()
                             corrected_actions_batch = corrected_actions_batch.cpu()
+                            corrected_actions_batch = corrected_actions_batch.transpose(0,1)
                             weights_batch = weights_batch.cpu()
                             observations_batch = {
                                 k: v.cpu() for k, v in observations_batch.items()
@@ -786,7 +829,7 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                                 loss += output[0]
                                 action_loss += output[1]
                                 aux_loss += output[2]
-
+                        '''
                         logger.info(f"train_loss: {loss}")
                         logger.info(f"train_action_loss: {action_loss}")
                         logger.info(f"train_aux_loss: {aux_loss}")
@@ -918,11 +961,15 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
                     not_done_masks,
                     deterministic=True,
                 )
+
+                actions = actions[:,0]
+
+                actions = actions.view(-1, 1)
+
                 prev_actions.copy_(actions)
 
             outputs = self.envs.step([a[0].item() for a in actions])
             observations, _, dones, infos = [list(x) for x in zip(*outputs)]
-
             not_done_masks = torch.tensor(
                 [[0.0] if done else [1.0] for done in dones],
                 dtype=torch.float,

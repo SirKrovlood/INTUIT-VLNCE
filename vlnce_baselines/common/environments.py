@@ -121,68 +121,33 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
     '''
     @profiling_wrapper.RangeContext("VLNCEDaggerIntuitionEnv.step")
     def step(self, *args, **kwargs):
-
-        #print("eps", self._env.current_episode.goals[0].position)
-        #print("eps info", self._env.current_episode.info)
-        #print("eps.__dir__()", self._env.current_episode.__dir__())
-
-        #print("kwargs", kwargs["action"])
         incoming_ac = kwargs["action"]["action"]
-        #print("incoming_ac", incoming_ac)
         self._env.sim.set_agent_state(self._env.sim.get_agent(
             0).state.position,  self._env.sim.get_agent(
             0).state.rotation, 1)
 
         corrected_actions = np.zeros(self.intuition_steps, dtype=np.float16)
-        #print("eq p", np.array_equal(self._env.sim.get_agent(
-        #    0).state.position, self._env.sim.get_agent(1).state.position))
-        #print("eq r", np.array_equal(self._env.sim.get_agent(
-        #    0).state.rotation, self._env.sim.get_agent(1).state.rotation))
 
         geist_ac = (
             self._env.task.sensor_suite.sensors[
                 "vln_law_action_sensor"].get_observation(None,
                                                          episode=self._env.current_episode,
                                                          agent_id=1))[0]
-
-        #print("sensed geist_ac", geist_ac)
         for i in range(self.intuition_steps):
             if geist_ac == 0:
-                #done = self.get_done()
-                #print("breaking Done", done)
                 break
             corrected_actions[i] = geist_ac
-            #print("executed geist_ac", geist_ac)
-
-            #print("main agent pos and rot", self._env.sim.get_agent(0).state.position,
-            #      self._env.sim.get_agent(0).state.rotation)
-            #print("geist pos and rot", self._env.sim.get_agent(1).state.position,
-            #      self._env.sim.get_agent(1).state.rotation)
             observations = self._env.step({1: geist_ac})
             geist_ac = observations["vln_law_action_sensor"][0]
 
-            #print("eq p", np.array_equal(self._env.sim.get_agent(
-            #    0).state.position, self._env.sim.get_agent(1).state.position))
-            #print("eq r", np.array_equal(self._env.sim.get_agent(
-            #    0).state.rotation, self._env.sim.get_agent(1).state.rotation))
-
-            #print("sensed geist_ac", geist_ac)
-            #print("-------")
-
-        #print(corrected_actions)
         if incoming_ac == 0:
             observations = self._env.step({"action": 0})
         else:
             observations = self._env.step({0: incoming_ac})
-        #print(self.current_episode.reference_path, flush=True)
-
         reward = self.get_reward(observations)
         done = self.get_done()
         info = self.get_info(observations)
 
-        #print("done", done)
-        #print("step observations", observations)
-        #print("+++++++++++++++++++++++++++++++++++++++++++++++++")
         observations.update({"corrected_actions": corrected_actions})
 
         return observations, reward, done, info

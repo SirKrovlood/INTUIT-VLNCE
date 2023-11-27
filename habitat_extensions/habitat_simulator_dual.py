@@ -202,16 +202,14 @@ class HabitatSimDual(HabitatSim):
         return habitat_sim.Configuration(sim_config, [agent_config, agent_config2])
 
     def step(self, action: Union[str, int]) -> Observations:
+        if isinstance(action, int):
+            action = {0: action}
         sim_obs = super(HabitatSim, self).step(action)
-        #print("Sim-dual step start")
-        #print("step sim_obs", sim_obs)
+
         self._prev_sim_obs = sim_obs
-        #print("Hbaitat lab sensor_suite.sensors", self._sensor_suite.sensors)
-        #print("step sim_obs.keys()", sim_obs.keys())
-        #print("Sim-dual step almost end")
+
         if 0 in sim_obs.keys():
             observations = self._sensor_suite.get_observations(sim_obs[0])
-            #print("Sim-dual step total end")
             return observations
 
     def _get_agent_config(self, agent_id: Optional[int] = None) -> Any:

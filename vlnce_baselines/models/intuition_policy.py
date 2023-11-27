@@ -19,9 +19,6 @@ class BaseIntuitionPolicy(Policy):
         self.intuition_steps = intuition_steps
 
         delattr(self, "action_distribution")
-        print("self.intuition_steps", self.intuition_steps)
-
-        #self.critic = CriticHead(self.net.output_size)
 
         self.ad_linear = nn.Linear(self.net.output_size,
                                    self.dim_actions*self.intuition_steps)
@@ -36,15 +33,20 @@ class BaseIntuitionPolicy(Policy):
         features, rnn_hidden_states = self.net(
             observations, rnn_hidden_states, prev_actions, masks
         )
+        #print("net() done")
         #print("features", features.size())
         x = self.ad_linear(features)
         #print("x", x.size())
         #print("x reshaped", torch.reshape(x, (observations['rgb'].size()[0], self.intuition_steps, self.dim_actions)).size())
         #print("x resh all", torch.reshape(x, (observations['rgb'].size()[0], self.intuition_steps, self.dim_actions)))
 
-        distribution = CustomFixedCategorical(
-            logits=torch.reshape(x, (observations['rgb'].size()[0], self.intuition_steps, self.dim_actions)))
-
+        #print("observations.keys()", observations.keys())
+        if 'rgb_features' in observations.keys():
+            distribution = CustomFixedCategorical(
+                logits=torch.reshape(x, (observations['rgb_features'].size()[0], self.intuition_steps, self.dim_actions)))
+        else:
+            distribution = CustomFixedCategorical(
+                logits=torch.reshape(x, (observations['rgb'].size()[0], self.intuition_steps, self.dim_actions)))
         return distribution
 
     def act(
@@ -69,7 +71,7 @@ class BaseIntuitionPolicy(Policy):
         are not used in either the train, eval or inference
         so we can skip them
         '''
-        return None, action_seq, None, rnn_hidden_states, distribution
+        return None, action_seq, None, rnn_hidden_states#, distribution
 
 class CMAIntuitionPolicy(BaseIntuitionPolicy):
     def __init__(

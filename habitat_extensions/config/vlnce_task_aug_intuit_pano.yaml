@@ -35,7 +35,8 @@ SIMULATOR:
     WIDTH: 256  # pretrained DDPPO resnet needs 256x256
     HEIGHT: 256
 TASK:
-  TYPE: Nav-dual
+  #TYPE: Nav-dual
+  TYPE: VLN-v0
   SUCCESS_DISTANCE: 3.0
   SENSORS: [
     INSTRUCTION_SENSOR,
