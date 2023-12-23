@@ -147,3 +147,5 @@ videos
 stats_*.json
 
 data/scene_datasets
+
+experiments

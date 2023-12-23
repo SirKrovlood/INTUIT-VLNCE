@@ -16,7 +16,7 @@ from habitat.core.simulator import (
 )
 
 @registry.register_task(name="Nav-dual")
-class NavigationTask(NavigationTask):
+class NavigationTaskDual(NavigationTask):
     def __init__(
         self, config: Config, sim: Simulator, dataset: Optional[Dataset] = None
     ) -> None:

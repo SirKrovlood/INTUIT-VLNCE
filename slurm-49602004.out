@@ -1,0 +1,347 @@
+Python 3.6.13 :: Anaconda, Inc.
+2023-12-13 20:21:37,247 config: BASE_TASK_CONFIG_PATH: habitat_extensions/config/vlnce_task_intuit_pano.yaml
+CHECKPOINT_FOLDER: experiments/checkpoints/intuit/hpc2/cma_pm_da_aug_tune
+CHECKPOINT_INTERVAL: -1.0
+CMD_TRAILING_OPTS: []
+DAGGER:
+  BATCH_SIZE: 5
+  CKPT_TO_LOAD: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.44.pth
+  EPOCHS: 4
+  ITERATIONS: 10
+  LMDB_COMMIT_FREQUENCY: 500
+  LMDB_FEATURES_DIR: experiments/trajectories_dirs/intuit/hpc2/cma_pm_da_aug_tune/trajectories.lmdb
+  LMDB_MAP_SIZE: 2000000000000.0
+  LOAD_FROM_CKPT: True
+  LR: 0.00025
+  P: 0.5
+  PRELOAD_LMDB_FEATURES: False
+  UPDATE_SIZE: 5000
+  USE_IW: True
+ENV_NAME: VLNCEDaggerIntuitionEnv
+EVAL:
+  EPISODE_COUNT: 50000
+  EVAL_NONLEARNING: False
+  NONLEARNING:
+    AGENT: RandomAgent
+  SPLIT: val_unseen
+  USE_CKPT_CONFIG: False
+EVAL_CKPT_PATH_DIR: experiments/checkpoints/intuit/hpc2/cma_pm_da_aug_tune
+INFERENCE:
+  CKPT_PATH: data/checkpoints/CMA_PM_DA_Aug.pth
+  INFERENCE_NONLEARNING: False
+  NONLEARNING:
+    AGENT: RandomAgent
+  PREDICTIONS_FILE: predictions.json
+  SPLIT: test
+  USE_CKPT_CONFIG: True
+LOG_FILE: train.log
+MODEL:
+  CMA:
+    rcm_state_encoder: False
+    use: True
+  DEPTH_ENCODER:
+    backbone: resnet50
+    cnn_type: VlnResnetDepthEncoder
+    ddppo_checkpoint: data/ddppo-models/gibson-2plus-resnet50.pth
+    output_size: 128
+  INSTRUCTION_ENCODER:
+    bidirectional: True
+    dataset_vocab: data/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz
+    embedding_file: data/datasets/R2R_VLNCE_v1-3_preprocessed/embeddings.json.gz
+    embedding_size: 50
+    final_state_only: True
+    fine_tune_embeddings: False
+    hidden_size: 128
+    max_length: 200
+    rnn_type: LSTM
+    use_pretrained_embeddings: True
+    vocab_size: 2504
+  INTUITION_STEPS: 15
+  PROGRESS_MONITOR:
+    alpha: 1.0
+    use: True
+  RGB_ENCODER:
+    cnn_type: TorchVisionResNet50
+    output_size: 256
+  SEQ2SEQ:
+    use_prev_action: False
+  STATE_ENCODER:
+    hidden_size: 512
+    rnn_type: GRU
+  ablate_depth: False
+  ablate_instruction: False
+  ablate_rgb: False
+  inflection_weight_coef: 3.2
+NUM_CHECKPOINTS: 10.0
+NUM_PROCESSES: 8
+NUM_UPDATES: 100
+SAVE_TRAJECTORY: False
+SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR']
+SIMULATOR_GPU_ID: 0
+STATS_EVAL_DIR: experiments/evaluations/intuit/hpc2/cma_pm_da_aug_tune
+TASK_CONFIG:
+  DATASET:
+    CONTENT_SCENES: ['*']
+    DATA_PATH: data/datasets/pointnav/habitat-test-scenes/v1/{split}/{split}.json.gz
+    SCENES_DIR: data/scene_datasets
+    SPLIT: train
+    TYPE: PointNav-v1
+  ENVIRONMENT:
+    ITERATOR_OPTIONS:
+      CYCLE: True
+      GROUP_BY_SCENE: True
+      MAX_SCENE_REPEAT_EPISODES: -1
+      MAX_SCENE_REPEAT_STEPS: 10000
+      NUM_EPISODE_SAMPLE: -1
+      SHUFFLE: True
+      STEP_REPETITION_RANGE: 0.2
+    MAX_EPISODE_SECONDS: 10000000
+    MAX_EPISODE_STEPS: 1000
+  PYROBOT:
+    BASE_CONTROLLER: proportional
+    BASE_PLANNER: none
+    BUMP_SENSOR:
+      TYPE: PyRobotBumpSensor
+    DEPTH_SENSOR:
+      CENTER_CROP: False
+      HEIGHT: 480
+      MAX_DEPTH: 5.0
+      MIN_DEPTH: 0.0
+      NORMALIZE_DEPTH: True
+      TYPE: PyRobotDepthSensor
+      WIDTH: 640
+    LOCOBOT:
+      ACTIONS: ['BASE_ACTIONS', 'CAMERA_ACTIONS']
+      BASE_ACTIONS: ['go_to_relative', 'go_to_absolute']
+      CAMERA_ACTIONS: ['set_pan', 'set_tilt', 'set_pan_tilt']
+    RGB_SENSOR:
+      CENTER_CROP: False
+      HEIGHT: 480
+      TYPE: PyRobotRGBSensor
+      WIDTH: 640
+    ROBOT: locobot
+    ROBOTS: ['locobot']
+    SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR', 'BUMP_SENSOR']
+  SEED: 100
+  SIMULATOR:
+    ACTION_SPACE_CONFIG: v0
+    AGENTS: ['AGENT_0']
+    AGENT_0:
+      ANGULAR_ACCELERATION: 12.56
+      ANGULAR_FRICTION: 1.0
+      COEFFICIENT_OF_RESTITUTION: 0.0
+      HEIGHT: 1.5
+      IS_SET_START_STATE: False
+      LINEAR_ACCELERATION: 20.0
+      LINEAR_FRICTION: 0.5
+      MASS: 32.0
+      RADIUS: 0.1
+      SENSORS: ['RGB_SENSOR']
+      START_POSITION: [0, 0, 0]
+      START_ROTATION: [0, 0, 0, 1]
+    DEFAULT_AGENT_ID: 0
+    DEPTH_SENSOR:
+      HEIGHT: 480
+      HFOV: 90
+      MAX_DEPTH: 10.0
+      MIN_DEPTH: 0.0
+      NORMALIZE_DEPTH: True
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimDepthSensor
+      WIDTH: 640
+    FORWARD_STEP_SIZE: 0.25
+    HABITAT_SIM_V0:
+      ALLOW_SLIDING: True
+      ENABLE_PHYSICS: False
+      GPU_DEVICE_ID: 0
+      GPU_GPU: False
+      PHYSICS_CONFIG_FILE: ./data/default.physics_config.json
+    RGB_SENSOR:
+      HEIGHT: 480
+      HFOV: 90
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimRGBSensor
+      WIDTH: 640
+    SCENE: data/scene_datasets/habitat-test-scenes/van-gogh-room.glb
+    SEED: 100
+    SEMANTIC_SENSOR:
+      HEIGHT: 480
+      HFOV: 90
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimSemanticSensor
+      WIDTH: 640
+    TILT_ANGLE: 15
+    TURN_ANGLE: 10
+    TYPE: Sim-v0
+  TASK:
+    ACTIONS:
+      ANSWER:
+        TYPE: AnswerAction
+      LOOK_DOWN:
+        TYPE: LookDownAction
+      LOOK_UP:
+        TYPE: LookUpAction
+      MOVE_FORWARD:
+        TYPE: MoveForwardAction
+      STOP:
+        TYPE: StopAction
+      TELEPORT:
+        TYPE: TeleportAction
+      TURN_LEFT:
+        TYPE: TurnLeftAction
+      TURN_RIGHT:
+        TYPE: TurnRightAction
+    ANSWER_ACCURACY:
+      TYPE: AnswerAccuracy
+    COLLISIONS:
+      TYPE: Collisions
+    COMPASS_SENSOR:
+      TYPE: CompassSensor
+    CORRECT_ANSWER:
+      TYPE: CorrectAnswer
+    DISTANCE_TO_GOAL:
+      DISTANCE_TO: POINT
+      TYPE: DistanceToGoal
+    EPISODE_INFO:
+      TYPE: EpisodeInfo
+    GLOBAL_GPS_SENSOR:
+      DIMENSIONALITY: 3
+      TYPE: GlobalGPSSensor
+    GOAL_SENSOR_UUID: pointgoal
+    GPS_SENSOR:
+      DIMENSIONALITY: 2
+      TYPE: GPSSensor
+    HEADING_SENSOR:
+      TYPE: HeadingSensor
+    IMAGEGOAL_SENSOR:
+      TYPE: ImageGoalSensor
+    INSTRUCTION_SENSOR:
+      TYPE: InstructionSensor
+    INSTRUCTION_SENSOR_UUID: instruction
+    MEASUREMENTS: []
+    NDTW:
+      FDTW: True
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 0.2
+      TYPE: NDTW
+    OBJECTGOAL_SENSOR:
+      GOAL_SPEC: TASK_CATEGORY_ID
+      GOAL_SPEC_MAX_VAL: 50
+      TYPE: ObjectGoalSensor
+    ORACLE_NAVIGATION_ERROR:
+      TYPE: OracleNavigationError
+    ORACLE_SPL:
+      SUCCESS_DISTANCE: 0.2
+      TYPE: OracleSPL
+    ORACLE_SUCCESS:
+      SUCCESS_DISTANCE: 0.2
+      TYPE: OracleSuccess
+    PATH_LENGTH:
+      TYPE: PathLength
+    POINTGOAL_SENSOR:
+      DIMENSIONALITY: 2
+      GOAL_FORMAT: POLAR
+      TYPE: PointGoalSensor
+    POINTGOAL_WITH_GPS_COMPASS_SENSOR:
+      DIMENSIONALITY: 2
+      GOAL_FORMAT: POLAR
+      TYPE: PointGoalWithGPSCompassSensor
+    POSSIBLE_ACTIONS: ['STOP', 'MOVE_FORWARD', 'TURN_LEFT', 'TURN_RIGHT']
+    PROXIMITY_SENSOR:
+      MAX_DETECTION_RADIUS: 2.0
+      TYPE: ProximitySensor
+    QUESTION_SENSOR:
+      TYPE: QuestionSensor
+    SDTW:
+      FDTW: True
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 0.2
+      TYPE: SDTW
+    SENSORS: []
+    SOFT_SPL:
+      TYPE: SoftSPL
+    SPL:
+      TYPE: SPL
+    STEPS_TAKEN:
+      TYPE: StepsTaken
+    SUCCESS:
+      SUCCESS_DISTANCE: 0.2
+      TYPE: Success
+    SUCCESS_DISTANCE: 0.2
+    TOP_DOWN_MAP:
+      DRAW_BORDER: True
+      DRAW_GOAL_AABBS: True
+      DRAW_GOAL_POSITIONS: True
+      DRAW_SHORTEST_PATH: True
+      DRAW_SOURCE: True
+      DRAW_SOURCE_AND_TARGET: True
+      DRAW_VIEW_POINTS: False
+      DRAW_WAYPOINTS: True
+      FOG_OF_WAR:
+        DRAW: True
+        FOV: 90
+        VISIBILITY_DIST: 5.0
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      MAP_PADDING: 3
+      MAP_RESOLUTION: 3000
+      MAX_EPISODE_STEPS: 1000
+      NUM_TOPDOWN_MAP_SAMPLE_POINTS: 20000
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 1.5
+      TYPE: TopDownMap
+    TYPE: Nav-v0
+    VLN_ORACLE_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 0
+      SPLIT: train
+      TYPE: VLNOracleActionSensor
+      USE_ORIGINAL_FOLLOWER: True
+    VLN_ORACLE_GEODESIC_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 0
+      SPLIT: train
+      TYPE: VLNOracleActionGeodesicSensor
+    VLN_ORACLE_PROGRESS_SENSOR:
+      TYPE: VLNOracleProgressSensor
+    VLN_ORACLE_SPLINE_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 1
+      SPLIT: train
+      TYPE: VLNOracleActionSplineSensor
+    WAYPOINT_ACCURACY:
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 0.5
+      TYPE: WaypointAccuracy
+TENSORBOARD_DIR: experiments/tensorboard_dirs/intuit/hpc2/cma_pm_da_aug_tune
+TORCH_GPU_ID: 0
+TOTAL_NUM_STEPS: -1.0
+TRAINER_NAME: daggerlawintuition
+VIDEO_DIR: videos/debug
+VIDEO_OPTION: []
+2023-12-13 20:21:39,388 Initializing dataset PointNav-v1
+Traceback (most recent call last):
+  File "run.py", line 84, in <module>
+    main()
+  File "run.py", line 39, in main
+    run_exp(**vars(args))
+  File "run.py", line 76, in run_exp
+    trainer.train()
+  File "/gpfs/space/home/kirill97/masthesis/INTUIT-VLNCE/vlnce_baselines/daggerlaw_intuition_trainer.py", line 697, in train
+    self.envs = construct_envs(self.config, get_env_class(self.config.ENV_NAME))
+  File "/gpfs/space/home/kirill97/masthesis/INTUIT-VLNCE/vlnce_baselines/common/env_utils.py", line 30, in construct_envs
+    scenes = dataset.get_scenes_to_load(config.TASK_CONFIG.DATASET)
+  File "/gpfs/space/home/kirill97/masthesis/habitat-lab/habitat/datasets/pointnav/pointnav_dataset.py", line 43, in get_scenes_to_load
+    assert cls.check_config_paths_exist(config)
+AssertionError

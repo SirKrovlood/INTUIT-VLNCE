@@ -81,7 +81,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
         # we inherit from habitat.RLEnv.
         return (0.0, 0.0)
 
-    def get_reward(self, observations):
+    def get_reward(self):
         return 0.0
 
     def _distance_target(self):
@@ -97,7 +97,7 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
         )
         return self._env.episode_over or episode_success
 
-    def get_info(self, observations):
+    def get_info(self):
         return self.habitat_env.get_metrics()
 
     '''
@@ -121,7 +121,10 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
     '''
     @profiling_wrapper.RangeContext("VLNCEDaggerIntuitionEnv.step")
     def step(self, *args, **kwargs):
+    
+        #print("curr ep id", self._env.current_episode.episode_id, type(self._env.current_episode.episode_id))
         incoming_ac = kwargs["action"]["action"]
+        
         self._env.sim.set_agent_state(self._env.sim.get_agent(
             0).state.position,  self._env.sim.get_agent(
             0).state.rotation, 1)
@@ -134,6 +137,18 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
                                                          episode=self._env.current_episode,
                                                          agent_id=1))[0]
         for i in range(self.intuition_steps):
+            # some episodes in envdrop+train split are weird and cause episode
+            # to become over prematurely
+            if self._env.episode_over:
+                reward = self.get_reward()
+                done = self.get_done()
+                info = self.get_info()
+                observations = self._env.reset()
+                observations.update({"corrected_actions": corrected_actions})
+                print("premature reset")
+                print("====================================================================")
+                return observations, reward, done, info
+                
             if geist_ac == 0:
                 break
             corrected_actions[i] = geist_ac
@@ -144,10 +159,13 @@ class VLNCEDaggerIntuitionEnv(habitat.RLEnv):
             observations = self._env.step({"action": 0})
         else:
             observations = self._env.step({0: incoming_ac})
-        reward = self.get_reward(observations)
+        reward = self.get_reward()
         done = self.get_done()
-        info = self.get_info(observations)
+        info = self.get_info()
 
         observations.update({"corrected_actions": corrected_actions})
-
+        #print("step inner observations", observations.keys())
+        #if self._env.current_episode.episode_id == 149013:
+        #    print("step inner observations full", observations)
+        #print("--------------------------------------")
         return observations, reward, done, info

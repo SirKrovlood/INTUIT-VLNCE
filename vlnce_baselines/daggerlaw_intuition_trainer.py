@@ -475,11 +475,13 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
 
                 #print("actions", actions)
                 outputs = self.envs.step([a[0].item() for a in actions])
-
+                #print("step completed")
+                
                 observations_next, rewards, dones, infos = [list(x) for x in
                                                             zip(*outputs)]
 
                 for i in range(self.envs.num_envs):
+                    frameSaved = False
                     if rgb_features is not None:
                         observations[i]["rgb_features"] = rgb_features[i]
                         del observations[i]["rgb"]
@@ -490,19 +492,23 @@ class DaggerLawIntuitionTrainer(BaseRLTrainer):
 
                     #print("observations_next[i].keys()", observations_next[i].keys())
                     #for some reason on 0 action a zeors np array is lost from an observation
-                    if actions[i][0].item() != 0:
+                    if "corrected_actions" in observations_next[i].keys():
                         corrected_actions = observations_next[i]["corrected_actions"]
                         del observations_next[i]["corrected_actions"]
-                    else:
+                        frameSaved = True
+                    elif actions[i][0].item() == 0:
+                        frameSaved = True
                         corrected_actions = np.zeros(self.config.MODEL.INTUITION_STEPS, dtype=np.float16)
                     #print("i", i, "corrected_actions", corrected_actions, "prev_actions[i].item()", prev_actions[i].item())
-                    episodes[i].append(
-                        (
-                            observations[i],
-                            prev_actions[i].item(),
-                            corrected_actions,#batch["vln_law_action_sensor"][i].item(),
+                    #we skip frames, when an environment was stoped prematurely
+                    if frameSaved:
+                        episodes[i].append(
+                            (
+                                observations[i],
+                                prev_actions[i].item(),
+                                corrected_actions,#batch["vln_law_action_sensor"][i].item(),
+                            )
                         )
-                    )
                 #print("actions", actions)
                 #print("prev_actions", prev_actions)
                 prev_actions.copy_(actions)

@@ -1,0 +1,1779 @@
+Python 3.6.13 :: Anaconda, Inc.
+2023-11-30 14:53:50,770 config: BASE_TASK_CONFIG_PATH: habitat_extensions/config/vlnce_task_aug_intuit_pano.yaml
+CHECKPOINT_FOLDER: experiments/checkpoints/intuit/dagg2/cma_pm_aug
+CHECKPOINT_INTERVAL: -1.0
+CMD_TRAILING_OPTS: []
+DAGGER:
+  BATCH_SIZE: 5
+  CKPT_TO_LOAD: experiments/checkpoints/intuit/phase1/cma_pm_aug/ckpt.19.pth
+  EPOCHS: 5
+  ITERATIONS: 1
+  LMDB_COMMIT_FREQUENCY: 500
+  LMDB_FEATURES_DIR: experiments/trajectories_dirs/intuit/multiProc/cma_pm_aug/trajectories.lmdb
+  LMDB_MAP_SIZE: 2000000000000.0
+  LOAD_FROM_CKPT: True
+  LR: 0.00025
+  P: 0.7
+  PRELOAD_LMDB_FEATURES: False
+  UPDATE_SIZE: 200
+  USE_IW: True
+ENV_NAME: VLNCEDaggerIntuitionEnv
+EVAL:
+  EPISODE_COUNT: 200
+  EVAL_NONLEARNING: False
+  NONLEARNING:
+    AGENT: RandomAgent
+  SPLIT: local_train
+  USE_CKPT_CONFIG: False
+EVAL_CKPT_PATH_DIR: experiments/checkpoints/intuit/dagg2/cma_pm_aug/ckpt.4.pth
+INFERENCE:
+  CKPT_PATH: data/checkpoints/CMA_PM_DA_Aug.pth
+  INFERENCE_NONLEARNING: False
+  NONLEARNING:
+    AGENT: RandomAgent
+  PREDICTIONS_FILE: predictions.json
+  SPLIT: test
+  USE_CKPT_CONFIG: True
+LOG_FILE: train.log
+MODEL:
+  CMA:
+    rcm_state_encoder: False
+    use: True
+  DEPTH_ENCODER:
+    backbone: resnet50
+    cnn_type: VlnResnetDepthEncoder
+    ddppo_checkpoint: data/ddppo-models/gibson-2plus-resnet50.pth
+    output_size: 128
+  INSTRUCTION_ENCODER:
+    bidirectional: True
+    dataset_vocab: data/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz
+    embedding_file: data/datasets/R2R_VLNCE_v1-3_preprocessed/embeddings.json.gz
+    embedding_size: 50
+    final_state_only: True
+    fine_tune_embeddings: False
+    hidden_size: 128
+    max_length: 200
+    rnn_type: LSTM
+    use_pretrained_embeddings: True
+    vocab_size: 2504
+  INTUITION_STEPS: 15
+  PROGRESS_MONITOR:
+    alpha: 1.0
+    use: True
+  RGB_ENCODER:
+    cnn_type: TorchVisionResNet50
+    output_size: 256
+  SEQ2SEQ:
+    use_prev_action: False
+  STATE_ENCODER:
+    hidden_size: 512
+    rnn_type: GRU
+  ablate_depth: False
+  ablate_instruction: False
+  ablate_rgb: False
+  inflection_weight_coef: 3.2
+NUM_CHECKPOINTS: 10.0
+NUM_PROCESSES: 4
+NUM_UPDATES: 100
+SAVE_TRAJECTORY: False
+SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR']
+SIMULATOR_GPU_ID: 0
+STATS_EVAL_DIR: experiments/evaluations/intuit/phase1/cma_pm_aug
+TASK_CONFIG:
+  DATASET:
+    CONTENT_SCENES: ['*']
+    DATA_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/local_train/local_train.json.gz
+    SCENES_DIR: data/scene_datasets/
+    SPLIT: joint_train_envdrop
+    TYPE: VLN-CE-v1
+  ENVIRONMENT:
+    ITERATOR_OPTIONS:
+      CYCLE: True
+      GROUP_BY_SCENE: True
+      MAX_SCENE_REPEAT_EPISODES: -1
+      MAX_SCENE_REPEAT_STEPS: 10000
+      NUM_EPISODE_SAMPLE: -1
+      SHUFFLE: True
+      STEP_REPETITION_RANGE: 0.2
+    MAX_EPISODE_SECONDS: 10000000
+    MAX_EPISODE_STEPS: 7500
+  PYROBOT:
+    BASE_CONTROLLER: proportional
+    BASE_PLANNER: none
+    BUMP_SENSOR:
+      TYPE: PyRobotBumpSensor
+    DEPTH_SENSOR:
+      CENTER_CROP: False
+      HEIGHT: 480
+      MAX_DEPTH: 5.0
+      MIN_DEPTH: 0.0
+      NORMALIZE_DEPTH: True
+      TYPE: PyRobotDepthSensor
+      WIDTH: 640
+    LOCOBOT:
+      ACTIONS: ['BASE_ACTIONS', 'CAMERA_ACTIONS']
+      BASE_ACTIONS: ['go_to_relative', 'go_to_absolute']
+      CAMERA_ACTIONS: ['set_pan', 'set_tilt', 'set_pan_tilt']
+    RGB_SENSOR:
+      CENTER_CROP: False
+      HEIGHT: 480
+      TYPE: PyRobotRGBSensor
+      WIDTH: 640
+    ROBOT: locobot
+    ROBOTS: ['locobot']
+    SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR', 'BUMP_SENSOR']
+  SEED: 100
+  SIMULATOR:
+    ACTION_SPACE_CONFIG: v0
+    AGENTS: ['AGENT_0', 'AGENT_1']
+    AGENT_0:
+      ANGULAR_ACCELERATION: 12.56
+      ANGULAR_FRICTION: 1.0
+      COEFFICIENT_OF_RESTITUTION: 0.0
+      HEIGHT: 1.5
+      IS_SET_START_STATE: False
+      LINEAR_ACCELERATION: 20.0
+      LINEAR_FRICTION: 0.5
+      MASS: 32.0
+      RADIUS: 0.1
+      SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR']
+      START_POSITION: [0, 0, 0]
+      START_ROTATION: [0, 0, 0, 1]
+    AGENT_1:
+      ANGULAR_ACCELERATION: 12.56
+      ANGULAR_FRICTION: 1.0
+      COEFFICIENT_OF_RESTITUTION: 0.0
+      HEIGHT: 1.5
+      IS_SET_START_STATE: True
+      LINEAR_ACCELERATION: 20.0
+      LINEAR_FRICTION: 0.5
+      MASS: 32.0
+      RADIUS: 0.1
+      SENSORS: None
+      START_POSITION: [0.0, 0.0, 0.0]
+      START_ROTATION: [-0.0, 0.49999999999999994, -0.0, -0.8660254037844387]
+    DEFAULT_AGENT_ID: 0
+    DEPTH_SENSOR:
+      HEIGHT: 256
+      HFOV: 90
+      MAX_DEPTH: 10.0
+      MIN_DEPTH: 0.0
+      NORMALIZE_DEPTH: True
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimDepthSensor
+      WIDTH: 256
+    FORWARD_STEP_SIZE: 0.25
+    HABITAT_SIM_V0:
+      ALLOW_SLIDING: True
+      ENABLE_PHYSICS: False
+      GPU_DEVICE_ID: 0
+      GPU_GPU: False
+      PHYSICS_CONFIG_FILE: ./data/default.physics_config.json
+    RGB_SENSOR:
+      HEIGHT: 224
+      HFOV: 90
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimRGBSensor
+      WIDTH: 224
+    SCENE: data/scene_datasets/habitat-test-scenes/van-gogh-room.glb
+    SEED: 100
+    SEMANTIC_SENSOR:
+      HEIGHT: 480
+      HFOV: 90
+      ORIENTATION: [0.0, 0.0, 0.0]
+      POSITION: [0, 1.25, 0]
+      TYPE: HabitatSimSemanticSensor
+      WIDTH: 640
+    TILT_ANGLE: 15
+    TURN_ANGLE: 15
+    TYPE: Sim-dual
+  TASK:
+    ACTIONS:
+      ANSWER:
+        TYPE: AnswerAction
+      LOOK_DOWN:
+        TYPE: LookDownAction
+      LOOK_UP:
+        TYPE: LookUpAction
+      MOVE_FORWARD:
+        TYPE: MoveForwardAction
+      STOP:
+        TYPE: StopAction
+      TELEPORT:
+        TYPE: TeleportAction
+      TURN_LEFT:
+        TYPE: TurnLeftAction
+      TURN_RIGHT:
+        TYPE: TurnRightAction
+    ANSWER_ACCURACY:
+      TYPE: AnswerAccuracy
+    COLLISIONS:
+      TYPE: Collisions
+    COMPASS_SENSOR:
+      TYPE: CompassSensor
+    CORRECT_ANSWER:
+      TYPE: CorrectAnswer
+    DISTANCE_TO_GOAL:
+      DISTANCE_TO: POINT
+      TYPE: DistanceToGoal
+    EPISODE_INFO:
+      TYPE: EpisodeInfo
+    GLOBAL_GPS_SENSOR:
+      DIMENSIONALITY: 3
+      TYPE: GlobalGPSSensor
+    GOAL_SENSOR_UUID: pointgoal
+    GPS_SENSOR:
+      DIMENSIONALITY: 2
+      TYPE: GPSSensor
+    HEADING_SENSOR:
+      TYPE: HeadingSensor
+    IMAGEGOAL_SENSOR:
+      TYPE: ImageGoalSensor
+    INSTRUCTION_SENSOR:
+      TYPE: InstructionSensor
+    INSTRUCTION_SENSOR_UUID: instruction
+    MEASUREMENTS: ['DISTANCE_TO_GOAL', 'SUCCESS', 'SPL', 'NDTW', 'SDTW', 'PATH_LENGTH', 'ORACLE_SUCCESS', 'STEPS_TAKEN', 'WAYPOINT_ACCURACY']
+    NDTW:
+      FDTW: True
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/local_train/local_train_gt.json.gz
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 3.0
+      TYPE: NDTW
+    OBJECTGOAL_SENSOR:
+      GOAL_SPEC: TASK_CATEGORY_ID
+      GOAL_SPEC_MAX_VAL: 50
+      TYPE: ObjectGoalSensor
+    ORACLE_NAVIGATION_ERROR:
+      TYPE: OracleNavigationError
+    ORACLE_SPL:
+      SUCCESS_DISTANCE: 0.2
+      TYPE: OracleSPL
+    ORACLE_SUCCESS:
+      SUCCESS_DISTANCE: 3.0
+      TYPE: OracleSuccess
+    PATH_LENGTH:
+      TYPE: PathLength
+    POINTGOAL_SENSOR:
+      DIMENSIONALITY: 2
+      GOAL_FORMAT: POLAR
+      TYPE: PointGoalSensor
+    POINTGOAL_WITH_GPS_COMPASS_SENSOR:
+      DIMENSIONALITY: 2
+      GOAL_FORMAT: POLAR
+      TYPE: PointGoalWithGPSCompassSensor
+    POSSIBLE_ACTIONS: ['STOP', 'MOVE_FORWARD', 'TURN_LEFT', 'TURN_RIGHT']
+    PROXIMITY_SENSOR:
+      MAX_DETECTION_RADIUS: 2.0
+      TYPE: ProximitySensor
+    QUESTION_SENSOR:
+      TYPE: QuestionSensor
+    SDTW:
+      FDTW: True
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/local_train/local_train_gt.json.gz
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 3.0
+      TYPE: SDTW
+    SENSORS: ['INSTRUCTION_SENSOR', 'VLN_ORACLE_GEODESIC_ACTION_SENSOR', 'VLN_ORACLE_PROGRESS_SENSOR']
+    SOFT_SPL:
+      TYPE: SoftSPL
+    SPL:
+      SUCCESS_DISTANCE: 3.0
+      TYPE: SPL
+    STEPS_TAKEN:
+      TYPE: StepsTaken
+    SUCCESS:
+      SUCCESS_DISTANCE: 3.0
+      TYPE: Success
+    SUCCESS_DISTANCE: 3.0
+    TOP_DOWN_MAP:
+      DRAW_BORDER: True
+      DRAW_GOAL_AABBS: True
+      DRAW_GOAL_POSITIONS: True
+      DRAW_SHORTEST_PATH: True
+      DRAW_SOURCE: True
+      DRAW_SOURCE_AND_TARGET: True
+      DRAW_VIEW_POINTS: False
+      DRAW_WAYPOINTS: True
+      FOG_OF_WAR:
+        DRAW: True
+        FOV: 90
+        VISIBILITY_DIST: 5.0
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      MAP_PADDING: 3
+      MAP_RESOLUTION: 3000
+      MAX_EPISODE_STEPS: 1000
+      NUM_TOPDOWN_MAP_SAMPLE_POINTS: 20000
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 1.5
+      TYPE: TopDownMap
+    TYPE: Nav-dual
+    VLN_ORACLE_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 0
+      SPLIT: train
+      TYPE: VLNOracleActionSensor
+      USE_ORIGINAL_FOLLOWER: True
+    VLN_ORACLE_GEODESIC_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 0
+      SPLIT: train
+      TYPE: VLNOracleActionGeodesicSensor
+    VLN_ORACLE_PROGRESS_SENSOR:
+      TYPE: VLNOracleProgressSensor
+    VLN_ORACLE_SPLINE_ACTION_SENSOR:
+      GOAL_RADIUS: 0.5
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json.gz
+      IS_SPARSE: True
+      NUM_WAYPOINTS: 1
+      SPLIT: train
+      TYPE: VLNOracleActionSplineSensor
+    WAYPOINT_ACCURACY:
+      GT_PATH: data/datasets/R2R_VLNCE_v1-3_preprocessed/{split}/{split}_gt.json
+      SPLIT: val_seen
+      SUCCESS_DISTANCE: 0.5
+      TYPE: WaypointAccuracy
+TENSORBOARD_DIR: experiments/tensorboard_dirs/intuit/phase1/cma_pm_aug
+TORCH_GPU_ID: 0
+TOTAL_NUM_STEPS: -1.0
+TRAINER_NAME: daggerlawintuition
+VIDEO_DIR: videos/debug
+VIDEO_OPTION: []
+2023-11-30 14:53:54,707 Initializing dataset VLN-CE-v1
+entering worker env
+entering worker env
+2023-11-30 14:54:02,576 Initializing dataset VLN-CE-v1
+2023-11-30 14:54:02,576 Initializing dataset VLN-CE-v1
+entering worker env
+2023-11-30 14:54:02,619 Initializing dataset VLN-CE-v1
+entering worker env
+2023-11-30 14:54:02,625 Initializing dataset VLN-CE-v1
+2023-11-30 14:54:02,671 initializing sim Sim-dual
+2023-11-30 14:54:02,671 initializing sim Sim-dual
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1130 14:54:02.673383 115627 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : default changed to proposed JSON configuration filename : default.scene_dataset_config.json
+I1130 14:54:02.673383 115629 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : default changed to proposed JSON configuration filename : default.scene_dataset_config.json
+I1130 14:54:02.673524 115629 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Dataset) : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I1130 14:54:02.673524 115627 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Dataset) : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I1130 14:54:02.673900 115627 AssetAttributesManager.cpp:117] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.673902 115629 AssetAttributesManager.cpp:117] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.674017 115629 AssetAttributesManager.cpp:117] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I1130 14:54:02.674017 115627 AssetAttributesManager.cpp:117] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I1130 14:54:02.674096 115629 AssetAttributesManager.cpp:117] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I1130 14:54:02.674103 115627 AssetAttributesManager.cpp:117] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I1130 14:54:02.674157 115629 AssetAttributesManager.cpp:117] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I1130 14:54:02.674158 115627 AssetAttributesManager.cpp:117] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I1130 14:54:02.674188 115629 AssetAttributesManager.cpp:117] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I1130 14:54:02.674197 115627 AssetAttributesManager.cpp:117] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I1130 14:54:02.674216 115629 AssetAttributesManager.cpp:117] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I1130 14:54:02.674223 115627 AssetAttributesManager.cpp:117] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I1130 14:54:02.674300 115627 AssetAttributesManager.cpp:117] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I1130 14:54:02.674300 115629 AssetAttributesManager.cpp:117] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I1130 14:54:02.674357 115627 AssetAttributesManager.cpp:117] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I1130 14:54:02.674367 115629 AssetAttributesManager.cpp:117] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I1130 14:54:02.674410 115627 AssetAttributesManager.cpp:117] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I1130 14:54:02.674412 115629 AssetAttributesManager.cpp:117] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I1130 14:54:02.674448 115627 AssetAttributesManager.cpp:117] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I1130 14:54:02.674453 115629 AssetAttributesManager.cpp:117] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I1130 14:54:02.674494 115627 AssetAttributesManager.cpp:117] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.674500 115629 AssetAttributesManager.cpp:117] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.674536 115627 AssetAttributesManager.cpp:117] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I1130 14:54:02.674544 115629 AssetAttributesManager.cpp:117] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I1130 14:54:02.674558 115627 AssetAttributesManager.cpp:105] AssetAttributesManager::buildCtorFuncPtrMaps : Built default primitive asset templates : 12
+I1130 14:54:02.674567 115629 AssetAttributesManager.cpp:105] AssetAttributesManager::buildCtorFuncPtrMaps : Built default primitive asset templates : 12
+I1130 14:54:02.676066 115629 SceneDatasetAttributesManager.cpp:23] File (default) not found, so new default dataset attributes created and registered.
+I1130 14:54:02.676066 115627 SceneDatasetAttributesManager.cpp:23] File (default) not found, so new default dataset attributes created and registered.
+I1130 14:54:02.676085 115629 MetadataMediator.cpp:47] MetadataMediator::createDataset : Dataset default successfully created.
+I1130 14:54:02.676095 115627 MetadataMediator.cpp:47] MetadataMediator::createDataset : Dataset default successfully created.
+I1130 14:54:02.685492 115629 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I1130 14:54:02.685492 115627 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I1130 14:54:02.685547 115629 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I1130 14:54:02.685547 115627 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I1130 14:54:02.685577 115629 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb
+I1130 14:54:02.685580 115627 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb
+I1130 14:54:02.685611 115629 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.stage_config.json
+I1130 14:54:02.685618 115627 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.stage_config.json
+I1130 14:54:02.708081 115629 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.stage_config.json from original name : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb | This file  does not exist.
+I1130 14:54:02.709488 115629 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb
+I1130 14:54:02.709501 115629 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I1130 14:54:02.709530 115629 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.navmesh
+2023-11-30 14:54:02,712 initializing sim Sim-dual
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1130 14:54:02.713611 115628 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : default changed to proposed JSON configuration filename : default.scene_dataset_config.json
+I1130 14:54:02.713678 115628 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Dataset) : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I1130 14:54:02.713846 115628 AssetAttributesManager.cpp:117] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.713935 115628 AssetAttributesManager.cpp:117] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I1130 14:54:02.714017 115628 AssetAttributesManager.cpp:117] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I1130 14:54:02.714071 115628 AssetAttributesManager.cpp:117] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I1130 14:54:02.714102 115628 AssetAttributesManager.cpp:117] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I1130 14:54:02.714128 115628 AssetAttributesManager.cpp:117] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I1130 14:54:02.714201 115628 AssetAttributesManager.cpp:117] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I1130 14:54:02.714262 115628 AssetAttributesManager.cpp:117] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I1130 14:54:02.714300 115628 AssetAttributesManager.cpp:117] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I1130 14:54:02.714334 115628 AssetAttributesManager.cpp:117] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I1130 14:54:02.714378 115628 AssetAttributesManager.cpp:117] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.714421 115628 AssetAttributesManager.cpp:117] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I1130 14:54:02.714440 115628 AssetAttributesManager.cpp:105] AssetAttributesManager::buildCtorFuncPtrMaps : Built default primitive asset templates : 12
+I1130 14:54:02.715790 115628 SceneDatasetAttributesManager.cpp:23] File (default) not found, so new default dataset attributes created and registered.
+I1130 14:54:02.715816 115628 MetadataMediator.cpp:47] MetadataMediator::createDataset : Dataset default successfully created.
+I1130 14:54:02.716627 115627 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.stage_config.json from original name : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb | This file  does not exist.
+2023-11-30 14:54:02,717 initializing sim Sim-dual
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I1130 14:54:02.718717 115626 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : default changed to proposed JSON configuration filename : default.scene_dataset_config.json
+I1130 14:54:02.718770 115626 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Dataset) : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I1130 14:54:02.718919 115626 AssetAttributesManager.cpp:117] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.719003 115626 AssetAttributesManager.cpp:117] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I1130 14:54:02.719075 115626 AssetAttributesManager.cpp:117] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I1130 14:54:02.719125 115626 AssetAttributesManager.cpp:117] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I1130 14:54:02.719151 115626 AssetAttributesManager.cpp:117] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I1130 14:54:02.719174 115626 AssetAttributesManager.cpp:117] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I1130 14:54:02.719240 115626 AssetAttributesManager.cpp:117] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I1130 14:54:02.719293 115626 AssetAttributesManager.cpp:117] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I1130 14:54:02.719328 115626 AssetAttributesManager.cpp:117] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I1130 14:54:02.719357 115626 AssetAttributesManager.cpp:117] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I1130 14:54:02.719398 115626 AssetAttributesManager.cpp:117] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I1130 14:54:02.719437 115626 AssetAttributesManager.cpp:117] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I1130 14:54:02.719455 115626 AssetAttributesManager.cpp:105] AssetAttributesManager::buildCtorFuncPtrMaps : Built default primitive asset templates : 12
+I1130 14:54:02.720728 115626 SceneDatasetAttributesManager.cpp:23] File (default) not found, so new default dataset attributes created and registered.
+I1130 14:54:02.720743 115626 MetadataMediator.cpp:47] MetadataMediator::createDataset : Dataset default successfully created.
+I1130 14:54:02.724114 115629 Simulator.cpp:158] Loaded.
+I1130 14:54:02.724176 115629 SceneGraph.h:93] Created DrawableGroup: 
+I1130 14:54:02.724422 115628 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I1130 14:54:02.724469 115628 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I1130 14:54:02.724488 115628 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb
+I1130 14:54:02.724503 115628 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.stage_config.json
+I1130 14:54:02.725304 115628 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.stage_config.json from original name : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb | This file  does not exist.
+I1130 14:54:02.727386 115626 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I1130 14:54:02.727420 115626 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I1130 14:54:02.727432 115626 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb
+I1130 14:54:02.727442 115626 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.stage_config.json
+I1130 14:54:02.732703 115626 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.stage_config.json from original name : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb | This file  does not exist.
+I1130 14:54:02.750027 115627 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb
+I1130 14:54:02.750059 115627 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I1130 14:54:02.750092 115627 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.navmesh
+I1130 14:54:02.757323 115626 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb
+I1130 14:54:02.757390 115626 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I1130 14:54:02.757436 115626 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.navmesh
+I1130 14:54:02.770769 115627 Simulator.cpp:158] Loaded.
+I1130 14:54:02.770825 115627 SceneGraph.h:93] Created DrawableGroup: 
+I1130 14:54:02.778517 115626 Simulator.cpp:158] Loaded.
+I1130 14:54:02.778553 115626 SceneGraph.h:93] Created DrawableGroup: 
+I1130 14:54:02.790895 115628 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb
+I1130 14:54:02.790930 115628 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I1130 14:54:02.790963 115628 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.navmesh
+I1130 14:54:02.807929 115628 Simulator.cpp:158] Loaded.
+I1130 14:54:02.807979 115628 SceneGraph.h:93] Created DrawableGroup: 
+Renderer: Tesla V100-SXM2-32GB/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 530.30.02
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I1130 14:54:02.844386 115629 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I1130 14:54:02.844422 115629 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb.
+I1130 14:54:02.844434 115629 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.glb 
+I1130 14:54:02.844486 115629 ResourceManager.cpp:1119] Importing Basis files as BC7 for aayBHfsNo7d.glb
+Renderer: Tesla V100-SXM2-32GB/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 530.30.02
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I1130 14:54:02.850874 115627 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I1130 14:54:02.850904 115627 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb.
+I1130 14:54:02.850916 115627 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.glb 
+I1130 14:54:02.850950 115627 ResourceManager.cpp:1119] Importing Basis files as BC7 for ac26ZMwG7aT.glb
+Renderer: Tesla V100-SXM2-32GB/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 530.30.02
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I1130 14:54:02.854772 115626 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I1130 14:54:02.854796 115626 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb.
+I1130 14:54:02.854804 115626 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.glb 
+I1130 14:54:02.854831 115626 ResourceManager.cpp:1119] Importing Basis files as BC7 for JeFG25nYj2p.glb
+Renderer: Tesla V100-SXM2-32GB/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 530.30.02
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I1130 14:54:02.872864 115628 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I1130 14:54:02.872889 115628 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb.
+I1130 14:54:02.872897 115628 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.glb 
+I1130 14:54:02.872929 115628 ResourceManager.cpp:1119] Importing Basis files as BC7 for vyrNrziPKCB.glb
+W1130 14:54:06.796787 115629 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I1130 14:54:07.051426 115629 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/aayBHfsNo7d/aayBHfsNo7d.navmesh
+2023-11-30 14:54:07,056 Initializing task Nav-dual
+W1130 14:54:07.159559 115626 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I1130 14:54:07.457338 115626 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/JeFG25nYj2p/JeFG25nYj2p.navmesh
+2023-11-30 14:54:07,472 Initializing task Nav-dual
+W1130 14:54:11.869575 115627 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I1130 14:54:12.403536 115627 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/ac26ZMwG7aT/ac26ZMwG7aT.navmesh
+2023-11-30 14:54:12,415 Initializing task Nav-dual
+W1130 14:54:18.246300 115628 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I1130 14:54:18.769434 115628 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/vyrNrziPKCB/vyrNrziPKCB.navmesh
+2023-11-30 14:54:18,779 Initializing task Nav-dual
+Downloading: "https://download.pytorch.org/models/resnet50-19c8e357.pth" to /gpfs/space/home/kirill97/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth
+  0%|          | 0.00/97.8M [00:00<?, ?B/s]  9%|▊         | 8.52M/97.8M [00:00<00:01, 89.3MB/s] 17%|█▋        | 17.0M/97.8M [00:00<00:00, 87.7MB/s] 26%|██▌       | 25.4M/97.8M [00:00<00:00, 84.6MB/s] 34%|███▍      | 33.5M/97.8M [00:00<00:00, 84.6MB/s] 43%|████▎     | 41.7M/97.8M [00:00<00:00, 85.2MB/s] 51%|█████     | 49.8M/97.8M [00:00<00:00, 84.7MB/s] 59%|█████▉    | 57.9M/97.8M [00:00<00:00, 84.8MB/s] 68%|██████▊   | 66.0M/97.8M [00:00<00:00, 83.6MB/s] 76%|███████▌  | 74.0M/97.8M [00:00<00:00, 83.7MB/s] 84%|████████▍ | 82.1M/97.8M [00:01<00:00, 84.0MB/s] 92%|█████████▏| 90.1M/97.8M [00:01<00:00, 83.6MB/s]100%|██████████| 97.8M/97.8M [00:01<00:00, 84.5MB/s]
+2023-11-30 14:54:37,093 Loaded weights from checkpoint: experiments/checkpoints/intuit/phase1/cma_pm_aug/ckpt.19.pth
+2023-11-30 14:54:37,093 Finished setting up actor critic model.
+2023-11-30 14:54:37,096 agent number of parameters: 36885262
+2023-11-30 14:54:37,108 agent number of trainable parameters: 6182622
+  0%|          | 0/200 [00:00<?, ?it/s]  0%|          | 1/200 [00:08<27:13,  8.21s/it]  1%|          | 2/200 [00:09<12:55,  3.92s/it]  2%|▏         | 3/200 [00:09<07:43,  2.35s/it]  2%|▏         | 4/200 [00:11<06:33,  2.01s/it]  2%|▎         | 5/200 [00:15<09:14,  2.84s/it]  3%|▎         | 6/200 [00:17<08:13,  2.54s/it]  4%|▎         | 7/200 [00:18<06:46,  2.11s/it]  4%|▍         | 8/200 [00:23<09:28,  2.96s/it]  4%|▍         | 9/200 [00:23<06:46,  2.13s/it]  5%|▌         | 10/200 [00:24<05:47,  1.83s/it]  6%|▌         | 11/200 [00:29<08:10,  2.60s/it]  6%|▌         | 12/200 [00:32<08:34,  2.74s/it]  6%|▋         | 13/200 [00:37<11:00,  3.53s/it]  7%|▋         | 14/200 [00:38<08:16,  2.67s/it]  8%|▊         | 15/200 [00:38<05:59,  1.94s/it]  8%|▊         | 16/200 [00:40<05:40,  1.85s/it]  8%|▊         | 17/200 [00:46<09:42,  3.18s/it]  9%|▉         | 18/200 [00:49<09:09,  3.02s/it] 10%|▉         | 19/200 [00:50<07:47,  2.58s/it] 10%|█         | 20/200 [00:51<05:55,  1.97s/it] 10%|█         | 21/200 [00:54<07:29,  2.51s/it] 11%|█         | 22/200 [01:00<09:58,  3.36s/it] 12%|█▏        | 23/200 [01:01<07:55,  2.69s/it] 12%|█▏        | 24/200 [01:03<06:56,  2.37s/it] 12%|█▎        | 25/200 [01:04<06:28,  2.22s/it] 13%|█▎        | 26/200 [01:06<06:05,  2.10s/it] 14%|█▎        | 27/200 [01:09<06:21,  2.20s/it] 14%|█▍        | 28/200 [01:09<04:32,  1.58s/it] 14%|█▍        | 29/200 [01:11<05:24,  1.90s/it] 15%|█▌        | 30/200 [01:14<05:49,  2.06s/it] 16%|█▌        | 31/200 [01:15<04:52,  1.73s/it] 16%|█▌        | 32/200 [01:16<04:06,  1.47s/it] 16%|█▋        | 33/200 [01:16<03:24,  1.23s/it] 17%|█▋        | 34/200 [01:22<07:22,  2.67s/it] 18%|█▊        | 35/200 [01:23<05:15,  1.91s/it] 18%|█▊        | 36/200 [01:24<05:02,  1.85s/it] 18%|█▊        | 37/200 [01:25<03:46,  1.39s/it] 19%|█▉        | 38/200 [01:28<05:40,  2.10s/it] 20%|█▉        | 39/200 [01:38<11:28,  4.27s/it] 20%|██        | 40/200 [01:39<08:43,  3.27s/it] 20%|██        | 41/200 [01:40<07:11,  2.71s/it] 21%|██        | 42/200 [01:42<06:36,  2.51s/it] 22%|██▏       | 43/200 [01:53<13:34,  5.18s/it] 22%|██▏       | 44/200 [01:55<10:23,  4.00s/it] 22%|██▎       | 45/200 [01:56<08:27,  3.27s/it] 23%|██▎       | 46/200 [01:58<07:29,  2.92s/it] 24%|██▎       | 47/200 [02:07<12:04,  4.73s/it] 24%|██▍       | 48/200 [02:10<10:09,  4.01s/it] 24%|██▍       | 49/200 [02:12<08:29,  3.38s/it] 25%|██▌       | 50/200 [02:16<09:05,  3.64s/it] 26%|██▌       | 51/200 [02:21<10:25,  4.19s/it] 26%|██▌       | 52/200 [02:24<09:29,  3.85s/it] 26%|██▋       | 53/200 [02:28<09:05,  3.71s/it] 27%|██▋       | 54/200 [02:30<07:48,  3.21s/it] 28%|██▊       | 55/200 [02:33<07:52,  3.26s/it] 28%|██▊       | 56/200 [02:33<05:35,  2.33s/it] 28%|██▊       | 57/200 [02:42<10:20,  4.34s/it] 29%|██▉       | 58/200 [02:43<07:18,  3.09s/it] 30%|██▉       | 59/200 [02:44<05:46,  2.46s/it] 30%|███       | 60/200 [02:45<04:44,  2.03s/it] 30%|███       | 61/200 [02:51<07:52,  3.40s/it] 31%|███       | 62/200 [02:53<07:00,  3.05s/it] 32%|███▏      | 64/200 [02:56<04:52,  2.15s/it] 32%|███▎      | 65/200 [03:00<06:12,  2.76s/it] 33%|███▎      | 66/200 [03:03<06:29,  2.91s/it] 34%|███▎      | 67/200 [03:05<05:41,  2.57s/it] 34%|███▍      | 68/200 [03:08<05:42,  2.60s/it] 34%|███▍      | 69/200 [03:08<04:19,  1.98s/it] 35%|███▌      | 70/200 [03:16<07:44,  3.57s/it] 36%|███▌      | 71/200 [03:16<05:49,  2.71s/it] 36%|███▌      | 72/200 [03:19<05:36,  2.63s/it] 36%|███▋      | 73/200 [03:21<05:05,  2.41s/it] 37%|███▋      | 74/200 [03:24<05:31,  2.63s/it] 38%|███▊      | 75/200 [03:27<05:39,  2.71s/it] 38%|███▊      | 76/200 [03:28<04:56,  2.39s/it] 38%|███▊      | 77/200 [03:33<06:00,  2.93s/it] 39%|███▉      | 78/200 [03:35<05:46,  2.84s/it] 40%|███▉      | 79/200 [03:40<06:51,  3.40s/it] 40%|████      | 80/200 [03:44<07:03,  3.53s/it] 40%|████      | 81/200 [03:44<05:19,  2.69s/it] 41%|████      | 82/200 [03:46<04:43,  2.41s/it] 42%|████▏     | 83/200 [03:51<05:56,  3.05s/it] 42%|████▏     | 84/200 [03:59<08:57,  4.64s/it] 42%|████▎     | 85/200 [04:00<06:51,  3.58s/it] 43%|████▎     | 86/200 [04:02<05:33,  2.92s/it] 44%|████▎     | 87/200 [04:02<04:12,  2.23s/it] 44%|████▍     | 88/200 [04:14<09:26,  5.06s/it] 44%|████▍     | 89/200 [04:14<06:48,  3.68s/it] 45%|████▌     | 90/200 [04:17<05:59,  3.27s/it] 46%|████▌     | 91/200 [04:19<05:15,  2.89s/it] 46%|████▌     | 92/200 [04:24<06:25,  3.57s/it] 46%|████▋     | 93/200 [04:24<04:40,  2.62s/it] 47%|████▋     | 94/200 [04:25<03:47,  2.15s/it] 48%|████▊     | 95/200 [04:31<05:26,  3.11s/it] 48%|████▊     | 96/200 [04:32<04:18,  2.49s/it] 48%|████▊     | 97/200 [04:38<06:17,  3.67s/it] 49%|████▉     | 98/200 [04:39<04:40,  2.75s/it] 50%|████▉     | 99/200 [04:41<04:14,  2.52s/it] 50%|█████     | 101/200 [04:47<04:35,  2.78s/it] 51%|█████     | 102/200 [04:49<04:09,  2.54s/it] 52%|█████▏    | 103/200 [04:54<05:07,  3.17s/it] 52%|█████▏    | 104/200 [04:55<04:11,  2.62s/it] 52%|█████▎    | 105/200 [05:00<05:07,  3.24s/it] 53%|█████▎    | 106/200 [05:02<04:53,  3.13s/it] 54%|█████▎    | 107/200 [05:03<03:31,  2.27s/it] 54%|█████▍    | 108/200 [05:09<05:10,  3.38s/it] 55%|█████▍    | 109/200 [05:16<06:49,  4.50s/it] 55%|█████▌    | 110/200 [05:17<05:08,  3.42s/it] 56%|█████▌    | 111/200 [05:20<05:05,  3.44s/it] 56%|█████▌    | 112/200 [05:24<05:18,  3.62s/it] 56%|█████▋    | 113/200 [05:29<05:40,  3.91s/it] 57%|█████▋    | 114/200 [05:32<05:24,  3.78s/it] 57%|█████▊    | 115/200 [05:34<04:38,  3.27s/it] 58%|█████▊    | 116/200 [05:45<07:30,  5.36s/it] 58%|█████▊    | 117/200 [05:48<06:24,  4.63s/it] 60%|█████▉    | 119/200 [05:52<04:48,  3.56s/it] 60%|██████    | 120/200 [06:02<06:45,  5.06s/it] 60%|██████    | 121/200 [06:06<06:13,  4.73s/it] 61%|██████    | 122/200 [06:06<04:36,  3.55s/it] 62%|██████▏   | 123/200 [06:06<03:19,  2.59s/it] 62%|██████▏   | 124/200 [06:15<05:37,  4.43s/it] 62%|██████▎   | 125/200 [06:20<05:43,  4.58s/it] 63%|██████▎   | 126/200 [06:26<06:03,  4.91s/it] 64%|██████▎   | 127/200 [06:26<04:22,  3.60s/it] 64%|██████▍   | 128/200 [06:27<03:22,  2.82s/it] 64%|██████▍   | 129/200 [06:32<03:56,  3.33s/it] 65%|██████▌   | 130/200 [06:36<04:05,  3.50s/it] 66%|██████▌   | 131/200 [06:37<03:12,  2.78s/it] 66%|██████▌   | 132/200 [06:39<02:53,  2.55s/it] 66%|██████▋   | 133/200 [06:42<03:12,  2.87s/it] 67%|██████▋   | 134/200 [06:46<03:17,  3.00s/it] 68%|██████▊   | 135/200 [06:46<02:24,  2.23s/it] 68%|██████▊   | 136/200 [06:54<04:07,  3.87s/it] 68%|██████▊   | 137/200 [06:56<03:26,  3.28s/it] 69%|██████▉   | 138/200 [06:58<03:11,  3.08s/it] 70%|██████▉   | 139/200 [07:01<02:59,  2.94s/it] 70%|███████   | 140/200 [07:09<04:27,  4.46s/it] 70%|███████   | 141/200 [07:10<03:22,  3.43s/it] 71%|███████   | 142/200 [07:18<04:38,  4.80s/it] 72%|███████▏  | 143/200 [07:21<04:00,  4.22s/it] 72%|███████▏  | 144/200 [07:25<03:50,  4.11s/it] 72%|███████▎  | 145/200 [07:25<02:41,  2.93s/it] 73%|███████▎  | 146/200 [07:33<04:10,  4.64s/it] 74%|███████▎  | 147/200 [07:40<04:35,  5.20s/it] 74%|███████▍  | 148/200 [07:42<03:41,  4.27s/it] 74%|███████▍  | 149/200 [07:45<03:12,  3.77s/it] 75%|███████▌  | 150/200 [07:49<03:12,  3.84s/it] 76%|███████▌  | 151/200 [07:50<02:37,  3.21s/it] 76%|███████▌  | 152/200 [07:51<01:52,  2.34s/it] 76%|███████▋  | 153/200 [07:56<02:25,  3.09s/it] 77%|███████▋  | 154/200 [07:56<01:43,  2.26s/it] 78%|███████▊  | 155/200 [07:57<01:27,  1.94s/it] 78%|███████▊  | 156/200 [08:03<02:23,  3.25s/it] 78%|███████▊  | 157/200 [08:04<01:41,  2.36s/it] 79%|███████▉  | 158/200 [08:04<01:12,  1.73s/it] 80%|███████▉  | 159/200 [08:06<01:20,  1.95s/it] 80%|████████  | 160/200 [08:07<00:59,  1.49s/it] 80%|████████  | 161/200 [08:08<00:56,  1.45s/it] 81%|████████  | 162/200 [08:10<01:00,  1.58s/it] 82%|████████▏ | 163/200 [08:13<01:16,  2.06s/it] 82%|████████▏ | 164/200 [08:14<00:55,  1.55s/it] 82%|████████▎ | 165/200 [08:14<00:43,  1.23s/it] 83%|████████▎ | 166/200 [08:16<00:47,  1.40s/it] 84%|████████▎ | 167/200 [08:18<00:49,  1.49s/it] 84%|████████▍ | 168/200 [08:22<01:18,  2.45s/it] 84%|████████▍ | 169/200 [08:27<01:35,  3.10s/it] 85%|████████▌ | 170/200 [08:28<01:15,  2.50s/it] 86%|████████▌ | 171/200 [08:30<01:07,  2.34s/it] 86%|████████▌ | 172/200 [08:32<00:59,  2.12s/it] 86%|████████▋ | 173/200 [08:39<01:38,  3.66s/it] 87%|████████▋ | 174/200 [08:40<01:16,  2.93s/it] 88%|████████▊ | 175/200 [08:42<01:05,  2.63s/it] 88%|████████▊ | 176/200 [08:43<00:52,  2.17s/it] 88%|████████▊ | 177/200 [08:49<01:12,  3.16s/it] 89%|████████▉ | 178/200 [08:50<00:59,  2.72s/it] 90%|████████▉ | 179/200 [08:53<00:54,  2.61s/it] 90%|█████████ | 180/200 [08:54<00:42,  2.12s/it] 90%|█████████ | 181/200 [08:57<00:48,  2.55s/it] 91%|█████████ | 182/200 [08:58<00:36,  2.04s/it] 92%|█████████▏| 183/200 [09:03<00:49,  2.91s/it] 92%|█████████▏| 184/200 [09:03<00:34,  2.13s/it] 92%|█████████▎| 185/200 [09:03<00:23,  1.54s/it] 93%|█████████▎| 186/200 [09:06<00:24,  1.71s/it] 94%|█████████▎| 187/200 [09:12<00:39,  3.01s/it] 94%|█████████▍| 188/200 [09:12<00:26,  2.21s/it] 94%|█████████▍| 189/200 [09:15<00:25,  2.35s/it] 95%|█████████▌| 190/200 [09:19<00:30,  3.02s/it] 96%|█████████▌| 191/200 [09:24<00:32,  3.62s/it] 96%|█████████▌| 192/200 [09:27<00:27,  3.40s/it] 96%|█████████▋| 193/200 [09:36<00:36,  5.16s/it] 97%|█████████▋| 194/200 [09:43<00:32,  5.48s/it] 98%|█████████▊| 195/200 [09:43<00:20,  4.08s/it] 98%|█████████▊| 196/200 [09:44<00:11,  2.91s/it] 98%|█████████▊| 197/200 [09:53<00:14,  4.92s/it] 99%|█████████▉| 198/200 [09:57<00:09,  4.54s/it]100%|█████████▉| 199/200 [09:59<00:03,  3.78s/it]100%|██████████| 200/200 [10:00<00:00,  2.99s/it]100%|██████████| 200/200 [10:01<00:00,  3.01s/it]I1130 15:04:40.056633 115627 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I1130 15:04:40.056814 115627 SemanticScene.h:41] Deconstructing SemanticScene
+I1130 15:04:40.056972 115626 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I1130 15:04:40.057327 115626 SemanticScene.h:41] Deconstructing SemanticScene
+I1130 15:04:40.057971 115628 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I1130 15:04:40.058284 115628 SemanticScene.h:41] Deconstructing SemanticScene
+I1130 15:04:40.069646 115629 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I1130 15:04:40.069904 115629 SemanticScene.h:41] Deconstructing SemanticScene
+I1130 15:04:40.071743 115627 SceneManager.h:25] Deconstructing SceneManager
+I1130 15:04:40.071775 115627 SceneGraph.h:26] Deconstructing SceneGraph
+I1130 15:04:40.072902 115627 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.073290 115627 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.086078 115626 SceneManager.h:25] Deconstructing SceneManager
+I1130 15:04:40.086138 115626 SceneGraph.h:26] Deconstructing SceneGraph
+I1130 15:04:40.087667 115626 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.088320 115626 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.094203 115627 Renderer.cpp:34] Deconstructing Renderer
+I1130 15:04:40.094236 115627 WindowlessContext.h:17] Deconstructing WindowlessContext
+I1130 15:04:40.098984 115629 SceneManager.h:25] Deconstructing SceneManager
+I1130 15:04:40.099041 115629 SceneGraph.h:26] Deconstructing SceneGraph
+I1130 15:04:40.100145 115629 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.100731 115629 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.101013 115628 SceneManager.h:25] Deconstructing SceneManager
+I1130 15:04:40.101065 115628 SceneGraph.h:26] Deconstructing SceneGraph
+I1130 15:04:40.103663 115628 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.104290 115628 Sensor.h:87] Deconstructing Sensor
+I1130 15:04:40.126089 115626 Renderer.cpp:34] Deconstructing Renderer
+I1130 15:04:40.126145 115626 WindowlessContext.h:17] Deconstructing WindowlessContext
+I1130 15:04:40.132822 115629 Renderer.cpp:34] Deconstructing Renderer
+I1130 15:04:40.132869 115629 WindowlessContext.h:17] Deconstructing WindowlessContext
+I1130 15:04:40.177052 115628 Renderer.cpp:34] Deconstructing Renderer
+I1130 15:04:40.177141 115628 WindowlessContext.h:17] Deconstructing WindowlessContext
+I1130 15:04:40.403230 115627 Simulator.cpp:49] Deconstructing Simulator
+I1130 15:04:40.701892 115629 Simulator.cpp:49] Deconstructing Simulator
+I1130 15:04:40.815654 115626 Simulator.cpp:49] Deconstructing Simulator
+I1130 15:04:40.873653 115628 Simulator.cpp:49] Deconstructing Simulator
+
+  0%|          | 0/5 [00:00<?, ?it/s]
+  0%|          | 0/40 [00:00<?, ?it/s][A2023-11-30 15:04:43,475 train_loss: 0.8213093280792236
+2023-11-30 15:04:43,476 train_action_loss: 0.8138077259063721
+2023-11-30 15:04:43,476 train_aux_loss: 0.007501583080738783
+2023-11-30 15:04:43,476 Batches processed: 0.
+2023-11-30 15:04:43,476 On DAgger iter 0, Epoch 0.
+
+  2%|▎         | 1/40 [00:02<01:35,  2.44s/it][A2023-11-30 15:04:43,578 train_loss: 1.1490176916122437
+2023-11-30 15:04:43,579 train_action_loss: 1.0711398124694824
+2023-11-30 15:04:43,579 train_aux_loss: 0.07787790149450302
+2023-11-30 15:04:43,579 Batches processed: 1.
+2023-11-30 15:04:43,579 On DAgger iter 0, Epoch 0.
+
+  5%|▌         | 2/40 [00:02<00:40,  1.07s/it][A2023-11-30 15:04:43,664 train_loss: 0.7502655386924744
+2023-11-30 15:04:43,664 train_action_loss: 0.7456150054931641
+2023-11-30 15:04:43,664 train_aux_loss: 0.004650556948035955
+2023-11-30 15:04:43,664 Batches processed: 2.
+2023-11-30 15:04:43,664 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:43,807 train_loss: 0.9560006856918335
+2023-11-30 15:04:43,807 train_action_loss: 0.9153667688369751
+2023-11-30 15:04:43,807 train_aux_loss: 0.040633901953697205
+2023-11-30 15:04:43,807 Batches processed: 3.
+2023-11-30 15:04:43,807 On DAgger iter 0, Epoch 0.
+
+ 10%|█         | 4/40 [00:02<00:16,  2.13it/s][A2023-11-30 15:04:43,936 train_loss: 1.0443893671035767
+2023-11-30 15:04:43,936 train_action_loss: 1.0304309129714966
+2023-11-30 15:04:43,936 train_aux_loss: 0.013958451338112354
+2023-11-30 15:04:43,936 Batches processed: 4.
+2023-11-30 15:04:43,936 On DAgger iter 0, Epoch 0.
+
+ 12%|█▎        | 5/40 [00:02<00:12,  2.75it/s][A2023-11-30 15:04:44,042 train_loss: 0.8748592138290405
+2023-11-30 15:04:44,042 train_action_loss: 0.8518827557563782
+2023-11-30 15:04:44,042 train_aux_loss: 0.022976431995630264
+2023-11-30 15:04:44,042 Batches processed: 5.
+2023-11-30 15:04:44,042 On DAgger iter 0, Epoch 0.
+
+ 15%|█▌        | 6/40 [00:03<00:09,  3.51it/s][A2023-11-30 15:04:44,123 train_loss: 0.9993793964385986
+2023-11-30 15:04:44,124 train_action_loss: 0.9912617206573486
+2023-11-30 15:04:44,124 train_aux_loss: 0.008117660880088806
+2023-11-30 15:04:44,124 Batches processed: 6.
+2023-11-30 15:04:44,124 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:44,228 train_loss: 0.8814427852630615
+2023-11-30 15:04:44,228 train_action_loss: 0.8610119819641113
+2023-11-30 15:04:44,228 train_aux_loss: 0.020430777221918106
+2023-11-30 15:04:44,228 Batches processed: 7.
+2023-11-30 15:04:44,228 On DAgger iter 0, Epoch 0.
+
+ 20%|██        | 8/40 [00:03<00:06,  5.12it/s][A2023-11-30 15:04:44,333 train_loss: 0.9237008690834045
+2023-11-30 15:04:44,334 train_action_loss: 0.9032228589057922
+2023-11-30 15:04:44,334 train_aux_loss: 0.02047799713909626
+2023-11-30 15:04:44,334 Batches processed: 8.
+2023-11-30 15:04:44,334 On DAgger iter 0, Epoch 0.
+
+ 22%|██▎       | 9/40 [00:03<00:05,  5.79it/s][A2023-11-30 15:04:44,417 train_loss: 0.858797550201416
+2023-11-30 15:04:44,417 train_action_loss: 0.8478675484657288
+2023-11-30 15:04:44,417 train_aux_loss: 0.010929971933364868
+2023-11-30 15:04:44,418 Batches processed: 9.
+2023-11-30 15:04:44,418 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:44,500 train_loss: 1.13711678981781
+2023-11-30 15:04:44,501 train_action_loss: 1.1023684740066528
+2023-11-30 15:04:44,501 train_aux_loss: 0.03474831208586693
+2023-11-30 15:04:44,501 Batches processed: 10.
+2023-11-30 15:04:44,501 On DAgger iter 0, Epoch 0.
+
+ 28%|██▊       | 11/40 [00:03<00:03,  7.37it/s][A2023-11-30 15:04:44,627 train_loss: 0.7832373976707458
+2023-11-30 15:04:44,628 train_action_loss: 0.7757917046546936
+2023-11-30 15:04:44,628 train_aux_loss: 0.007445682771503925
+2023-11-30 15:04:44,628 Batches processed: 11.
+2023-11-30 15:04:44,628 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:44,719 train_loss: 0.564730167388916
+2023-11-30 15:04:44,719 train_action_loss: 0.5581531524658203
+2023-11-30 15:04:44,719 train_aux_loss: 0.006577037740498781
+2023-11-30 15:04:44,719 Batches processed: 12.
+2023-11-30 15:04:44,719 On DAgger iter 0, Epoch 0.
+
+ 32%|███▎      | 13/40 [00:03<00:03,  7.95it/s][A2023-11-30 15:04:44,805 train_loss: 0.8125746250152588
+2023-11-30 15:04:44,805 train_action_loss: 0.8003548383712769
+2023-11-30 15:04:44,805 train_aux_loss: 0.012219775468111038
+2023-11-30 15:04:44,805 Batches processed: 13.
+2023-11-30 15:04:44,805 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:44,911 train_loss: 0.8669469952583313
+2023-11-30 15:04:44,911 train_action_loss: 0.8597699403762817
+2023-11-30 15:04:44,911 train_aux_loss: 0.007177079562097788
+2023-11-30 15:04:44,927 Batches processed: 14.
+2023-11-30 15:04:44,927 On DAgger iter 0, Epoch 0.
+
+ 38%|███▊      | 15/40 [00:03<00:02,  8.46it/s][A2023-11-30 15:04:45,008 train_loss: 0.8327491283416748
+2023-11-30 15:04:45,008 train_action_loss: 0.823173999786377
+2023-11-30 15:04:45,009 train_aux_loss: 0.00957514252513647
+2023-11-30 15:04:45,009 Batches processed: 15.
+2023-11-30 15:04:45,009 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:45,105 train_loss: 0.7676750421524048
+2023-11-30 15:04:45,105 train_action_loss: 0.7518702149391174
+2023-11-30 15:04:45,105 train_aux_loss: 0.015804804861545563
+2023-11-30 15:04:45,105 Batches processed: 16.
+2023-11-30 15:04:45,105 On DAgger iter 0, Epoch 0.
+
+ 42%|████▎     | 17/40 [00:04<00:02,  9.22it/s][A2023-11-30 15:04:45,210 train_loss: 0.6382795572280884
+2023-11-30 15:04:45,210 train_action_loss: 0.6272156834602356
+2023-11-30 15:04:45,210 train_aux_loss: 0.011063845828175545
+2023-11-30 15:04:45,210 Batches processed: 17.
+2023-11-30 15:04:45,210 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:45,289 train_loss: 0.7712113857269287
+2023-11-30 15:04:45,289 train_action_loss: 0.7634114027023315
+2023-11-30 15:04:45,289 train_aux_loss: 0.007799968123435974
+2023-11-30 15:04:45,289 Batches processed: 18.
+2023-11-30 15:04:45,289 On DAgger iter 0, Epoch 0.
+
+ 48%|████▊     | 19/40 [00:04<00:02,  9.69it/s][A2023-11-30 15:04:45,376 train_loss: 0.6995559930801392
+2023-11-30 15:04:45,377 train_action_loss: 0.695173442363739
+2023-11-30 15:04:45,377 train_aux_loss: 0.004382542334496975
+2023-11-30 15:04:45,377 Batches processed: 19.
+2023-11-30 15:04:45,377 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:45,500 train_loss: 0.7522385716438293
+2023-11-30 15:04:45,500 train_action_loss: 0.7457732558250427
+2023-11-30 15:04:45,500 train_aux_loss: 0.006465344224125147
+2023-11-30 15:04:45,500 Batches processed: 20.
+2023-11-30 15:04:45,500 On DAgger iter 0, Epoch 0.
+
+ 52%|█████▎    | 21/40 [00:04<00:01,  9.63it/s][A2023-11-30 15:04:45,587 train_loss: 0.8998380303382874
+2023-11-30 15:04:45,587 train_action_loss: 0.8743017911911011
+2023-11-30 15:04:45,587 train_aux_loss: 0.02553625777363777
+2023-11-30 15:04:45,587 Batches processed: 21.
+2023-11-30 15:04:45,587 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:45,689 train_loss: 0.9207766652107239
+2023-11-30 15:04:45,690 train_action_loss: 0.9096080660820007
+2023-11-30 15:04:45,690 train_aux_loss: 0.01116860844194889
+2023-11-30 15:04:45,690 Batches processed: 22.
+2023-11-30 15:04:45,690 On DAgger iter 0, Epoch 0.
+
+ 57%|█████▊    | 23/40 [00:04<00:01,  9.89it/s][A2023-11-30 15:04:45,815 train_loss: 0.8221107125282288
+2023-11-30 15:04:45,815 train_action_loss: 0.798801600933075
+2023-11-30 15:04:45,815 train_aux_loss: 0.02330910786986351
+2023-11-30 15:04:45,815 Batches processed: 23.
+2023-11-30 15:04:45,815 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:45,908 train_loss: 0.6241765022277832
+2023-11-30 15:04:45,908 train_action_loss: 0.6124692559242249
+2023-11-30 15:04:45,908 train_aux_loss: 0.011707247234880924
+2023-11-30 15:04:45,908 Batches processed: 24.
+2023-11-30 15:04:45,908 On DAgger iter 0, Epoch 0.
+
+ 62%|██████▎   | 25/40 [00:04<00:01,  9.66it/s][A2023-11-30 15:04:46,011 train_loss: 0.8347733616828918
+2023-11-30 15:04:46,011 train_action_loss: 0.8094103932380676
+2023-11-30 15:04:46,011 train_aux_loss: 0.02536299265921116
+2023-11-30 15:04:46,011 Batches processed: 25.
+2023-11-30 15:04:46,011 On DAgger iter 0, Epoch 0.
+
+ 65%|██████▌   | 26/40 [00:04<00:01,  9.66it/s][A2023-11-30 15:04:46,109 train_loss: 0.6730973720550537
+2023-11-30 15:04:46,109 train_action_loss: 0.6540176272392273
+2023-11-30 15:04:46,110 train_aux_loss: 0.019079729914665222
+2023-11-30 15:04:46,110 Batches processed: 26.
+2023-11-30 15:04:46,110 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:46,197 train_loss: 0.7835975885391235
+2023-11-30 15:04:46,198 train_action_loss: 0.7606538534164429
+2023-11-30 15:04:46,198 train_aux_loss: 0.022943733260035515
+2023-11-30 15:04:46,198 Batches processed: 27.
+2023-11-30 15:04:46,198 On DAgger iter 0, Epoch 0.
+
+ 70%|███████   | 28/40 [00:05<00:01, 10.00it/s][A2023-11-30 15:04:46,302 train_loss: 0.7364619374275208
+2023-11-30 15:04:46,302 train_action_loss: 0.7206851243972778
+2023-11-30 15:04:46,302 train_aux_loss: 0.015776807442307472
+2023-11-30 15:04:46,302 Batches processed: 28.
+2023-11-30 15:04:46,303 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:46,402 train_loss: 0.5820350646972656
+2023-11-30 15:04:46,402 train_action_loss: 0.5701196193695068
+2023-11-30 15:04:46,402 train_aux_loss: 0.011915422976016998
+2023-11-30 15:04:46,403 Batches processed: 29.
+2023-11-30 15:04:46,403 On DAgger iter 0, Epoch 0.
+
+ 75%|███████▌  | 30/40 [00:05<00:01,  9.91it/s][A2023-11-30 15:04:46,498 train_loss: 0.7610436081886292
+2023-11-30 15:04:46,499 train_action_loss: 0.7544867396354675
+2023-11-30 15:04:46,499 train_aux_loss: 0.006556870881468058
+2023-11-30 15:04:46,499 Batches processed: 30.
+2023-11-30 15:04:46,499 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:46,581 train_loss: 0.6226887702941895
+2023-11-30 15:04:46,581 train_action_loss: 0.6103105545043945
+2023-11-30 15:04:46,581 train_aux_loss: 0.012378200888633728
+2023-11-30 15:04:46,581 Batches processed: 31.
+2023-11-30 15:04:46,581 On DAgger iter 0, Epoch 0.
+
+ 80%|████████  | 32/40 [00:05<00:00, 10.30it/s][A2023-11-30 15:04:46,680 train_loss: 0.734746515750885
+2023-11-30 15:04:46,680 train_action_loss: 0.7167603969573975
+2023-11-30 15:04:46,680 train_aux_loss: 0.017986126244068146
+2023-11-30 15:04:46,681 Batches processed: 32.
+2023-11-30 15:04:46,681 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:46,760 train_loss: 0.8051970601081848
+2023-11-30 15:04:46,760 train_action_loss: 0.7820571064949036
+2023-11-30 15:04:46,760 train_aux_loss: 0.023139942437410355
+2023-11-30 15:04:46,760 Batches processed: 33.
+2023-11-30 15:04:46,760 On DAgger iter 0, Epoch 0.
+
+ 85%|████████▌ | 34/40 [00:05<00:00, 10.56it/s][A2023-11-30 15:04:46,858 train_loss: 0.8461874127388
+2023-11-30 15:04:46,858 train_action_loss: 0.8221539855003357
+2023-11-30 15:04:46,858 train_aux_loss: 0.024033447727560997
+2023-11-30 15:04:46,858 Batches processed: 34.
+2023-11-30 15:04:46,858 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:46,943 train_loss: 0.6224579811096191
+2023-11-30 15:04:46,943 train_action_loss: 0.6181874871253967
+2023-11-30 15:04:46,943 train_aux_loss: 0.004270486067980528
+2023-11-30 15:04:46,943 Batches processed: 35.
+2023-11-30 15:04:46,943 On DAgger iter 0, Epoch 0.
+
+ 90%|█████████ | 36/40 [00:05<00:00, 10.67it/s][A2023-11-30 15:04:47,038 train_loss: 0.6560298800468445
+2023-11-30 15:04:47,038 train_action_loss: 0.6457589268684387
+2023-11-30 15:04:47,038 train_aux_loss: 0.010270924307405949
+2023-11-30 15:04:47,038 Batches processed: 36.
+2023-11-30 15:04:47,039 On DAgger iter 0, Epoch 0.
+2023-11-30 15:04:47,134 train_loss: 0.8726211190223694
+2023-11-30 15:04:47,134 train_action_loss: 0.8393109440803528
+2023-11-30 15:04:47,134 train_aux_loss: 0.03331019729375839
+2023-11-30 15:04:47,135 Batches processed: 37.
+2023-11-30 15:04:47,135 On DAgger iter 0, Epoch 0.
+
+ 95%|█████████▌| 38/40 [00:06<00:00, 10.60it/s][A2023-11-30 15:04:47,270 train_loss: 0.6160115003585815
+2023-11-30 15:04:47,270 train_action_loss: 0.6075648665428162
+2023-11-30 15:04:47,270 train_aux_loss: 0.00844661146402359
+2023-11-30 15:04:47,270 Batches processed: 38.
+2023-11-30 15:04:47,270 On DAgger iter 0, Epoch 0.
+
+                                               [A 20%|██        | 1/5 [00:06<00:26,  6.64s/it]
+  0%|          | 0/40 [00:00<?, ?it/s][A2023-11-30 15:04:49,366 train_loss: 0.691087543964386
+2023-11-30 15:04:49,367 train_action_loss: 0.6855165958404541
+2023-11-30 15:04:49,367 train_aux_loss: 0.005570936482399702
+2023-11-30 15:04:49,367 Batches processed: 39.
+2023-11-30 15:04:49,367 On DAgger iter 0, Epoch 1.
+
+  2%|▎         | 1/40 [00:01<01:05,  1.69s/it][A2023-11-30 15:04:49,476 train_loss: 0.7399201989173889
+2023-11-30 15:04:49,476 train_action_loss: 0.734963595867157
+2023-11-30 15:04:49,476 train_aux_loss: 0.004956585820764303
+2023-11-30 15:04:49,476 Batches processed: 40.
+2023-11-30 15:04:49,476 On DAgger iter 0, Epoch 1.
+
+  5%|▌         | 2/40 [00:01<00:28,  1.32it/s][A2023-11-30 15:04:49,564 train_loss: 0.6412034034729004
+2023-11-30 15:04:49,564 train_action_loss: 0.6308256387710571
+2023-11-30 15:04:49,564 train_aux_loss: 0.010377762839198112
+2023-11-30 15:04:49,564 Batches processed: 41.
+2023-11-30 15:04:49,564 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:49,664 train_loss: 0.7837371826171875
+2023-11-30 15:04:49,664 train_action_loss: 0.7735289931297302
+2023-11-30 15:04:49,664 train_aux_loss: 0.010208218358457088
+2023-11-30 15:04:49,664 Batches processed: 42.
+2023-11-30 15:04:49,664 On DAgger iter 0, Epoch 1.
+
+ 10%|█         | 4/40 [00:01<00:12,  2.92it/s][A2023-11-30 15:04:49,759 train_loss: 0.7021834254264832
+2023-11-30 15:04:49,760 train_action_loss: 0.6808099746704102
+2023-11-30 15:04:49,760 train_aux_loss: 0.021373474970459938
+2023-11-30 15:04:49,760 Batches processed: 43.
+2023-11-30 15:04:49,760 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:49,851 train_loss: 0.6112416982650757
+2023-11-30 15:04:49,851 train_action_loss: 0.6064991354942322
+2023-11-30 15:04:49,851 train_aux_loss: 0.004742573946714401
+2023-11-30 15:04:49,852 Batches processed: 44.
+2023-11-30 15:04:49,852 On DAgger iter 0, Epoch 1.
+
+ 15%|█▌        | 6/40 [00:02<00:07,  4.44it/s][A2023-11-30 15:04:49,936 train_loss: 0.5314124822616577
+2023-11-30 15:04:49,936 train_action_loss: 0.5260499119758606
+2023-11-30 15:04:49,936 train_aux_loss: 0.005362564232200384
+2023-11-30 15:04:49,936 Batches processed: 45.
+2023-11-30 15:04:49,936 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,037 train_loss: 0.6760833263397217
+2023-11-30 15:04:50,037 train_action_loss: 0.6662108302116394
+2023-11-30 15:04:50,037 train_aux_loss: 0.009872516617178917
+2023-11-30 15:04:50,037 Batches processed: 46.
+2023-11-30 15:04:50,037 On DAgger iter 0, Epoch 1.
+
+ 20%|██        | 8/40 [00:02<00:05,  5.83it/s][A2023-11-30 15:04:50,132 train_loss: 0.7725229263305664
+2023-11-30 15:04:50,132 train_action_loss: 0.7527229189872742
+2023-11-30 15:04:50,132 train_aux_loss: 0.019800016656517982
+2023-11-30 15:04:50,133 Batches processed: 47.
+2023-11-30 15:04:50,133 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,233 train_loss: 0.8123255372047424
+2023-11-30 15:04:50,233 train_action_loss: 0.7952383160591125
+2023-11-30 15:04:50,233 train_aux_loss: 0.017087195068597794
+2023-11-30 15:04:50,233 Batches processed: 48.
+2023-11-30 15:04:50,233 On DAgger iter 0, Epoch 1.
+
+ 25%|██▌       | 10/40 [00:02<00:04,  6.91it/s][A2023-11-30 15:04:50,316 train_loss: 0.815963089466095
+2023-11-30 15:04:50,316 train_action_loss: 0.8104245066642761
+2023-11-30 15:04:50,316 train_aux_loss: 0.005538599099963903
+2023-11-30 15:04:50,316 Batches processed: 49.
+2023-11-30 15:04:50,317 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,400 train_loss: 0.47303444147109985
+2023-11-30 15:04:50,400 train_action_loss: 0.4667426645755768
+2023-11-30 15:04:50,400 train_aux_loss: 0.006291772238910198
+2023-11-30 15:04:50,400 Batches processed: 50.
+2023-11-30 15:04:50,400 On DAgger iter 0, Epoch 1.
+
+ 30%|███       | 12/40 [00:02<00:03,  8.08it/s][A2023-11-30 15:04:50,483 train_loss: 0.6550058126449585
+2023-11-30 15:04:50,484 train_action_loss: 0.6345264911651611
+2023-11-30 15:04:50,484 train_aux_loss: 0.020479317754507065
+2023-11-30 15:04:50,484 Batches processed: 51.
+2023-11-30 15:04:50,484 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,588 train_loss: 0.5594801902770996
+2023-11-30 15:04:50,589 train_action_loss: 0.5427731871604919
+2023-11-30 15:04:50,589 train_aux_loss: 0.01670699380338192
+2023-11-30 15:04:50,589 Batches processed: 52.
+2023-11-30 15:04:50,589 On DAgger iter 0, Epoch 1.
+
+ 35%|███▌      | 14/40 [00:02<00:02,  8.77it/s][A2023-11-30 15:04:50,676 train_loss: 0.5218023061752319
+2023-11-30 15:04:50,676 train_action_loss: 0.5120276808738708
+2023-11-30 15:04:50,676 train_aux_loss: 0.009774613194167614
+2023-11-30 15:04:50,676 Batches processed: 53.
+2023-11-30 15:04:50,676 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,773 train_loss: 0.7397259473800659
+2023-11-30 15:04:50,773 train_action_loss: 0.7352151870727539
+2023-11-30 15:04:50,773 train_aux_loss: 0.004510735161602497
+2023-11-30 15:04:50,773 Batches processed: 54.
+2023-11-30 15:04:50,773 On DAgger iter 0, Epoch 1.
+
+ 40%|████      | 16/40 [00:03<00:02,  9.33it/s][A2023-11-30 15:04:50,856 train_loss: 0.7213995456695557
+2023-11-30 15:04:50,856 train_action_loss: 0.7137381434440613
+2023-11-30 15:04:50,856 train_aux_loss: 0.007661416660994291
+2023-11-30 15:04:50,856 Batches processed: 55.
+2023-11-30 15:04:50,856 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:50,946 train_loss: 0.5494314432144165
+2023-11-30 15:04:50,946 train_action_loss: 0.533254086971283
+2023-11-30 15:04:50,946 train_aux_loss: 0.016177373006939888
+2023-11-30 15:04:50,946 Batches processed: 56.
+2023-11-30 15:04:50,946 On DAgger iter 0, Epoch 1.
+
+ 45%|████▌     | 18/40 [00:03<00:02,  9.94it/s][A2023-11-30 15:04:51,046 train_loss: 0.6480391025543213
+2023-11-30 15:04:51,047 train_action_loss: 0.6303794384002686
+2023-11-30 15:04:51,047 train_aux_loss: 0.017659664154052734
+2023-11-30 15:04:51,047 Batches processed: 57.
+2023-11-30 15:04:51,047 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:51,142 train_loss: 0.7465864419937134
+2023-11-30 15:04:51,142 train_action_loss: 0.7410581111907959
+2023-11-30 15:04:51,142 train_aux_loss: 0.005528360139578581
+2023-11-30 15:04:51,143 Batches processed: 58.
+2023-11-30 15:04:51,143 On DAgger iter 0, Epoch 1.
+
+ 50%|█████     | 20/40 [00:03<00:01, 10.01it/s][A2023-11-30 15:04:51,227 train_loss: 0.5822063684463501
+2023-11-30 15:04:51,228 train_action_loss: 0.5766918659210205
+2023-11-30 15:04:51,229 train_aux_loss: 0.0055144852958619595
+2023-11-30 15:04:51,229 Batches processed: 59.
+2023-11-30 15:04:51,229 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:51,325 train_loss: 0.6989391446113586
+2023-11-30 15:04:51,325 train_action_loss: 0.6883779168128967
+2023-11-30 15:04:51,326 train_aux_loss: 0.010561238043010235
+2023-11-30 15:04:51,326 Batches processed: 60.
+2023-11-30 15:04:51,326 On DAgger iter 0, Epoch 1.
+
+ 55%|█████▌    | 22/40 [00:03<00:01, 10.28it/s][A2023-11-30 15:04:51,433 train_loss: 0.5388094186782837
+2023-11-30 15:04:51,433 train_action_loss: 0.5198283195495605
+2023-11-30 15:04:51,433 train_aux_loss: 0.018981071189045906
+2023-11-30 15:04:51,433 Batches processed: 61.
+2023-11-30 15:04:51,433 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:51,526 train_loss: 0.6453966498374939
+2023-11-30 15:04:51,526 train_action_loss: 0.6373415589332581
+2023-11-30 15:04:51,526 train_aux_loss: 0.008055111393332481
+2023-11-30 15:04:51,526 Batches processed: 62.
+2023-11-30 15:04:51,526 On DAgger iter 0, Epoch 1.
+
+ 60%|██████    | 24/40 [00:03<00:01, 10.18it/s][A2023-11-30 15:04:51,615 train_loss: 0.7237703204154968
+2023-11-30 15:04:51,615 train_action_loss: 0.7179972529411316
+2023-11-30 15:04:51,615 train_aux_loss: 0.005773067940026522
+2023-11-30 15:04:51,615 Batches processed: 63.
+2023-11-30 15:04:51,615 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:51,712 train_loss: 0.5632587671279907
+2023-11-30 15:04:51,712 train_action_loss: 0.5596047639846802
+2023-11-30 15:04:51,712 train_aux_loss: 0.003654018510133028
+2023-11-30 15:04:51,712 Batches processed: 64.
+2023-11-30 15:04:51,713 On DAgger iter 0, Epoch 1.
+
+ 65%|██████▌   | 26/40 [00:04<00:01, 10.34it/s][A2023-11-30 15:04:51,850 train_loss: 0.602948784828186
+2023-11-30 15:04:51,851 train_action_loss: 0.5905479192733765
+2023-11-30 15:04:51,851 train_aux_loss: 0.012400873005390167
+2023-11-30 15:04:51,851 Batches processed: 65.
+2023-11-30 15:04:51,851 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:51,947 train_loss: 0.7934021949768066
+2023-11-30 15:04:51,947 train_action_loss: 0.7532731294631958
+2023-11-30 15:04:51,947 train_aux_loss: 0.04012907296419144
+2023-11-30 15:04:51,947 Batches processed: 66.
+2023-11-30 15:04:51,948 On DAgger iter 0, Epoch 1.
+
+ 70%|███████   | 28/40 [00:04<00:01,  9.71it/s][A2023-11-30 15:04:52,031 train_loss: 0.6713583469390869
+2023-11-30 15:04:52,031 train_action_loss: 0.6636185050010681
+2023-11-30 15:04:52,031 train_aux_loss: 0.007739844731986523
+2023-11-30 15:04:52,031 Batches processed: 67.
+2023-11-30 15:04:52,031 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:52,117 train_loss: 0.6190342307090759
+2023-11-30 15:04:52,117 train_action_loss: 0.6110450625419617
+2023-11-30 15:04:52,117 train_aux_loss: 0.007989185862243176
+2023-11-30 15:04:52,117 Batches processed: 68.
+2023-11-30 15:04:52,117 On DAgger iter 0, Epoch 1.
+
+ 75%|███████▌  | 30/40 [00:04<00:00, 10.25it/s][A2023-11-30 15:04:52,215 train_loss: 0.695285975933075
+2023-11-30 15:04:52,215 train_action_loss: 0.6828994750976562
+2023-11-30 15:04:52,215 train_aux_loss: 0.01238650269806385
+2023-11-30 15:04:52,215 Batches processed: 69.
+2023-11-30 15:04:52,215 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:52,317 train_loss: 0.7201595306396484
+2023-11-30 15:04:52,317 train_action_loss: 0.6967574954032898
+2023-11-30 15:04:52,317 train_aux_loss: 0.023402037099003792
+2023-11-30 15:04:52,317 Batches processed: 70.
+2023-11-30 15:04:52,317 On DAgger iter 0, Epoch 1.
+
+ 80%|████████  | 32/40 [00:04<00:00, 10.18it/s][A2023-11-30 15:04:52,436 train_loss: 0.5942948460578918
+2023-11-30 15:04:52,436 train_action_loss: 0.5797756314277649
+2023-11-30 15:04:52,436 train_aux_loss: 0.014519190415740013
+2023-11-30 15:04:52,436 Batches processed: 71.
+2023-11-30 15:04:52,436 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:52,518 train_loss: 0.5490988492965698
+2023-11-30 15:04:52,519 train_action_loss: 0.5448107719421387
+2023-11-30 15:04:52,519 train_aux_loss: 0.004288076423108578
+2023-11-30 15:04:52,519 Batches processed: 72.
+2023-11-30 15:04:52,519 On DAgger iter 0, Epoch 1.
+
+ 85%|████████▌ | 34/40 [00:04<00:00, 10.10it/s][A2023-11-30 15:04:52,649 train_loss: 0.7989498376846313
+2023-11-30 15:04:52,649 train_action_loss: 0.788849413394928
+2023-11-30 15:04:52,649 train_aux_loss: 0.01010039635002613
+2023-11-30 15:04:52,649 Batches processed: 73.
+2023-11-30 15:04:52,649 On DAgger iter 0, Epoch 1.
+2023-11-30 15:04:52,765 train_loss: 0.6410841345787048
+2023-11-30 15:04:52,766 train_action_loss: 0.6270581483840942
+2023-11-30 15:04:52,766 train_aux_loss: 0.014025957323610783
+2023-11-30 15:04:52,766 Batches processed: 74.
+2023-11-30 15:04:52,766 On DAgger iter 0, Epoch 1.
+
+ 90%|█████████ | 36/40 [00:05<00:00,  9.40it/s][A2023-11-30 15:04:52,871 train_loss: 0.7508726716041565
+2023-11-30 15:04:52,871 train_action_loss: 0.7370818257331848
+2023-11-30 15:04:52,871 train_aux_loss: 0.013790830969810486
+2023-11-30 15:04:52,872 Batches processed: 75.
+2023-11-30 15:04:52,872 On DAgger iter 0, Epoch 1.
+
+ 92%|█████████▎| 37/40 [00:05<00:00,  9.40it/s][A2023-11-30 15:04:53,001 train_loss: 0.7831766605377197
+2023-11-30 15:04:53,002 train_action_loss: 0.7652646899223328
+2023-11-30 15:04:53,002 train_aux_loss: 0.017911942675709724
+2023-11-30 15:04:53,002 Batches processed: 76.
+2023-11-30 15:04:53,002 On DAgger iter 0, Epoch 1.
+
+ 95%|█████████▌| 38/40 [00:05<00:00,  8.99it/s][A2023-11-30 15:04:53,166 train_loss: 0.6745327711105347
+2023-11-30 15:04:53,166 train_action_loss: 0.6681652069091797
+2023-11-30 15:04:53,167 train_aux_loss: 0.006367552559822798
+2023-11-30 15:04:53,167 Batches processed: 77.
+2023-11-30 15:04:53,167 On DAgger iter 0, Epoch 1.
+
+ 98%|█████████▊| 39/40 [00:05<00:00,  8.12it/s][A
+                                               [A 40%|████      | 2/5 [00:12<00:18,  6.24s/it]
+  0%|          | 0/40 [00:00<?, ?it/s][A2023-11-30 15:04:55,327 train_loss: 0.6133356094360352
+2023-11-30 15:04:55,328 train_action_loss: 0.6093186140060425
+2023-11-30 15:04:55,328 train_aux_loss: 0.004017023369669914
+2023-11-30 15:04:55,328 Batches processed: 78.
+2023-11-30 15:04:55,328 On DAgger iter 0, Epoch 2.
+
+  2%|▎         | 1/40 [00:01<01:06,  1.70s/it][A2023-11-30 15:04:55,431 train_loss: 0.6178147792816162
+2023-11-30 15:04:55,431 train_action_loss: 0.608316957950592
+2023-11-30 15:04:55,431 train_aux_loss: 0.009497836232185364
+2023-11-30 15:04:55,431 Batches processed: 79.
+2023-11-30 15:04:55,431 On DAgger iter 0, Epoch 2.
+
+  5%|▌         | 2/40 [00:01<00:28,  1.31it/s][A2023-11-30 15:04:55,552 train_loss: 0.5717215538024902
+2023-11-30 15:04:55,552 train_action_loss: 0.5498098134994507
+2023-11-30 15:04:55,552 train_aux_loss: 0.02191172167658806
+2023-11-30 15:04:55,552 Batches processed: 80.
+2023-11-30 15:04:55,552 On DAgger iter 0, Epoch 2.
+
+  8%|▊         | 3/40 [00:01<00:17,  2.13it/s][A2023-11-30 15:04:55,681 train_loss: 0.6784806847572327
+2023-11-30 15:04:55,681 train_action_loss: 0.6645705699920654
+2023-11-30 15:04:55,681 train_aux_loss: 0.013910120353102684
+2023-11-30 15:04:55,681 Batches processed: 81.
+2023-11-30 15:04:55,681 On DAgger iter 0, Epoch 2.
+
+ 10%|█         | 4/40 [00:02<00:12,  2.99it/s][A2023-11-30 15:04:55,798 train_loss: 0.6167290806770325
+2023-11-30 15:04:55,799 train_action_loss: 0.611129641532898
+2023-11-30 15:04:55,799 train_aux_loss: 0.005599447526037693
+2023-11-30 15:04:55,799 Batches processed: 82.
+2023-11-30 15:04:55,799 On DAgger iter 0, Epoch 2.
+
+ 12%|█▎        | 5/40 [00:02<00:08,  3.90it/s][A2023-11-30 15:04:55,932 train_loss: 0.6152534484863281
+2023-11-30 15:04:55,932 train_action_loss: 0.6075595021247864
+2023-11-30 15:04:55,932 train_aux_loss: 0.00769395986571908
+2023-11-30 15:04:55,932 Batches processed: 83.
+2023-11-30 15:04:55,932 On DAgger iter 0, Epoch 2.
+
+ 15%|█▌        | 6/40 [00:02<00:07,  4.66it/s][A2023-11-30 15:04:56,050 train_loss: 0.6719920635223389
+2023-11-30 15:04:56,051 train_action_loss: 0.65101158618927
+2023-11-30 15:04:56,051 train_aux_loss: 0.020980490371584892
+2023-11-30 15:04:56,051 Batches processed: 84.
+2023-11-30 15:04:56,051 On DAgger iter 0, Epoch 2.
+
+ 18%|█▊        | 7/40 [00:02<00:06,  5.46it/s][A2023-11-30 15:04:56,159 train_loss: 0.7099015712738037
+2023-11-30 15:04:56,160 train_action_loss: 0.684565007686615
+2023-11-30 15:04:56,160 train_aux_loss: 0.02533656172454357
+2023-11-30 15:04:56,160 Batches processed: 85.
+2023-11-30 15:04:56,160 On DAgger iter 0, Epoch 2.
+
+ 20%|██        | 8/40 [00:02<00:05,  6.26it/s][A2023-11-30 15:04:56,270 train_loss: 0.5005219578742981
+2023-11-30 15:04:56,270 train_action_loss: 0.49362361431121826
+2023-11-30 15:04:56,270 train_aux_loss: 0.0068983412347733974
+2023-11-30 15:04:56,270 Batches processed: 86.
+2023-11-30 15:04:56,270 On DAgger iter 0, Epoch 2.
+
+ 22%|██▎       | 9/40 [00:02<00:04,  6.94it/s][A2023-11-30 15:05:00,199 train_loss: 0.6477338671684265
+2023-11-30 15:05:00,200 train_action_loss: 0.64180588722229
+2023-11-30 15:05:00,200 train_aux_loss: 0.005927965976297855
+2023-11-30 15:05:00,200 Batches processed: 87.
+2023-11-30 15:05:00,200 On DAgger iter 0, Epoch 2.
+
+ 25%|██▌       | 10/40 [00:06<00:39,  1.31s/it][A2023-11-30 15:05:00,358 train_loss: 0.5509270429611206
+2023-11-30 15:05:00,359 train_action_loss: 0.5283872485160828
+2023-11-30 15:05:00,359 train_aux_loss: 0.022539785131812096
+2023-11-30 15:05:00,360 Batches processed: 88.
+2023-11-30 15:05:00,360 On DAgger iter 0, Epoch 2.
+
+ 28%|██▊       | 11/40 [00:06<00:27,  1.04it/s][A2023-11-30 15:05:00,498 train_loss: 0.5465840697288513
+2023-11-30 15:05:00,498 train_action_loss: 0.5309364795684814
+2023-11-30 15:05:00,498 train_aux_loss: 0.01564757712185383
+2023-11-30 15:05:00,498 Batches processed: 89.
+2023-11-30 15:05:00,498 On DAgger iter 0, Epoch 2.
+
+ 30%|███       | 12/40 [00:06<00:19,  1.41it/s][A2023-11-30 15:05:00,610 train_loss: 0.7538028955459595
+2023-11-30 15:05:00,611 train_action_loss: 0.7431667447090149
+2023-11-30 15:05:00,611 train_aux_loss: 0.01063614059239626
+2023-11-30 15:05:00,611 Batches processed: 90.
+2023-11-30 15:05:00,611 On DAgger iter 0, Epoch 2.
+
+ 32%|███▎      | 13/40 [00:06<00:14,  1.89it/s][A2023-11-30 15:05:00,741 train_loss: 0.7239055037498474
+2023-11-30 15:05:00,742 train_action_loss: 0.7142782807350159
+2023-11-30 15:05:00,742 train_aux_loss: 0.009627210907638073
+2023-11-30 15:05:00,742 Batches processed: 91.
+2023-11-30 15:05:00,742 On DAgger iter 0, Epoch 2.
+
+ 35%|███▌      | 14/40 [00:07<00:10,  2.45it/s][A2023-11-30 15:05:00,864 train_loss: 0.5395821928977966
+2023-11-30 15:05:00,864 train_action_loss: 0.5337158441543579
+2023-11-30 15:05:00,864 train_aux_loss: 0.005866349674761295
+2023-11-30 15:05:00,864 Batches processed: 92.
+2023-11-30 15:05:00,864 On DAgger iter 0, Epoch 2.
+
+ 38%|███▊      | 15/40 [00:07<00:08,  3.10it/s][A2023-11-30 15:05:00,962 train_loss: 0.6404179334640503
+2023-11-30 15:05:00,963 train_action_loss: 0.5973958969116211
+2023-11-30 15:05:00,963 train_aux_loss: 0.04302200675010681
+2023-11-30 15:05:00,963 Batches processed: 93.
+2023-11-30 15:05:00,963 On DAgger iter 0, Epoch 2.
+2023-11-30 15:05:01,148 train_loss: 0.7460761666297913
+2023-11-30 15:05:01,148 train_action_loss: 0.7298794984817505
+2023-11-30 15:05:01,148 train_aux_loss: 0.01619669236242771
+2023-11-30 15:05:01,149 Batches processed: 94.
+2023-11-30 15:05:01,149 On DAgger iter 0, Epoch 2.
+
+ 42%|████▎     | 17/40 [00:07<00:05,  4.18it/s][A2023-11-30 15:05:01,298 train_loss: 0.5376439094543457
+2023-11-30 15:05:01,298 train_action_loss: 0.5308270454406738
+2023-11-30 15:05:01,298 train_aux_loss: 0.006816892884671688
+2023-11-30 15:05:01,298 Batches processed: 95.
+2023-11-30 15:05:01,298 On DAgger iter 0, Epoch 2.
+
+ 45%|████▌     | 18/40 [00:07<00:04,  4.61it/s][A2023-11-30 15:05:01,416 train_loss: 0.5631862282752991
+2023-11-30 15:05:01,417 train_action_loss: 0.5585295557975769
+2023-11-30 15:05:01,417 train_aux_loss: 0.004656694829463959
+2023-11-30 15:05:01,417 Batches processed: 96.
+2023-11-30 15:05:01,417 On DAgger iter 0, Epoch 2.
+
+ 48%|████▊     | 19/40 [00:07<00:04,  5.23it/s][A2023-11-30 15:05:01,516 train_loss: 0.5051661729812622
+2023-11-30 15:05:01,516 train_action_loss: 0.45921340584754944
+2023-11-30 15:05:01,517 train_aux_loss: 0.04595274478197098
+2023-11-30 15:05:01,517 Batches processed: 97.
+2023-11-30 15:05:01,517 On DAgger iter 0, Epoch 2.
+2023-11-30 15:05:01,628 train_loss: 0.6609237194061279
+2023-11-30 15:05:01,629 train_action_loss: 0.6520180702209473
+2023-11-30 15:05:01,629 train_aux_loss: 0.008905631490051746
+2023-11-30 15:05:01,629 Batches processed: 98.
+2023-11-30 15:05:01,629 On DAgger iter 0, Epoch 2.
+
+ 52%|█████▎    | 21/40 [00:08<00:02,  6.46it/s][A2023-11-30 15:05:01,750 train_loss: 0.7495043873786926
+2023-11-30 15:05:01,751 train_action_loss: 0.7393538951873779
+2023-11-30 15:05:01,751 train_aux_loss: 0.010150503367185593
+2023-11-30 15:05:01,751 Batches processed: 99.
+2023-11-30 15:05:01,751 On DAgger iter 0, Epoch 2.
+
+ 55%|█████▌    | 22/40 [00:08<00:02,  6.80it/s][A2023-11-30 15:05:01,909 train_loss: 0.5634803175926208
+2023-11-30 15:05:01,910 train_action_loss: 0.5589286088943481
+2023-11-30 15:05:01,910 train_aux_loss: 0.004551696591079235
+2023-11-30 15:05:01,910 Batches processed: 100.
+2023-11-30 15:05:01,910 On DAgger iter 0, Epoch 2.
+
+ 57%|█████▊    | 23/40 [00:08<00:02,  6.66it/s][A2023-11-30 15:05:02,054 train_loss: 0.5084967017173767
+2023-11-30 15:05:02,055 train_action_loss: 0.4972403049468994
+2023-11-30 15:05:02,055 train_aux_loss: 0.011256398633122444
+2023-11-30 15:05:02,055 Batches processed: 101.
+2023-11-30 15:05:02,055 On DAgger iter 0, Epoch 2.
+
+ 60%|██████    | 24/40 [00:08<00:02,  6.72it/s][A2023-11-30 15:05:02,179 train_loss: 0.6523451805114746
+2023-11-30 15:05:02,179 train_action_loss: 0.6418993473052979
+2023-11-30 15:05:02,180 train_aux_loss: 0.010445826686918736
+2023-11-30 15:05:02,180 Batches processed: 102.
+2023-11-30 15:05:02,180 On DAgger iter 0, Epoch 2.
+
+ 62%|██████▎   | 25/40 [00:08<00:02,  7.03it/s][A2023-11-30 15:05:02,363 train_loss: 0.6985059380531311
+2023-11-30 15:05:02,364 train_action_loss: 0.6867381930351257
+2023-11-30 15:05:02,364 train_aux_loss: 0.01176772266626358
+2023-11-30 15:05:02,364 Batches processed: 103.
+2023-11-30 15:05:02,365 On DAgger iter 0, Epoch 2.
+
+ 65%|██████▌   | 26/40 [00:08<00:02,  6.48it/s][A2023-11-30 15:05:02,538 train_loss: 0.6393381953239441
+2023-11-30 15:05:02,539 train_action_loss: 0.6328257322311401
+2023-11-30 15:05:02,539 train_aux_loss: 0.006512491498142481
+2023-11-30 15:05:02,539 Batches processed: 104.
+2023-11-30 15:05:02,539 On DAgger iter 0, Epoch 2.
+
+ 68%|██████▊   | 27/40 [00:08<00:02,  6.25it/s][A2023-11-30 15:05:02,677 train_loss: 0.6084476113319397
+2023-11-30 15:05:02,678 train_action_loss: 0.5947650074958801
+2023-11-30 15:05:02,678 train_aux_loss: 0.013682588934898376
+2023-11-30 15:05:02,678 Batches processed: 105.
+2023-11-30 15:05:02,678 On DAgger iter 0, Epoch 2.
+
+ 70%|███████   | 28/40 [00:09<00:01,  6.50it/s][A2023-11-30 15:05:02,860 train_loss: 0.5959057211875916
+2023-11-30 15:05:02,860 train_action_loss: 0.5858771800994873
+2023-11-30 15:05:02,861 train_aux_loss: 0.010028514079749584
+2023-11-30 15:05:02,861 Batches processed: 106.
+2023-11-30 15:05:02,861 On DAgger iter 0, Epoch 2.
+
+ 72%|███████▎  | 29/40 [00:09<00:01,  6.16it/s][A2023-11-30 15:05:03,044 train_loss: 0.6955937147140503
+2023-11-30 15:05:03,044 train_action_loss: 0.6814263463020325
+2023-11-30 15:05:03,045 train_aux_loss: 0.014167394489049911
+2023-11-30 15:05:03,045 Batches processed: 107.
+2023-11-30 15:05:03,045 On DAgger iter 0, Epoch 2.
+
+ 75%|███████▌  | 30/40 [00:09<00:01,  5.93it/s][A2023-11-30 15:05:03,173 train_loss: 0.695155143737793
+2023-11-30 15:05:03,174 train_action_loss: 0.6882274150848389
+2023-11-30 15:05:03,174 train_aux_loss: 0.00692771514877677
+2023-11-30 15:05:03,174 Batches processed: 108.
+2023-11-30 15:05:03,175 On DAgger iter 0, Epoch 2.
+
+ 78%|███████▊  | 31/40 [00:09<00:01,  6.36it/s][A2023-11-30 15:05:03,319 train_loss: 0.7507394552230835
+2023-11-30 15:05:03,320 train_action_loss: 0.7420445680618286
+2023-11-30 15:05:03,320 train_aux_loss: 0.008694916032254696
+2023-11-30 15:05:03,320 Batches processed: 109.
+2023-11-30 15:05:03,320 On DAgger iter 0, Epoch 2.
+
+ 80%|████████  | 32/40 [00:09<00:01,  6.51it/s][A2023-11-30 15:05:03,445 train_loss: 0.4714883267879486
+2023-11-30 15:05:03,445 train_action_loss: 0.46139323711395264
+2023-11-30 15:05:03,445 train_aux_loss: 0.010095102712512016
+2023-11-30 15:05:03,446 Batches processed: 110.
+2023-11-30 15:05:03,446 On DAgger iter 0, Epoch 2.
+
+ 82%|████████▎ | 33/40 [00:09<00:01,  6.89it/s][A2023-11-30 15:05:03,559 train_loss: 0.6360838413238525
+2023-11-30 15:05:03,560 train_action_loss: 0.6213915944099426
+2023-11-30 15:05:03,560 train_aux_loss: 0.014692232944071293
+2023-11-30 15:05:03,560 Batches processed: 111.
+2023-11-30 15:05:03,560 On DAgger iter 0, Epoch 2.
+
+ 85%|████████▌ | 34/40 [00:09<00:00,  7.35it/s][A2023-11-30 15:05:03,712 train_loss: 0.7574334144592285
+2023-11-30 15:05:03,713 train_action_loss: 0.743780255317688
+2023-11-30 15:05:03,713 train_aux_loss: 0.013653148896992207
+2023-11-30 15:05:03,713 Batches processed: 112.
+2023-11-30 15:05:03,714 On DAgger iter 0, Epoch 2.
+
+ 88%|████████▊ | 35/40 [00:10<00:00,  7.08it/s][A2023-11-30 15:05:03,875 train_loss: 0.6874516606330872
+2023-11-30 15:05:03,876 train_action_loss: 0.6769194602966309
+2023-11-30 15:05:03,876 train_aux_loss: 0.010532199405133724
+2023-11-30 15:05:03,876 Batches processed: 113.
+2023-11-30 15:05:03,876 On DAgger iter 0, Epoch 2.
+
+ 90%|█████████ | 36/40 [00:10<00:00,  6.77it/s][A2023-11-30 15:05:04,030 train_loss: 0.7628335952758789
+2023-11-30 15:05:04,031 train_action_loss: 0.7575132250785828
+2023-11-30 15:05:04,031 train_aux_loss: 0.005320395343005657
+2023-11-30 15:05:04,031 Batches processed: 114.
+2023-11-30 15:05:04,031 On DAgger iter 0, Epoch 2.
+
+ 92%|█████████▎| 37/40 [00:10<00:00,  6.67it/s][A2023-11-30 15:05:04,177 train_loss: 0.7417942881584167
+2023-11-30 15:05:04,178 train_action_loss: 0.7382075190544128
+2023-11-30 15:05:04,178 train_aux_loss: 0.0035867486149072647
+2023-11-30 15:05:04,178 Batches processed: 115.
+2023-11-30 15:05:04,178 On DAgger iter 0, Epoch 2.
+
+ 95%|█████████▌| 38/40 [00:10<00:00,  6.71it/s][A2023-11-30 15:05:04,319 train_loss: 0.5081222653388977
+2023-11-30 15:05:04,319 train_action_loss: 0.4939061999320984
+2023-11-30 15:05:04,320 train_aux_loss: 0.014216075651347637
+2023-11-30 15:05:04,320 Batches processed: 116.
+2023-11-30 15:05:04,320 On DAgger iter 0, Epoch 2.
+
+ 98%|█████████▊| 39/40 [00:10<00:00,  6.81it/s][A
+                                               [A 60%|██████    | 3/5 [00:23<00:17,  8.53s/it]
+  0%|          | 0/40 [00:00<?, ?it/s][A2023-11-30 15:05:07,004 train_loss: 0.5516173243522644
+2023-11-30 15:05:07,004 train_action_loss: 0.5451985001564026
+2023-11-30 15:05:07,005 train_aux_loss: 0.006418805103749037
+2023-11-30 15:05:07,005 Batches processed: 117.
+2023-11-30 15:05:07,005 On DAgger iter 0, Epoch 3.
+
+  2%|▎         | 1/40 [00:02<01:22,  2.13s/it][A2023-11-30 15:05:07,192 train_loss: 0.7498611807823181
+2023-11-30 15:05:07,193 train_action_loss: 0.7440767884254456
+2023-11-30 15:05:07,193 train_aux_loss: 0.005784420296549797
+2023-11-30 15:05:07,193 Batches processed: 118.
+2023-11-30 15:05:07,193 On DAgger iter 0, Epoch 3.
+
+  5%|▌         | 2/40 [00:02<00:37,  1.01it/s][A2023-11-30 15:05:07,295 train_loss: 0.6033883690834045
+2023-11-30 15:05:07,296 train_action_loss: 0.6007828712463379
+2023-11-30 15:05:07,296 train_aux_loss: 0.0026055171620100737
+2023-11-30 15:05:07,296 Batches processed: 119.
+2023-11-30 15:05:07,296 On DAgger iter 0, Epoch 3.
+
+  8%|▊         | 3/40 [00:02<00:21,  1.72it/s][A2023-11-30 15:05:07,393 train_loss: 0.6357187032699585
+2023-11-30 15:05:07,394 train_action_loss: 0.6258707046508789
+2023-11-30 15:05:07,394 train_aux_loss: 0.009848018176853657
+2023-11-30 15:05:07,394 Batches processed: 120.
+2023-11-30 15:05:07,394 On DAgger iter 0, Epoch 3.
+2023-11-30 15:05:07,494 train_loss: 0.5626691579818726
+2023-11-30 15:05:07,495 train_action_loss: 0.5455343723297119
+2023-11-30 15:05:07,495 train_aux_loss: 0.01713480055332184
+2023-11-30 15:05:07,495 Batches processed: 121.
+2023-11-30 15:05:07,495 On DAgger iter 0, Epoch 3.
+
+ 12%|█▎        | 5/40 [00:02<00:10,  3.23it/s][A2023-11-30 15:05:07,619 train_loss: 0.5879877209663391
+2023-11-30 15:05:07,619 train_action_loss: 0.5846827626228333
+2023-11-30 15:05:07,619 train_aux_loss: 0.0033049616031348705
+2023-11-30 15:05:07,619 Batches processed: 122.
+2023-11-30 15:05:07,619 On DAgger iter 0, Epoch 3.
+
+ 15%|█▌        | 6/40 [00:02<00:08,  3.91it/s][A2023-11-30 15:05:07,733 train_loss: 0.7607057094573975
+2023-11-30 15:05:07,733 train_action_loss: 0.7547222971916199
+2023-11-30 15:05:07,733 train_aux_loss: 0.005983404349535704
+2023-11-30 15:05:07,733 Batches processed: 123.
+2023-11-30 15:05:07,733 On DAgger iter 0, Epoch 3.
+
+ 18%|█▊        | 7/40 [00:02<00:07,  4.66it/s][A2023-11-30 15:05:07,838 train_loss: 0.6457585096359253
+2023-11-30 15:05:07,838 train_action_loss: 0.6403478384017944
+2023-11-30 15:05:07,838 train_aux_loss: 0.005410686135292053
+2023-11-30 15:05:07,838 Batches processed: 124.
+2023-11-30 15:05:07,838 On DAgger iter 0, Epoch 3.
+
+ 20%|██        | 8/40 [00:02<00:05,  5.48it/s][A2023-11-30 15:05:07,930 train_loss: 0.5539212226867676
+2023-11-30 15:05:07,930 train_action_loss: 0.5510677099227905
+2023-11-30 15:05:07,930 train_aux_loss: 0.002853491809219122
+2023-11-30 15:05:07,930 Batches processed: 125.
+2023-11-30 15:05:07,930 On DAgger iter 0, Epoch 3.
+2023-11-30 15:05:08,027 train_loss: 0.5777208209037781
+2023-11-30 15:05:08,027 train_action_loss: 0.5746925473213196
+2023-11-30 15:05:08,027 train_aux_loss: 0.003028261009603739
+2023-11-30 15:05:08,027 Batches processed: 126.
+2023-11-30 15:05:08,028 On DAgger iter 0, Epoch 3.
+
+ 25%|██▌       | 10/40 [00:03<00:04,  7.02it/s][A2023-11-30 15:05:08,156 train_loss: 0.6814005374908447
+2023-11-30 15:05:08,156 train_action_loss: 0.6748334169387817
+2023-11-30 15:05:08,156 train_aux_loss: 0.006567124277353287
+2023-11-30 15:05:08,157 Batches processed: 127.
+2023-11-30 15:05:08,157 On DAgger iter 0, Epoch 3.
+
+ 28%|██▊       | 11/40 [00:03<00:04,  7.18it/s][A2023-11-30 15:05:08,312 train_loss: 0.5514656901359558
+2023-11-30 15:05:08,312 train_action_loss: 0.5486234426498413
+2023-11-30 15:05:08,312 train_aux_loss: 0.002842268208041787
+2023-11-30 15:05:08,312 Batches processed: 128.
+2023-11-30 15:05:08,313 On DAgger iter 0, Epoch 3.
+
+ 30%|███       | 12/40 [00:03<00:04,  6.97it/s][A2023-11-30 15:05:08,481 train_loss: 0.6591396331787109
+2023-11-30 15:05:08,482 train_action_loss: 0.6542900800704956
+2023-11-30 15:05:08,482 train_aux_loss: 0.004849541466683149
+2023-11-30 15:05:08,482 Batches processed: 129.
+2023-11-30 15:05:08,482 On DAgger iter 0, Epoch 3.
+
+ 32%|███▎      | 13/40 [00:03<00:04,  6.64it/s][A2023-11-30 15:05:08,629 train_loss: 0.6521763205528259
+2023-11-30 15:05:08,629 train_action_loss: 0.6485761404037476
+2023-11-30 15:05:08,629 train_aux_loss: 0.0036001892294734716
+2023-11-30 15:05:08,630 Batches processed: 130.
+2023-11-30 15:05:08,630 On DAgger iter 0, Epoch 3.
+
+ 35%|███▌      | 14/40 [00:03<00:03,  6.68it/s][A2023-11-30 15:05:08,756 train_loss: 0.4933241307735443
+2023-11-30 15:05:08,757 train_action_loss: 0.4896455407142639
+2023-11-30 15:05:08,757 train_aux_loss: 0.0036785886622965336
+2023-11-30 15:05:08,757 Batches processed: 131.
+2023-11-30 15:05:08,757 On DAgger iter 0, Epoch 3.
+
+ 38%|███▊      | 15/40 [00:03<00:03,  6.97it/s][A2023-11-30 15:05:08,910 train_loss: 0.5547586679458618
+2023-11-30 15:05:08,910 train_action_loss: 0.5509933829307556
+2023-11-30 15:05:08,911 train_aux_loss: 0.003765314118936658
+2023-11-30 15:05:08,911 Batches processed: 132.
+2023-11-30 15:05:08,911 On DAgger iter 0, Epoch 3.
+
+ 40%|████      | 16/40 [00:04<00:03,  6.83it/s][A2023-11-30 15:05:09,036 train_loss: 0.5190991759300232
+2023-11-30 15:05:09,037 train_action_loss: 0.5148178935050964
+2023-11-30 15:05:09,039 train_aux_loss: 0.004281302448362112
+2023-11-30 15:05:09,039 Batches processed: 133.
+2023-11-30 15:05:09,039 On DAgger iter 0, Epoch 3.
+
+ 42%|████▎     | 17/40 [00:04<00:03,  7.09it/s][A2023-11-30 15:05:09,180 train_loss: 0.6444886922836304
+2023-11-30 15:05:09,180 train_action_loss: 0.635302722454071
+2023-11-30 15:05:09,180 train_aux_loss: 0.00918595027178526
+2023-11-30 15:05:09,180 Batches processed: 134.
+2023-11-30 15:05:09,180 On DAgger iter 0, Epoch 3.
+
+ 45%|████▌     | 18/40 [00:04<00:03,  7.09it/s][A2023-11-30 15:05:09,322 train_loss: 0.7094805836677551
+2023-11-30 15:05:09,323 train_action_loss: 0.7062610983848572
+2023-11-30 15:05:09,323 train_aux_loss: 0.003219456411898136
+2023-11-30 15:05:09,323 Batches processed: 135.
+2023-11-30 15:05:09,323 On DAgger iter 0, Epoch 3.
+
+ 48%|████▊     | 19/40 [00:04<00:02,  7.07it/s][A2023-11-30 15:05:09,496 train_loss: 0.5975793600082397
+2023-11-30 15:05:09,496 train_action_loss: 0.5936326384544373
+2023-11-30 15:05:09,497 train_aux_loss: 0.003946727141737938
+2023-11-30 15:05:09,497 Batches processed: 136.
+2023-11-30 15:05:09,497 On DAgger iter 0, Epoch 3.
+
+ 50%|█████     | 20/40 [00:04<00:03,  6.61it/s][A2023-11-30 15:05:09,627 train_loss: 0.610702633857727
+2023-11-30 15:05:09,628 train_action_loss: 0.6057097911834717
+2023-11-30 15:05:09,628 train_aux_loss: 0.004992868285626173
+2023-11-30 15:05:09,628 Batches processed: 137.
+2023-11-30 15:05:09,628 On DAgger iter 0, Epoch 3.
+
+ 52%|█████▎    | 21/40 [00:04<00:02,  6.89it/s][A2023-11-30 15:05:09,738 train_loss: 0.6014049649238586
+2023-11-30 15:05:09,738 train_action_loss: 0.5995060801506042
+2023-11-30 15:05:09,739 train_aux_loss: 0.001898873713798821
+2023-11-30 15:05:09,739 Batches processed: 138.
+2023-11-30 15:05:09,739 On DAgger iter 0, Epoch 3.
+
+ 55%|█████▌    | 22/40 [00:04<00:02,  7.41it/s][A2023-11-30 15:05:09,875 train_loss: 0.5592997074127197
+2023-11-30 15:05:09,875 train_action_loss: 0.5557029247283936
+2023-11-30 15:05:09,875 train_aux_loss: 0.0035967871081084013
+2023-11-30 15:05:09,875 Batches processed: 139.
+2023-11-30 15:05:09,876 On DAgger iter 0, Epoch 3.
+
+ 57%|█████▊    | 23/40 [00:04<00:02,  7.38it/s][A2023-11-30 15:05:09,990 train_loss: 0.4861180782318115
+2023-11-30 15:05:09,991 train_action_loss: 0.4789920151233673
+2023-11-30 15:05:09,991 train_aux_loss: 0.007126058917492628
+2023-11-30 15:05:09,991 Batches processed: 140.
+2023-11-30 15:05:09,992 On DAgger iter 0, Epoch 3.
+
+ 60%|██████    | 24/40 [00:05<00:02,  7.71it/s][A2023-11-30 15:05:10,111 train_loss: 0.6138539910316467
+2023-11-30 15:05:10,112 train_action_loss: 0.6113950610160828
+2023-11-30 15:05:10,112 train_aux_loss: 0.002458927920088172
+2023-11-30 15:05:10,112 Batches processed: 141.
+2023-11-30 15:05:10,112 On DAgger iter 0, Epoch 3.
+
+ 62%|██████▎   | 25/40 [00:05<00:01,  7.89it/s][A2023-11-30 15:05:10,253 train_loss: 0.6066504716873169
+2023-11-30 15:05:10,253 train_action_loss: 0.6017032861709595
+2023-11-30 15:05:10,254 train_aux_loss: 0.0049472046084702015
+2023-11-30 15:05:10,254 Batches processed: 142.
+2023-11-30 15:05:10,254 On DAgger iter 0, Epoch 3.
+
+ 65%|██████▌   | 26/40 [00:05<00:01,  7.60it/s][A2023-11-30 15:05:10,414 train_loss: 0.4958624243736267
+2023-11-30 15:05:10,415 train_action_loss: 0.4917493164539337
+2023-11-30 15:05:10,415 train_aux_loss: 0.004113105125725269
+2023-11-30 15:05:10,415 Batches processed: 143.
+2023-11-30 15:05:10,416 On DAgger iter 0, Epoch 3.
+
+ 68%|██████▊   | 27/40 [00:05<00:01,  7.12it/s][A2023-11-30 15:05:10,549 train_loss: 0.5554714202880859
+2023-11-30 15:05:10,549 train_action_loss: 0.5518010854721069
+2023-11-30 15:05:10,550 train_aux_loss: 0.003670349484309554
+2023-11-30 15:05:10,550 Batches processed: 144.
+2023-11-30 15:05:10,550 On DAgger iter 0, Epoch 3.
+
+ 70%|███████   | 28/40 [00:05<00:01,  7.21it/s][A2023-11-30 15:05:10,681 train_loss: 0.6986284255981445
+2023-11-30 15:05:10,682 train_action_loss: 0.6909564137458801
+2023-11-30 15:05:10,682 train_aux_loss: 0.0076720230281353
+2023-11-30 15:05:10,682 Batches processed: 145.
+2023-11-30 15:05:10,682 On DAgger iter 0, Epoch 3.
+
+ 72%|███████▎  | 29/40 [00:05<00:01,  7.32it/s][A2023-11-30 15:05:10,803 train_loss: 0.5052452087402344
+2023-11-30 15:05:10,803 train_action_loss: 0.5004605054855347
+2023-11-30 15:05:10,804 train_aux_loss: 0.0047847190871834755
+2023-11-30 15:05:10,804 Batches processed: 146.
+2023-11-30 15:05:10,804 On DAgger iter 0, Epoch 3.
+
+ 75%|███████▌  | 30/40 [00:05<00:01,  7.56it/s][A2023-11-30 15:05:10,947 train_loss: 0.5822638869285583
+2023-11-30 15:05:10,947 train_action_loss: 0.5772961378097534
+2023-11-30 15:05:10,947 train_aux_loss: 0.0049677649512887
+2023-11-30 15:05:10,948 Batches processed: 147.
+2023-11-30 15:05:10,948 On DAgger iter 0, Epoch 3.
+
+ 78%|███████▊  | 31/40 [00:06<00:01,  7.37it/s][A2023-11-30 15:05:11,079 train_loss: 0.5122866630554199
+2023-11-30 15:05:11,081 train_action_loss: 0.507463812828064
+2023-11-30 15:05:11,081 train_aux_loss: 0.00482284277677536
+2023-11-30 15:05:11,081 Batches processed: 148.
+2023-11-30 15:05:11,081 On DAgger iter 0, Epoch 3.
+
+ 80%|████████  | 32/40 [00:06<00:01,  7.41it/s][A2023-11-30 15:05:11,221 train_loss: 0.5528749227523804
+2023-11-30 15:05:11,222 train_action_loss: 0.5470930337905884
+2023-11-30 15:05:11,222 train_aux_loss: 0.005781893152743578
+2023-11-30 15:05:11,222 Batches processed: 149.
+2023-11-30 15:05:11,222 On DAgger iter 0, Epoch 3.
+
+ 82%|████████▎ | 33/40 [00:06<00:00,  7.31it/s][A2023-11-30 15:05:11,333 train_loss: 0.5060080289840698
+2023-11-30 15:05:11,334 train_action_loss: 0.5020497441291809
+2023-11-30 15:05:11,334 train_aux_loss: 0.003958267625421286
+2023-11-30 15:05:11,334 Batches processed: 150.
+2023-11-30 15:05:11,334 On DAgger iter 0, Epoch 3.
+
+ 85%|████████▌ | 34/40 [00:06<00:00,  7.72it/s][A2023-11-30 15:05:11,468 train_loss: 0.5692933201789856
+2023-11-30 15:05:11,469 train_action_loss: 0.5667495727539062
+2023-11-30 15:05:11,469 train_aux_loss: 0.0025437348522245884
+2023-11-30 15:05:11,469 Batches processed: 151.
+2023-11-30 15:05:11,469 On DAgger iter 0, Epoch 3.
+
+ 88%|████████▊ | 35/40 [00:06<00:00,  7.65it/s][A2023-11-30 15:05:11,582 train_loss: 0.430865615606308
+2023-11-30 15:05:11,582 train_action_loss: 0.4225194454193115
+2023-11-30 15:05:11,583 train_aux_loss: 0.008346161805093288
+2023-11-30 15:05:11,583 Batches processed: 152.
+2023-11-30 15:05:11,583 On DAgger iter 0, Epoch 3.
+
+ 90%|█████████ | 36/40 [00:06<00:00,  7.94it/s][A2023-11-30 15:05:11,721 train_loss: 0.7192915081977844
+2023-11-30 15:05:11,722 train_action_loss: 0.7148796916007996
+2023-11-30 15:05:11,722 train_aux_loss: 0.004411793779581785
+2023-11-30 15:05:11,722 Batches processed: 153.
+2023-11-30 15:05:11,722 On DAgger iter 0, Epoch 3.
+
+ 92%|█████████▎| 37/40 [00:06<00:00,  7.70it/s][A2023-11-30 15:05:11,898 train_loss: 0.6317784190177917
+2023-11-30 15:05:11,898 train_action_loss: 0.6264134645462036
+2023-11-30 15:05:11,898 train_aux_loss: 0.005364963319152594
+2023-11-30 15:05:11,898 Batches processed: 154.
+2023-11-30 15:05:11,898 On DAgger iter 0, Epoch 3.
+
+ 95%|█████████▌| 38/40 [00:07<00:00,  6.96it/s][A2023-11-30 15:05:12,062 train_loss: 0.5786884427070618
+2023-11-30 15:05:12,062 train_action_loss: 0.5729394555091858
+2023-11-30 15:05:12,063 train_aux_loss: 0.005748996045440435
+2023-11-30 15:05:12,063 Batches processed: 155.
+2023-11-30 15:05:12,063 On DAgger iter 0, Epoch 3.
+
+ 98%|█████████▊| 39/40 [00:07<00:00,  6.67it/s][A
+                                               [A 80%|████████  | 4/5 [00:31<00:08,  8.23s/it]
+  0%|          | 0/40 [00:00<?, ?it/s][A2023-11-30 15:05:14,625 train_loss: 0.6338801383972168
+2023-11-30 15:05:14,626 train_action_loss: 0.6273470520973206
+2023-11-30 15:05:14,626 train_aux_loss: 0.0065331063233315945
+2023-11-30 15:05:14,626 Batches processed: 156.
+2023-11-30 15:05:14,626 On DAgger iter 0, Epoch 4.
+
+  2%|▎         | 1/40 [00:01<01:16,  1.97s/it][A2023-11-30 15:05:14,994 train_loss: 0.702052891254425
+2023-11-30 15:05:14,995 train_action_loss: 0.6975885033607483
+2023-11-30 15:05:14,995 train_aux_loss: 0.004464366007596254
+2023-11-30 15:05:14,995 Batches processed: 157.
+2023-11-30 15:05:14,995 On DAgger iter 0, Epoch 4.
+
+  5%|▌         | 2/40 [00:02<00:39,  1.03s/it][A2023-11-30 15:05:15,091 train_loss: 0.4829559922218323
+2023-11-30 15:05:15,091 train_action_loss: 0.48115798830986023
+2023-11-30 15:05:15,091 train_aux_loss: 0.001797991804778576
+2023-11-30 15:05:15,091 Batches processed: 158.
+2023-11-30 15:05:15,091 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:15,172 train_loss: 0.49720120429992676
+2023-11-30 15:05:15,172 train_action_loss: 0.4940439462661743
+2023-11-30 15:05:15,172 train_aux_loss: 0.0031572668813169003
+2023-11-30 15:05:15,172 Batches processed: 159.
+2023-11-30 15:05:15,172 On DAgger iter 0, Epoch 4.
+
+ 10%|█         | 4/40 [00:02<00:15,  2.28it/s][A2023-11-30 15:05:15,279 train_loss: 0.5471975803375244
+2023-11-30 15:05:15,279 train_action_loss: 0.5402856469154358
+2023-11-30 15:05:15,280 train_aux_loss: 0.006911929696798325
+2023-11-30 15:05:15,280 Batches processed: 160.
+2023-11-30 15:05:15,280 On DAgger iter 0, Epoch 4.
+
+ 12%|█▎        | 5/40 [00:02<00:11,  2.97it/s][A2023-11-30 15:05:15,361 train_loss: 0.6010404229164124
+2023-11-30 15:05:15,361 train_action_loss: 0.5952461361885071
+2023-11-30 15:05:15,361 train_aux_loss: 0.005794314667582512
+2023-11-30 15:05:15,361 Batches processed: 161.
+2023-11-30 15:05:15,361 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:15,452 train_loss: 0.5837810039520264
+2023-11-30 15:05:15,452 train_action_loss: 0.5817352533340454
+2023-11-30 15:05:15,452 train_aux_loss: 0.002045775530859828
+2023-11-30 15:05:15,452 Batches processed: 162.
+2023-11-30 15:05:15,452 On DAgger iter 0, Epoch 4.
+
+ 18%|█▊        | 7/40 [00:02<00:07,  4.56it/s][A2023-11-30 15:05:15,570 train_loss: 0.4884392321109772
+2023-11-30 15:05:15,570 train_action_loss: 0.4860495626926422
+2023-11-30 15:05:15,570 train_aux_loss: 0.002389665227383375
+2023-11-30 15:05:15,570 Batches processed: 163.
+2023-11-30 15:05:15,570 On DAgger iter 0, Epoch 4.
+
+ 20%|██        | 8/40 [00:02<00:06,  5.16it/s][A2023-11-30 15:05:15,675 train_loss: 0.5147917866706848
+2023-11-30 15:05:15,675 train_action_loss: 0.5082967281341553
+2023-11-30 15:05:15,675 train_aux_loss: 0.006495040375739336
+2023-11-30 15:05:15,675 Batches processed: 164.
+2023-11-30 15:05:15,675 On DAgger iter 0, Epoch 4.
+
+ 22%|██▎       | 9/40 [00:03<00:05,  5.87it/s][A2023-11-30 15:05:15,758 train_loss: 0.5551744103431702
+2023-11-30 15:05:15,758 train_action_loss: 0.5501459836959839
+2023-11-30 15:05:15,758 train_aux_loss: 0.005028438288718462
+2023-11-30 15:05:15,758 Batches processed: 165.
+2023-11-30 15:05:15,758 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:15,856 train_loss: 0.6084839701652527
+2023-11-30 15:05:15,856 train_action_loss: 0.6043760180473328
+2023-11-30 15:05:15,856 train_aux_loss: 0.004107932560145855
+2023-11-30 15:05:15,856 Batches processed: 166.
+2023-11-30 15:05:15,856 On DAgger iter 0, Epoch 4.
+
+ 28%|██▊       | 11/40 [00:03<00:03,  7.35it/s][A2023-11-30 15:05:15,944 train_loss: 0.44968181848526
+2023-11-30 15:05:15,944 train_action_loss: 0.4476776123046875
+2023-11-30 15:05:15,944 train_aux_loss: 0.0020041961688548326
+2023-11-30 15:05:15,944 Batches processed: 167.
+2023-11-30 15:05:15,944 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:16,051 train_loss: 0.47625210881233215
+2023-11-30 15:05:16,051 train_action_loss: 0.47487306594848633
+2023-11-30 15:05:16,051 train_aux_loss: 0.001379049033857882
+2023-11-30 15:05:16,051 Batches processed: 168.
+2023-11-30 15:05:16,051 On DAgger iter 0, Epoch 4.
+
+ 32%|███▎      | 13/40 [00:03<00:03,  8.24it/s][A2023-11-30 15:05:16,142 train_loss: 0.6594941020011902
+2023-11-30 15:05:16,142 train_action_loss: 0.6536862850189209
+2023-11-30 15:05:16,142 train_aux_loss: 0.0058078463189303875
+2023-11-30 15:05:16,142 Batches processed: 169.
+2023-11-30 15:05:16,142 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:16,271 train_loss: 0.6216639280319214
+2023-11-30 15:05:16,272 train_action_loss: 0.616237461566925
+2023-11-30 15:05:16,272 train_aux_loss: 0.005426480434834957
+2023-11-30 15:05:16,272 Batches processed: 170.
+2023-11-30 15:05:16,272 On DAgger iter 0, Epoch 4.
+
+ 38%|███▊      | 15/40 [00:03<00:02,  8.51it/s][A2023-11-30 15:05:16,362 train_loss: 0.6300630569458008
+2023-11-30 15:05:16,363 train_action_loss: 0.6247366666793823
+2023-11-30 15:05:16,363 train_aux_loss: 0.005326374899595976
+2023-11-30 15:05:16,363 Batches processed: 171.
+2023-11-30 15:05:16,363 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:16,467 train_loss: 0.5661445260047913
+2023-11-30 15:05:16,467 train_action_loss: 0.5601775050163269
+2023-11-30 15:05:16,467 train_aux_loss: 0.005967018660157919
+2023-11-30 15:05:16,468 Batches processed: 172.
+2023-11-30 15:05:16,468 On DAgger iter 0, Epoch 4.
+
+ 42%|████▎     | 17/40 [00:03<00:02,  9.02it/s][A2023-11-30 15:05:16,590 train_loss: 0.6267265677452087
+2023-11-30 15:05:16,590 train_action_loss: 0.6234682202339172
+2023-11-30 15:05:16,590 train_aux_loss: 0.0032583395950496197
+2023-11-30 15:05:16,590 Batches processed: 173.
+2023-11-30 15:05:16,590 On DAgger iter 0, Epoch 4.
+
+ 45%|████▌     | 18/40 [00:03<00:02,  8.84it/s][A2023-11-30 15:05:16,685 train_loss: 0.5474511981010437
+2023-11-30 15:05:16,685 train_action_loss: 0.5448580980300903
+2023-11-30 15:05:16,685 train_aux_loss: 0.002593102166429162
+2023-11-30 15:05:16,685 Batches processed: 174.
+2023-11-30 15:05:16,685 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:16,788 train_loss: 0.6457514762878418
+2023-11-30 15:05:16,788 train_action_loss: 0.638300895690918
+2023-11-30 15:05:16,788 train_aux_loss: 0.00745055265724659
+2023-11-30 15:05:16,788 Batches processed: 175.
+2023-11-30 15:05:16,788 On DAgger iter 0, Epoch 4.
+
+ 50%|█████     | 20/40 [00:04<00:02,  9.25it/s][A2023-11-30 15:05:16,896 train_loss: 0.5749528408050537
+2023-11-30 15:05:16,896 train_action_loss: 0.570443332195282
+2023-11-30 15:05:16,896 train_aux_loss: 0.004509506747126579
+2023-11-30 15:05:16,896 Batches processed: 176.
+2023-11-30 15:05:16,896 On DAgger iter 0, Epoch 4.
+
+ 52%|█████▎    | 21/40 [00:04<00:02,  9.25it/s][A2023-11-30 15:05:17,013 train_loss: 0.6612544655799866
+2023-11-30 15:05:17,013 train_action_loss: 0.6585928797721863
+2023-11-30 15:05:17,013 train_aux_loss: 0.0026615620590746403
+2023-11-30 15:05:17,013 Batches processed: 177.
+2023-11-30 15:05:17,014 On DAgger iter 0, Epoch 4.
+
+ 55%|█████▌    | 22/40 [00:04<00:01,  9.07it/s][A2023-11-30 15:05:17,109 train_loss: 0.5567602515220642
+2023-11-30 15:05:17,110 train_action_loss: 0.5542813539505005
+2023-11-30 15:05:17,110 train_aux_loss: 0.0024788989685475826
+2023-11-30 15:05:17,110 Batches processed: 178.
+2023-11-30 15:05:17,110 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:17,211 train_loss: 0.6274952292442322
+2023-11-30 15:05:17,212 train_action_loss: 0.621021032333374
+2023-11-30 15:05:17,212 train_aux_loss: 0.006474199704825878
+2023-11-30 15:05:17,212 Batches processed: 179.
+2023-11-30 15:05:17,212 On DAgger iter 0, Epoch 4.
+
+ 60%|██████    | 24/40 [00:04<00:01,  9.45it/s][A2023-11-30 15:05:17,321 train_loss: 0.6410176753997803
+2023-11-30 15:05:17,321 train_action_loss: 0.6363009214401245
+2023-11-30 15:05:17,321 train_aux_loss: 0.004716771654784679
+2023-11-30 15:05:17,321 Batches processed: 180.
+2023-11-30 15:05:17,321 On DAgger iter 0, Epoch 4.
+
+ 62%|██████▎   | 25/40 [00:04<00:01,  9.38it/s][A2023-11-30 15:05:17,418 train_loss: 0.6456565856933594
+2023-11-30 15:05:17,418 train_action_loss: 0.6427203416824341
+2023-11-30 15:05:17,419 train_aux_loss: 0.002936269622296095
+2023-11-30 15:05:17,419 Batches processed: 181.
+2023-11-30 15:05:17,419 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:17,557 train_loss: 0.4921313226222992
+2023-11-30 15:05:17,558 train_action_loss: 0.48747849464416504
+2023-11-30 15:05:17,558 train_aux_loss: 0.004652840550988913
+2023-11-30 15:05:17,558 Batches processed: 182.
+2023-11-30 15:05:17,558 On DAgger iter 0, Epoch 4.
+
+ 68%|██████▊   | 27/40 [00:04<00:01,  9.00it/s][A2023-11-30 15:05:17,657 train_loss: 0.6500226259231567
+2023-11-30 15:05:17,657 train_action_loss: 0.6461403369903564
+2023-11-30 15:05:17,657 train_aux_loss: 0.003882271470502019
+2023-11-30 15:05:17,657 Batches processed: 183.
+2023-11-30 15:05:17,658 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:17,754 train_loss: 0.5743923783302307
+2023-11-30 15:05:17,754 train_action_loss: 0.5708731412887573
+2023-11-30 15:05:17,754 train_aux_loss: 0.00351922120898962
+2023-11-30 15:05:17,754 Batches processed: 184.
+2023-11-30 15:05:17,754 On DAgger iter 0, Epoch 4.
+
+ 72%|███████▎  | 29/40 [00:05<00:01,  9.39it/s][A2023-11-30 15:05:17,881 train_loss: 0.46626338362693787
+2023-11-30 15:05:17,882 train_action_loss: 0.4618591368198395
+2023-11-30 15:05:17,882 train_aux_loss: 0.0044042388908565044
+2023-11-30 15:05:17,882 Batches processed: 185.
+2023-11-30 15:05:17,882 On DAgger iter 0, Epoch 4.
+
+ 75%|███████▌  | 30/40 [00:05<00:01,  9.02it/s][A2023-11-30 15:05:17,986 train_loss: 0.5357300639152527
+2023-11-30 15:05:17,986 train_action_loss: 0.5312350392341614
+2023-11-30 15:05:17,986 train_aux_loss: 0.004495017696171999
+2023-11-30 15:05:17,986 Batches processed: 186.
+2023-11-30 15:05:17,986 On DAgger iter 0, Epoch 4.
+
+ 78%|███████▊  | 31/40 [00:05<00:00,  9.14it/s][A2023-11-30 15:05:18,069 train_loss: 0.5479273796081543
+2023-11-30 15:05:18,069 train_action_loss: 0.5432602167129517
+2023-11-30 15:05:18,069 train_aux_loss: 0.004667137749493122
+2023-11-30 15:05:18,069 Batches processed: 187.
+2023-11-30 15:05:18,069 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:18,164 train_loss: 0.4898245930671692
+2023-11-30 15:05:18,164 train_action_loss: 0.4800904393196106
+2023-11-30 15:05:18,164 train_aux_loss: 0.009734151884913445
+2023-11-30 15:05:18,164 Batches processed: 188.
+2023-11-30 15:05:18,164 On DAgger iter 0, Epoch 4.
+
+ 82%|████████▎ | 33/40 [00:05<00:00,  9.86it/s][A2023-11-30 15:05:18,258 train_loss: 0.5168214440345764
+2023-11-30 15:05:18,258 train_action_loss: 0.5119834542274475
+2023-11-30 15:05:18,258 train_aux_loss: 0.004837984684854746
+2023-11-30 15:05:18,258 Batches processed: 189.
+2023-11-30 15:05:18,258 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:18,352 train_loss: 0.5744467377662659
+2023-11-30 15:05:18,352 train_action_loss: 0.5700238943099976
+2023-11-30 15:05:18,352 train_aux_loss: 0.004422852769494057
+2023-11-30 15:05:18,352 Batches processed: 190.
+2023-11-30 15:05:18,352 On DAgger iter 0, Epoch 4.
+
+ 88%|████████▊ | 35/40 [00:05<00:00, 10.13it/s][A2023-11-30 15:05:18,454 train_loss: 0.4048929214477539
+2023-11-30 15:05:18,454 train_action_loss: 0.4033111035823822
+2023-11-30 15:05:18,454 train_aux_loss: 0.0015818114625290036
+2023-11-30 15:05:18,454 Batches processed: 191.
+2023-11-30 15:05:18,454 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:18,530 train_loss: 0.6624112725257874
+2023-11-30 15:05:18,530 train_action_loss: 0.6536715030670166
+2023-11-30 15:05:18,530 train_aux_loss: 0.008739774115383625
+2023-11-30 15:05:18,531 Batches processed: 192.
+2023-11-30 15:05:18,531 On DAgger iter 0, Epoch 4.
+
+ 92%|█████████▎| 37/40 [00:05<00:00, 10.47it/s][A2023-11-30 15:05:18,608 train_loss: 0.5280312895774841
+2023-11-30 15:05:18,608 train_action_loss: 0.5197871923446655
+2023-11-30 15:05:18,608 train_aux_loss: 0.008244071155786514
+2023-11-30 15:05:18,608 Batches processed: 193.
+2023-11-30 15:05:18,608 On DAgger iter 0, Epoch 4.
+2023-11-30 15:05:18,695 train_loss: 0.43424659967422485
+2023-11-30 15:05:18,695 train_action_loss: 0.43244031071662903
+2023-11-30 15:05:18,695 train_aux_loss: 0.0018062862800434232
+2023-11-30 15:05:18,695 Batches processed: 194.
+2023-11-30 15:05:18,695 On DAgger iter 0, Epoch 4.
+
+ 98%|█████████▊| 39/40 [00:06<00:00, 10.96it/s][A
+                                               [A100%|██████████| 5/5 [00:38<00:00,  7.64s/it]100%|██████████| 5/5 [00:38<00:00,  7.65s/it]

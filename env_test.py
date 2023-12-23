@@ -7,10 +7,10 @@ import json
 from vlnce_baselines.config.default import get_config
 
 config = get_config(
-        config_paths="vlnce_baselines/config/paper_configs/law_pano_config/cma_pm_aug.yaml"
+        config_paths="vlnce_baselines/config/paper_configs/intuition_config/cma_pm_aug.yaml"
     )
 print(config)
-with VLNCEDaggerEnv(config=config) as env:
+with VLNCEDaggerIntuitionEnv(config=config) as env:
     print("Environment creation successful")
     env.reset()
     action = {"action": 1}
