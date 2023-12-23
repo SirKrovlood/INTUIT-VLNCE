@@ -1,0 +1,495 @@
+2023-12-11 20:49:23,996 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.0.pth=======
+2023-12-11 21:21:22,564 Episodes evaluated: 1839
+2023-12-11 21:21:22,565 Average episode distance_to_goal: 9.520408
+2023-12-11 21:21:22,567 Average episode success: 0.158238
+2023-12-11 21:21:22,569 Average episode spl: 0.148030
+2023-12-11 21:21:22,569 Average episode ndtw: 0.410427
+2023-12-11 21:21:22,570 Average episode sdtw: 0.136306
+2023-12-11 21:21:22,570 Average episode path_length: 8.071025
+2023-12-11 21:21:22,571 Average episode oracle_success: 0.236542
+2023-12-11 21:21:22,571 Average episode steps_taken: 67.544861
+2023-12-11 21:21:22,571 Average episode way_accuracy: 0.367838
+2023-12-11 21:21:24,608 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.1.pth=======
+2023-12-11 21:53:53,492 Episodes evaluated: 1839
+2023-12-11 21:53:53,493 Average episode distance_to_goal: 9.219928
+2023-12-11 21:53:53,495 Average episode success: 0.165851
+2023-12-11 21:53:53,495 Average episode spl: 0.149875
+2023-12-11 21:53:53,496 Average episode ndtw: 0.420491
+2023-12-11 21:53:53,496 Average episode sdtw: 0.142520
+2023-12-11 21:53:53,496 Average episode path_length: 8.643664
+2023-12-11 21:53:53,497 Average episode oracle_success: 0.286025
+2023-12-11 21:53:53,497 Average episode steps_taken: 71.142469
+2023-12-11 21:53:53,497 Average episode way_accuracy: 0.408334
+2023-12-11 21:53:55,512 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.2.pth=======
+2023-12-11 22:35:07,423 Episodes evaluated: 1839
+2023-12-11 22:35:07,424 Average episode distance_to_goal: 9.155545
+2023-12-11 22:35:07,424 Average episode success: 0.191952
+2023-12-11 22:35:07,425 Average episode spl: 0.175674
+2023-12-11 22:35:07,425 Average episode ndtw: 0.431653
+2023-12-11 22:35:07,425 Average episode sdtw: 0.167104
+2023-12-11 22:35:07,425 Average episode path_length: 8.805788
+2023-12-11 22:35:07,426 Average episode oracle_success: 0.306688
+2023-12-11 22:35:07,426 Average episode steps_taken: 79.829255
+2023-12-11 22:35:07,426 Average episode way_accuracy: 0.415192
+2023-12-11 22:35:09,461 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.3.pth=======
+2023-12-11 23:16:32,304 Episodes evaluated: 1839
+2023-12-11 23:16:32,305 Average episode distance_to_goal: 9.208879
+2023-12-11 23:16:32,306 Average episode success: 0.178358
+2023-12-11 23:16:32,307 Average episode spl: 0.161342
+2023-12-11 23:16:32,308 Average episode ndtw: 0.413920
+2023-12-11 23:16:32,308 Average episode sdtw: 0.151759
+2023-12-11 23:16:32,308 Average episode path_length: 8.885185
+2023-12-11 23:16:32,308 Average episode oracle_success: 0.301794
+2023-12-11 23:16:32,309 Average episode steps_taken: 78.779772
+2023-12-11 23:16:32,309 Average episode way_accuracy: 0.415318
+2023-12-11 23:16:34,340 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.4.pth=======
+2023-12-11 23:56:46,103 Episodes evaluated: 1839
+2023-12-11 23:56:46,104 Average episode distance_to_goal: 9.409208
+2023-12-11 23:56:46,104 Average episode success: 0.168570
+2023-12-11 23:56:46,105 Average episode spl: 0.150181
+2023-12-11 23:56:46,105 Average episode ndtw: 0.410499
+2023-12-11 23:56:46,105 Average episode sdtw: 0.142489
+2023-12-11 23:56:46,105 Average episode path_length: 8.642872
+2023-12-11 23:56:46,106 Average episode oracle_success: 0.289288
+2023-12-11 23:56:46,106 Average episode steps_taken: 79.535073
+2023-12-11 23:56:46,114 Average episode way_accuracy: 0.399481
+2023-12-11 23:56:48,171 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.5.pth=======
+2023-12-12 00:29:36,505 Episodes evaluated: 1839
+2023-12-12 00:29:36,506 Average episode distance_to_goal: 8.912262
+2023-12-12 00:29:36,507 Average episode success: 0.191952
+2023-12-12 00:29:36,508 Average episode spl: 0.177564
+2023-12-12 00:29:36,508 Average episode ndtw: 0.439500
+2023-12-12 00:29:36,509 Average episode sdtw: 0.165276
+2023-12-12 00:29:36,509 Average episode path_length: 7.978877
+2023-12-12 00:29:36,509 Average episode oracle_success: 0.289288
+2023-12-12 00:29:36,510 Average episode steps_taken: 65.533442
+2023-12-12 00:29:36,510 Average episode way_accuracy: 0.396565
+2023-12-12 00:29:38,537 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.6.pth=======
+2023-12-12 01:00:46,646 Episodes evaluated: 1839
+2023-12-12 01:00:46,647 Average episode distance_to_goal: 8.829886
+2023-12-12 01:00:46,648 Average episode success: 0.184883
+2023-12-12 01:00:46,649 Average episode spl: 0.172171
+2023-12-12 01:00:46,649 Average episode ndtw: 0.441531
+2023-12-12 01:00:46,649 Average episode sdtw: 0.161575
+2023-12-12 01:00:46,649 Average episode path_length: 7.917570
+2023-12-12 01:00:46,650 Average episode oracle_success: 0.281131
+2023-12-12 01:00:46,650 Average episode steps_taken: 66.295813
+2023-12-12 01:00:46,650 Average episode way_accuracy: 0.394732
+2023-12-12 01:00:48,719 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.7.pth=======
+2023-12-12 01:31:26,174 Episodes evaluated: 1839
+2023-12-12 01:31:26,174 Average episode distance_to_goal: 8.899846
+2023-12-12 01:31:26,175 Average episode success: 0.187602
+2023-12-12 01:31:26,176 Average episode spl: 0.170065
+2023-12-12 01:31:26,177 Average episode ndtw: 0.430619
+2023-12-12 01:31:26,177 Average episode sdtw: 0.158011
+2023-12-12 01:31:26,177 Average episode path_length: 8.407922
+2023-12-12 01:31:26,177 Average episode oracle_success: 0.287113
+2023-12-12 01:31:26,178 Average episode steps_taken: 70.983687
+2023-12-12 01:31:26,178 Average episode way_accuracy: 0.400365
+2023-12-12 01:31:28,193 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.8.pth=======
+2023-12-12 02:05:58,088 Episodes evaluated: 1839
+2023-12-12 02:05:58,089 Average episode distance_to_goal: 9.018675
+2023-12-12 02:05:58,090 Average episode success: 0.177814
+2023-12-12 02:05:58,092 Average episode spl: 0.163728
+2023-12-12 02:05:58,092 Average episode ndtw: 0.429593
+2023-12-12 02:05:58,092 Average episode sdtw: 0.152308
+2023-12-12 02:05:58,093 Average episode path_length: 7.843026
+2023-12-12 02:05:58,093 Average episode oracle_success: 0.264274
+2023-12-12 02:05:58,093 Average episode steps_taken: 69.742251
+2023-12-12 02:05:58,105 Average episode way_accuracy: 0.377158
+2023-12-12 02:06:00,149 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.9.pth=======
+2023-12-12 02:36:54,192 Episodes evaluated: 1839
+2023-12-12 02:36:54,193 Average episode distance_to_goal: 8.697365
+2023-12-12 02:36:54,194 Average episode success: 0.213703
+2023-12-12 02:36:54,195 Average episode spl: 0.198660
+2023-12-12 02:36:54,195 Average episode ndtw: 0.455554
+2023-12-12 02:36:54,195 Average episode sdtw: 0.185310
+2023-12-12 02:36:54,196 Average episode path_length: 8.093352
+2023-12-12 02:36:54,196 Average episode oracle_success: 0.313757
+2023-12-12 02:36:54,196 Average episode steps_taken: 69.143013
+2023-12-12 02:36:54,197 Average episode way_accuracy: 0.399091
+2023-12-12 02:36:56,215 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.10.pth=======
+2023-12-12 03:12:37,364 Episodes evaluated: 1839
+2023-12-12 03:12:37,365 Average episode distance_to_goal: 8.821841
+2023-12-12 03:12:37,366 Average episode success: 0.183252
+2023-12-12 03:12:37,367 Average episode spl: 0.168255
+2023-12-12 03:12:37,368 Average episode ndtw: 0.437659
+2023-12-12 03:12:37,368 Average episode sdtw: 0.156011
+2023-12-12 03:12:37,368 Average episode path_length: 7.809540
+2023-12-12 03:12:37,368 Average episode oracle_success: 0.266993
+2023-12-12 03:12:37,369 Average episode steps_taken: 66.603589
+2023-12-12 03:12:37,369 Average episode way_accuracy: 0.385958
+2023-12-12 03:12:39,425 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.11.pth=======
+2023-12-12 03:46:25,710 Episodes evaluated: 1839
+2023-12-12 03:46:25,711 Average episode distance_to_goal: 8.760270
+2023-12-12 03:46:25,712 Average episode success: 0.189777
+2023-12-12 03:46:25,713 Average episode spl: 0.176087
+2023-12-12 03:46:25,714 Average episode ndtw: 0.443508
+2023-12-12 03:46:25,714 Average episode sdtw: 0.161524
+2023-12-12 03:46:25,714 Average episode path_length: 8.050145
+2023-12-12 03:46:25,714 Average episode oracle_success: 0.280587
+2023-12-12 03:46:25,715 Average episode steps_taken: 71.225122
+2023-12-12 03:46:25,715 Average episode way_accuracy: 0.390604
+2023-12-12 03:46:27,740 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.12.pth=======
+2023-12-12 04:21:07,608 Episodes evaluated: 1839
+2023-12-12 04:21:07,609 Average episode distance_to_goal: 8.970892
+2023-12-12 04:21:07,611 Average episode success: 0.185427
+2023-12-12 04:21:07,612 Average episode spl: 0.167984
+2023-12-12 04:21:07,612 Average episode ndtw: 0.431467
+2023-12-12 04:21:07,613 Average episode sdtw: 0.157412
+2023-12-12 04:21:07,613 Average episode path_length: 8.435143
+2023-12-12 04:21:07,613 Average episode oracle_success: 0.286025
+2023-12-12 04:21:07,630 Average episode steps_taken: 73.542686
+2023-12-12 04:21:07,630 Average episode way_accuracy: 0.387003
+2023-12-12 04:21:09,726 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.13.pth=======
+2023-12-12 04:54:55,688 Episodes evaluated: 1839
+2023-12-12 04:54:55,689 Average episode distance_to_goal: 8.993926
+2023-12-12 04:54:55,691 Average episode success: 0.181620
+2023-12-12 04:54:55,692 Average episode spl: 0.163932
+2023-12-12 04:54:55,693 Average episode ndtw: 0.428717
+2023-12-12 04:54:55,693 Average episode sdtw: 0.154500
+2023-12-12 04:54:55,694 Average episode path_length: 8.510526
+2023-12-12 04:54:55,694 Average episode oracle_success: 0.283306
+2023-12-12 04:54:55,694 Average episode steps_taken: 70.800435
+2023-12-12 04:54:55,695 Average episode way_accuracy: 0.397246
+2023-12-12 04:54:57,715 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.14.pth=======
+2023-12-12 05:30:51,199 Episodes evaluated: 1839
+2023-12-12 05:30:51,200 Average episode distance_to_goal: 8.965725
+2023-12-12 05:30:51,201 Average episode success: 0.175095
+2023-12-12 05:30:51,203 Average episode spl: 0.159298
+2023-12-12 05:30:51,203 Average episode ndtw: 0.433395
+2023-12-12 05:30:51,204 Average episode sdtw: 0.149019
+2023-12-12 05:30:51,204 Average episode path_length: 7.724839
+2023-12-12 05:30:51,204 Average episode oracle_success: 0.256661
+2023-12-12 05:30:51,205 Average episode steps_taken: 71.549212
+2023-12-12 05:30:51,205 Average episode way_accuracy: 0.372573
+2023-12-12 05:30:53,223 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.15.pth=======
+2023-12-12 06:05:10,978 Episodes evaluated: 1839
+2023-12-12 06:05:10,979 Average episode distance_to_goal: 8.518091
+2023-12-12 06:05:10,980 Average episode success: 0.199565
+2023-12-12 06:05:10,982 Average episode spl: 0.183731
+2023-12-12 06:05:10,982 Average episode ndtw: 0.455321
+2023-12-12 06:05:10,982 Average episode sdtw: 0.171638
+2023-12-12 06:05:10,982 Average episode path_length: 7.986157
+2023-12-12 06:05:10,983 Average episode oracle_success: 0.287113
+2023-12-12 06:05:10,983 Average episode steps_taken: 69.043502
+2023-12-12 06:05:10,983 Average episode way_accuracy: 0.395387
+2023-12-12 06:05:13,057 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.16.pth=======
+2023-12-12 06:42:04,989 Episodes evaluated: 1839
+2023-12-12 06:42:04,989 Average episode distance_to_goal: 8.926793
+2023-12-12 06:42:04,991 Average episode success: 0.203371
+2023-12-12 06:42:04,991 Average episode spl: 0.185605
+2023-12-12 06:42:04,992 Average episode ndtw: 0.437235
+2023-12-12 06:42:04,992 Average episode sdtw: 0.173398
+2023-12-12 06:42:04,992 Average episode path_length: 8.379014
+2023-12-12 06:42:05,007 Average episode oracle_success: 0.308320
+2023-12-12 06:42:05,008 Average episode steps_taken: 72.977705
+2023-12-12 06:42:05,008 Average episode way_accuracy: 0.394078
+2023-12-12 06:42:07,023 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.17.pth=======
+2023-12-12 07:11:25,144 Episodes evaluated: 1839
+2023-12-12 07:11:25,145 Average episode distance_to_goal: 8.946505
+2023-12-12 07:11:25,147 Average episode success: 0.194671
+2023-12-12 07:11:25,148 Average episode spl: 0.178465
+2023-12-12 07:11:25,149 Average episode ndtw: 0.430914
+2023-12-12 07:11:25,149 Average episode sdtw: 0.164295
+2023-12-12 07:11:25,150 Average episode path_length: 8.457241
+2023-12-12 07:11:25,150 Average episode oracle_success: 0.295813
+2023-12-12 07:11:25,151 Average episode steps_taken: 73.399130
+2023-12-12 07:11:25,151 Average episode way_accuracy: 0.394338
+2023-12-12 07:11:27,187 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.18.pth=======
+2023-12-12 07:38:04,304 Episodes evaluated: 1839
+2023-12-12 07:38:04,304 Average episode distance_to_goal: 8.649255
+2023-12-12 07:38:04,305 Average episode success: 0.210440
+2023-12-12 07:38:04,306 Average episode spl: 0.194709
+2023-12-12 07:38:04,307 Average episode ndtw: 0.453567
+2023-12-12 07:38:04,307 Average episode sdtw: 0.181775
+2023-12-12 07:38:04,307 Average episode path_length: 7.753971
+2023-12-12 07:38:04,307 Average episode oracle_success: 0.296900
+2023-12-12 07:38:04,308 Average episode steps_taken: 65.906471
+2023-12-12 07:38:04,308 Average episode way_accuracy: 0.392083
+2023-12-12 07:38:06,322 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.19.pth=======
+2023-12-12 08:11:54,937 Episodes evaluated: 1839
+2023-12-12 08:11:54,938 Average episode distance_to_goal: 8.802184
+2023-12-12 08:11:54,939 Average episode success: 0.194127
+2023-12-12 08:11:54,940 Average episode spl: 0.178704
+2023-12-12 08:11:54,941 Average episode ndtw: 0.444946
+2023-12-12 08:11:54,941 Average episode sdtw: 0.166043
+2023-12-12 08:11:54,941 Average episode path_length: 7.850352
+2023-12-12 08:11:54,942 Average episode oracle_success: 0.277868
+2023-12-12 08:11:54,942 Average episode steps_taken: 71.579119
+2023-12-12 08:11:54,942 Average episode way_accuracy: 0.384337
+2023-12-12 08:11:56,955 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.20.pth=======
+2023-12-12 08:42:58,375 Episodes evaluated: 1839
+2023-12-12 08:42:58,376 Average episode distance_to_goal: 8.930016
+2023-12-12 08:42:58,377 Average episode success: 0.185971
+2023-12-12 08:42:58,378 Average episode spl: 0.167129
+2023-12-12 08:42:58,379 Average episode ndtw: 0.430031
+2023-12-12 08:42:58,379 Average episode sdtw: 0.156679
+2023-12-12 08:42:58,379 Average episode path_length: 8.387240
+2023-12-12 08:42:58,380 Average episode oracle_success: 0.280587
+2023-12-12 08:42:58,380 Average episode steps_taken: 72.725394
+2023-12-12 08:42:58,381 Average episode way_accuracy: 0.389233
+2023-12-12 08:43:00,395 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.21.pth=======
+2023-12-12 09:17:13,839 Episodes evaluated: 1839
+2023-12-12 09:17:13,840 Average episode distance_to_goal: 8.755264
+2023-12-12 09:17:13,842 Average episode success: 0.175639
+2023-12-12 09:17:13,843 Average episode spl: 0.163021
+2023-12-12 09:17:13,844 Average episode ndtw: 0.441342
+2023-12-12 09:17:13,844 Average episode sdtw: 0.151357
+2023-12-12 09:17:13,844 Average episode path_length: 7.733439
+2023-12-12 09:17:13,845 Average episode oracle_success: 0.255574
+2023-12-12 09:17:13,845 Average episode steps_taken: 70.144644
+2023-12-12 09:17:13,845 Average episode way_accuracy: 0.381562
+2023-12-12 09:17:15,861 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.22.pth=======
+2023-12-12 09:47:56,339 Episodes evaluated: 1839
+2023-12-12 09:47:56,340 Average episode distance_to_goal: 8.575891
+2023-12-12 09:47:56,342 Average episode success: 0.193583
+2023-12-12 09:47:56,343 Average episode spl: 0.181512
+2023-12-12 09:47:56,344 Average episode ndtw: 0.451251
+2023-12-12 09:47:56,344 Average episode sdtw: 0.166758
+2023-12-12 09:47:56,345 Average episode path_length: 7.456185
+2023-12-12 09:47:56,345 Average episode oracle_success: 0.273518
+2023-12-12 09:47:56,346 Average episode steps_taken: 67.444807
+2023-12-12 09:47:56,346 Average episode way_accuracy: 0.377716
+2023-12-12 09:47:58,363 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.23.pth=======
+2023-12-12 10:22:46,493 Episodes evaluated: 1839
+2023-12-12 10:22:46,494 Average episode distance_to_goal: 8.932475
+2023-12-12 10:22:46,496 Average episode success: 0.185971
+2023-12-12 10:22:46,497 Average episode spl: 0.170169
+2023-12-12 10:22:46,498 Average episode ndtw: 0.432585
+2023-12-12 10:22:46,498 Average episode sdtw: 0.159797
+2023-12-12 10:22:46,499 Average episode path_length: 8.121655
+2023-12-12 10:22:46,499 Average episode oracle_success: 0.270256
+2023-12-12 10:22:46,500 Average episode steps_taken: 70.945079
+2023-12-12 10:22:46,500 Average episode way_accuracy: 0.386284
+2023-12-12 10:22:48,568 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.24.pth=======
+2023-12-12 10:57:05,878 Episodes evaluated: 1839
+2023-12-12 10:57:05,880 Average episode distance_to_goal: 8.703395
+2023-12-12 10:57:05,881 Average episode success: 0.192496
+2023-12-12 10:57:05,882 Average episode spl: 0.177097
+2023-12-12 10:57:05,882 Average episode ndtw: 0.449450
+2023-12-12 10:57:05,883 Average episode sdtw: 0.164665
+2023-12-12 10:57:05,896 Average episode path_length: 8.143520
+2023-12-12 10:57:05,896 Average episode oracle_success: 0.286025
+2023-12-12 10:57:05,897 Average episode steps_taken: 72.058184
+2023-12-12 10:57:05,897 Average episode way_accuracy: 0.395472
+2023-12-12 10:57:07,956 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.25.pth=======
+2023-12-12 11:33:23,319 Episodes evaluated: 1839
+2023-12-12 11:33:23,321 Average episode distance_to_goal: 9.121975
+2023-12-12 11:33:23,322 Average episode success: 0.185971
+2023-12-12 11:33:23,323 Average episode spl: 0.169313
+2023-12-12 11:33:23,324 Average episode ndtw: 0.427210
+2023-12-12 11:33:23,324 Average episode sdtw: 0.158102
+2023-12-12 11:33:23,325 Average episode path_length: 8.455104
+2023-12-12 11:33:23,325 Average episode oracle_success: 0.287656
+2023-12-12 11:33:23,325 Average episode steps_taken: 68.624796
+2023-12-12 11:33:23,326 Average episode way_accuracy: 0.393300
+2023-12-12 11:33:25,419 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.26.pth=======
+2023-12-12 12:03:16,480 Episodes evaluated: 1839
+2023-12-12 12:03:16,481 Average episode distance_to_goal: 9.062205
+2023-12-12 12:03:16,482 Average episode success: 0.174551
+2023-12-12 12:03:16,484 Average episode spl: 0.159655
+2023-12-12 12:03:16,484 Average episode ndtw: 0.429512
+2023-12-12 12:03:16,484 Average episode sdtw: 0.149621
+2023-12-12 12:03:16,485 Average episode path_length: 8.328525
+2023-12-12 12:03:16,485 Average episode oracle_success: 0.275693
+2023-12-12 12:03:16,485 Average episode steps_taken: 67.809135
+2023-12-12 12:03:16,486 Average episode way_accuracy: 0.385256
+2023-12-12 12:03:18,570 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.27.pth=======
+2023-12-12 12:35:29,512 Episodes evaluated: 1839
+2023-12-12 12:35:29,514 Average episode distance_to_goal: 8.836362
+2023-12-12 12:35:29,516 Average episode success: 0.191408
+2023-12-12 12:35:29,517 Average episode spl: 0.177098
+2023-12-12 12:35:29,517 Average episode ndtw: 0.442774
+2023-12-12 12:35:29,518 Average episode sdtw: 0.166057
+2023-12-12 12:35:29,518 Average episode path_length: 8.251611
+2023-12-12 12:35:29,518 Average episode oracle_success: 0.276237
+2023-12-12 12:35:29,519 Average episode steps_taken: 71.909190
+2023-12-12 12:35:29,519 Average episode way_accuracy: 0.393331
+2023-12-12 12:35:31,603 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.28.pth=======
+2023-12-12 13:16:25,362 Episodes evaluated: 1839
+2023-12-12 13:16:25,363 Average episode distance_to_goal: 8.652827
+2023-12-12 13:16:25,363 Average episode success: 0.198477
+2023-12-12 13:16:25,364 Average episode spl: 0.182775
+2023-12-12 13:16:25,364 Average episode ndtw: 0.443464
+2023-12-12 13:16:25,376 Average episode sdtw: 0.168505
+2023-12-12 13:16:25,377 Average episode path_length: 7.952777
+2023-12-12 13:16:25,377 Average episode oracle_success: 0.280587
+2023-12-12 13:16:25,377 Average episode steps_taken: 71.892333
+2023-12-12 13:16:25,378 Average episode way_accuracy: 0.387028
+2023-12-12 13:16:27,495 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.29.pth=======
+2023-12-12 13:49:23,140 Episodes evaluated: 1839
+2023-12-12 13:49:23,141 Average episode distance_to_goal: 8.833560
+2023-12-12 13:49:23,142 Average episode success: 0.192496
+2023-12-12 13:49:23,143 Average episode spl: 0.175094
+2023-12-12 13:49:23,144 Average episode ndtw: 0.439892
+2023-12-12 13:49:23,144 Average episode sdtw: 0.164558
+2023-12-12 13:49:23,144 Average episode path_length: 7.952761
+2023-12-12 13:49:23,145 Average episode oracle_success: 0.265362
+2023-12-12 13:49:23,145 Average episode steps_taken: 68.986949
+2023-12-12 13:49:23,145 Average episode way_accuracy: 0.387423
+2023-12-12 13:49:25,295 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.30.pth=======
+2023-12-12 14:18:19,710 Episodes evaluated: 1839
+2023-12-12 14:18:19,711 Average episode distance_to_goal: 8.734014
+2023-12-12 14:18:19,711 Average episode success: 0.201740
+2023-12-12 14:18:19,712 Average episode spl: 0.185139
+2023-12-12 14:18:19,712 Average episode ndtw: 0.450303
+2023-12-12 14:18:19,713 Average episode sdtw: 0.174006
+2023-12-12 14:18:19,713 Average episode path_length: 7.984575
+2023-12-12 14:18:19,713 Average episode oracle_success: 0.284937
+2023-12-12 14:18:19,714 Average episode steps_taken: 69.382273
+2023-12-12 14:18:19,714 Average episode way_accuracy: 0.386073
+2023-12-12 14:18:21,810 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.31.pth=======
+2023-12-12 14:55:40,473 Episodes evaluated: 1839
+2023-12-12 14:55:40,474 Average episode distance_to_goal: 8.735402
+2023-12-12 14:55:40,475 Average episode success: 0.175095
+2023-12-12 14:55:40,476 Average episode spl: 0.162663
+2023-12-12 14:55:40,476 Average episode ndtw: 0.430395
+2023-12-12 14:55:40,476 Average episode sdtw: 0.148983
+2023-12-12 14:55:40,477 Average episode path_length: 7.271290
+2023-12-12 14:55:40,477 Average episode oracle_success: 0.232191
+2023-12-12 14:55:40,477 Average episode steps_taken: 77.300707
+2023-12-12 14:55:40,477 Average episode way_accuracy: 0.356644
+2023-12-12 14:55:42,549 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.32.pth=======
+2023-12-12 15:38:49,412 Episodes evaluated: 1839
+2023-12-12 15:38:49,414 Average episode distance_to_goal: 9.136243
+2023-12-12 15:38:49,415 Average episode success: 0.166395
+2023-12-12 15:38:49,416 Average episode spl: 0.150161
+2023-12-12 15:38:49,431 Average episode ndtw: 0.417736
+2023-12-12 15:38:49,432 Average episode sdtw: 0.140566
+2023-12-12 15:38:49,432 Average episode path_length: 8.290720
+2023-12-12 15:38:49,432 Average episode oracle_success: 0.264818
+2023-12-12 15:38:49,433 Average episode steps_taken: 84.050027
+2023-12-12 15:38:49,433 Average episode way_accuracy: 0.384835
+2023-12-12 15:38:51,561 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.33.pth=======
+2023-12-12 16:21:50,104 Episodes evaluated: 1839
+2023-12-12 16:21:50,106 Average episode distance_to_goal: 9.049427
+2023-12-12 16:21:50,107 Average episode success: 0.189777
+2023-12-12 16:21:50,109 Average episode spl: 0.172353
+2023-12-12 16:21:50,109 Average episode ndtw: 0.427047
+2023-12-12 16:21:50,110 Average episode sdtw: 0.162108
+2023-12-12 16:21:50,110 Average episode path_length: 8.350966
+2023-12-12 16:21:50,111 Average episode oracle_success: 0.283306
+2023-12-12 16:21:50,111 Average episode steps_taken: 78.136487
+2023-12-12 16:21:50,111 Average episode way_accuracy: 0.394342
+2023-12-12 16:21:52,218 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.34.pth=======
+2023-12-12 17:09:06,616 Episodes evaluated: 1839
+2023-12-12 17:09:06,617 Average episode distance_to_goal: 9.151543
+2023-12-12 17:09:06,618 Average episode success: 0.183252
+2023-12-12 17:09:06,619 Average episode spl: 0.167098
+2023-12-12 17:09:06,619 Average episode ndtw: 0.416856
+2023-12-12 17:09:06,620 Average episode sdtw: 0.154242
+2023-12-12 17:09:06,620 Average episode path_length: 7.943680
+2023-12-12 17:09:06,620 Average episode oracle_success: 0.268624
+2023-12-12 17:09:06,621 Average episode steps_taken: 86.268624
+2023-12-12 17:09:06,621 Average episode way_accuracy: 0.373755
+2023-12-12 17:09:08,754 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.35.pth=======
+2023-12-12 17:36:23,124 Episodes evaluated: 1839
+2023-12-12 17:36:23,125 Average episode distance_to_goal: 8.749974
+2023-12-12 17:36:23,126 Average episode success: 0.196846
+2023-12-12 17:36:23,127 Average episode spl: 0.182347
+2023-12-12 17:36:23,128 Average episode ndtw: 0.446723
+2023-12-12 17:36:23,128 Average episode sdtw: 0.169205
+2023-12-12 17:36:23,128 Average episode path_length: 7.934859
+2023-12-12 17:36:23,129 Average episode oracle_success: 0.274062
+2023-12-12 17:36:23,129 Average episode steps_taken: 75.211528
+2023-12-12 17:36:23,130 Average episode way_accuracy: 0.389426
+2023-12-12 17:36:25,216 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.36.pth=======
+2023-12-12 18:08:56,889 Episodes evaluated: 1839
+2023-12-12 18:08:56,890 Average episode distance_to_goal: 8.746778
+2023-12-12 18:08:56,891 Average episode success: 0.215878
+2023-12-12 18:08:56,907 Average episode spl: 0.196954
+2023-12-12 18:08:56,908 Average episode ndtw: 0.444093
+2023-12-12 18:08:56,908 Average episode sdtw: 0.183786
+2023-12-12 18:08:56,908 Average episode path_length: 8.069124
+2023-12-12 18:08:56,909 Average episode oracle_success: 0.290919
+2023-12-12 18:08:56,909 Average episode steps_taken: 73.162588
+2023-12-12 18:08:56,909 Average episode way_accuracy: 0.390445
+2023-12-12 18:08:58,923 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.37.pth=======
+2023-12-12 18:42:00,059 Episodes evaluated: 1839
+2023-12-12 18:42:00,060 Average episode distance_to_goal: 8.730549
+2023-12-12 18:42:00,062 Average episode success: 0.195215
+2023-12-12 18:42:00,063 Average episode spl: 0.180752
+2023-12-12 18:42:00,063 Average episode ndtw: 0.449200
+2023-12-12 18:42:00,064 Average episode sdtw: 0.167527
+2023-12-12 18:42:00,064 Average episode path_length: 8.080540
+2023-12-12 18:42:00,064 Average episode oracle_success: 0.280044
+2023-12-12 18:42:00,065 Average episode steps_taken: 76.063078
+2023-12-12 18:42:00,065 Average episode way_accuracy: 0.391518
+2023-12-12 18:42:02,136 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.38.pth=======
+2023-12-12 19:20:13,197 Episodes evaluated: 1839
+2023-12-12 19:20:13,198 Average episode distance_to_goal: 8.716968
+2023-12-12 19:20:13,200 Average episode success: 0.221860
+2023-12-12 19:20:13,201 Average episode spl: 0.204605
+2023-12-12 19:20:13,202 Average episode ndtw: 0.449133
+2023-12-12 19:20:13,202 Average episode sdtw: 0.190135
+2023-12-12 19:20:13,202 Average episode path_length: 8.125847
+2023-12-12 19:20:13,203 Average episode oracle_success: 0.296357
+2023-12-12 19:20:13,203 Average episode steps_taken: 77.935835
+2023-12-12 19:20:13,203 Average episode way_accuracy: 0.394692
+2023-12-12 19:20:15,223 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.39.pth=======
+2023-12-12 19:57:35,574 Episodes evaluated: 1839
+2023-12-12 19:57:35,574 Average episode distance_to_goal: 9.060325
+2023-12-12 19:57:35,575 Average episode success: 0.201740
+2023-12-12 19:57:35,576 Average episode spl: 0.184802
+2023-12-12 19:57:35,576 Average episode ndtw: 0.436663
+2023-12-12 19:57:35,576 Average episode sdtw: 0.173407
+2023-12-12 19:57:35,577 Average episode path_length: 8.432345
+2023-12-12 19:57:35,577 Average episode oracle_success: 0.284394
+2023-12-12 19:57:35,578 Average episode steps_taken: 72.017945
+2023-12-12 19:57:35,578 Average episode way_accuracy: 0.402359
+2023-12-12 19:57:37,642 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.40.pth=======
+2023-12-12 20:28:53,664 Episodes evaluated: 1839
+2023-12-12 20:28:53,665 Average episode distance_to_goal: 8.773083
+2023-12-12 20:28:53,678 Average episode success: 0.185971
+2023-12-12 20:28:53,680 Average episode spl: 0.171098
+2023-12-12 20:28:53,680 Average episode ndtw: 0.446529
+2023-12-12 20:28:53,681 Average episode sdtw: 0.159236
+2023-12-12 20:28:53,681 Average episode path_length: 7.878374
+2023-12-12 20:28:53,681 Average episode oracle_success: 0.277325
+2023-12-12 20:28:53,682 Average episode steps_taken: 70.176183
+2023-12-12 20:28:53,682 Average episode way_accuracy: 0.389255
+2023-12-12 20:28:55,804 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.41.pth=======
+2023-12-12 21:05:44,949 Episodes evaluated: 1839
+2023-12-12 21:05:44,950 Average episode distance_to_goal: 8.644087
+2023-12-12 21:05:44,951 Average episode success: 0.208265
+2023-12-12 21:05:44,952 Average episode spl: 0.194186
+2023-12-12 21:05:44,952 Average episode ndtw: 0.453867
+2023-12-12 21:05:44,953 Average episode sdtw: 0.180706
+2023-12-12 21:05:44,953 Average episode path_length: 8.045572
+2023-12-12 21:05:44,953 Average episode oracle_success: 0.276237
+2023-12-12 21:05:44,953 Average episode steps_taken: 74.042958
+2023-12-12 21:05:44,954 Average episode way_accuracy: 0.396282
+2023-12-12 21:05:46,968 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.42.pth=======
+2023-12-12 21:42:19,374 Episodes evaluated: 1839
+2023-12-12 21:42:19,375 Average episode distance_to_goal: 8.730593
+2023-12-12 21:42:19,376 Average episode success: 0.196302
+2023-12-12 21:42:19,377 Average episode spl: 0.180482
+2023-12-12 21:42:19,378 Average episode ndtw: 0.435987
+2023-12-12 21:42:19,378 Average episode sdtw: 0.165896
+2023-12-12 21:42:19,378 Average episode path_length: 8.624631
+2023-12-12 21:42:19,378 Average episode oracle_success: 0.311582
+2023-12-12 21:42:19,379 Average episode steps_taken: 86.831430
+2023-12-12 21:42:19,379 Average episode way_accuracy: 0.399122
+2023-12-12 21:42:21,391 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.43.pth=======
+2023-12-12 22:14:13,662 Episodes evaluated: 1839
+2023-12-12 22:14:13,663 Average episode distance_to_goal: 8.440974
+2023-12-12 22:14:13,664 Average episode success: 0.219685
+2023-12-12 22:14:13,665 Average episode spl: 0.205582
+2023-12-12 22:14:13,666 Average episode ndtw: 0.463275
+2023-12-12 22:14:13,666 Average episode sdtw: 0.189345
+2023-12-12 22:14:13,666 Average episode path_length: 7.801027
+2023-12-12 22:14:13,667 Average episode oracle_success: 0.282219
+2023-12-12 22:14:13,667 Average episode steps_taken: 69.923328
+2023-12-12 22:14:13,667 Average episode way_accuracy: 0.394198
+2023-12-12 22:14:15,736 =======current_ckpt: experiments/checkpoints/intuit/hpc2/cma_pm_aug/ckpt.44.pth=======
+2023-12-12 22:56:34,531 Episodes evaluated: 1839
+2023-12-12 22:56:34,532 Average episode distance_to_goal: 8.819143
+2023-12-12 22:56:34,545 Average episode success: 0.197934
+2023-12-12 22:56:34,546 Average episode spl: 0.180722
+2023-12-12 22:56:34,546 Average episode ndtw: 0.440629
+2023-12-12 22:56:34,546 Average episode sdtw: 0.169375
+2023-12-12 22:56:34,547 Average episode path_length: 8.617371
+2023-12-12 22:56:34,547 Average episode oracle_success: 0.310495
+2023-12-12 22:56:34,547 Average episode steps_taken: 75.580750
+2023-12-12 22:56:34,548 Average episode way_accuracy: 0.407086
