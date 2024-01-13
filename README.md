@@ -1,4 +1,4 @@
-# Introducing Intuition for Vision-and-Language Navigation in Continuous Environments
+# INTUIT-VLNCE: Autonomous Navigation through Vision-and-Language
 
 This repository contains code for the master's thesis of Kirill Rodionov. 
 
